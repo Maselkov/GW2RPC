@@ -69,14 +69,5 @@ class GW2Api:
             raise APIError("{0.status_code}: {0.reason}".format(r))
         return r.json()
 
-    def __check_key(self, key):
-        try:
-            res = self._call_api("tokeninfo", key=key)
-            if "characters" in res["permissions"]:
-                log.info("API key verified")
-                return True
-        except APIError:
-            return False
-
 
 api = GW2Api(config.api_key)
