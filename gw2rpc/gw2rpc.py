@@ -10,13 +10,13 @@ import psutil
 import requests
 from infi.systray import SysTrayIcon
 
-from .api import api, APIError  # TODO
+from .api import APIError, api  # TODO
 from .character import Character
 from .mumble import DataUnchangedError, MumbleData
 from .rpc import DiscordRPC
 from .settings import config
 
-VERSION = 0.4
+VERSION = 1.0
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v1/"
 

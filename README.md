@@ -1,5 +1,7 @@
 A Discord Rich Presence addon for Guild Wars 2.
 
+https://gw2rpc.info
+
 Features:
 * Display maps with loading screens
 * Display character and elite spec
