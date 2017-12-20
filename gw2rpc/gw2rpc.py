@@ -138,6 +138,9 @@ class GW2RPC:
         if self.process:
             if self.process.is_running():
                 return
+            else
+                if config.close_with_gw2:
+                    shutdown()   
         for pid in psutil.pids():
             try:
                 p = psutil.Process(pid)
