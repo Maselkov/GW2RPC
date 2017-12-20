@@ -8,13 +8,13 @@ class Config:
         if not os.path.exists("config.ini"):
             config["API"] = {"APIKey": ""}
             config["Discord"] = {"UpdateFrequency": 10}
-            config["CloseWithGw2"] = {"CloseWithGw2": True}
+            config["AppSettings"] = {"CloseWithGw2": True}
             with open("config.ini", "w") as cfile:
                 config.write(cfile)
         config.read("config.ini")
         self.api_key = config["API"]["APIKey"]
         self.update_frequency = config.getint("Discord", "UpdateFrequency")
-        self.close_with_gw2 = config.getboolean("CloseWithGw2", "CloseWithGw2")
+        self.close_with_gw2 = config.getboolean("AppSettings", "CloseWithGw2", fallback=False)
 
 
 config = Config()
