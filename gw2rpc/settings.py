@@ -14,7 +14,11 @@ class Config:
         config.read("config.ini")
         self.api_key = config["API"]["APIKey"]
         self.update_frequency = config.getint("Discord", "UpdateFrequency")
-        self.close_with_gw2 = config.getboolean("AppSettings", "CloseWithGw2", fallback=False)
+
+        try:
+            self.close_with_gw2 = config.getboolean("AppSettings", "CloseWithGw2", fallback=False)
+        except ValueError:
+            self.close_with_gw2 = False
 
 
 config = Config()
