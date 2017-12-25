@@ -221,6 +221,7 @@ class GW2RPC:
             character = Character(data)
         except APIError:
             log.exception("API Error!")
+            return None
         state, map_asset = self.get_map_asset(map_info)
         if config.display_tag:
             tag = character.guild_tag
