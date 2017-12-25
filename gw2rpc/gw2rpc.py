@@ -95,7 +95,7 @@ class GW2RPC:
         self.check_for_updates()
 
     def shutdown(self, _=None):
-        sys.exit()
+        os._exit(0)  # Nuclear option
 
     def about(self, _):
         message = (
@@ -163,7 +163,7 @@ class GW2RPC:
 
         map_id = map_info["id"]
         map_name = map_info["name"]
-        region = map_info["region_name"]
+        region = map_info.get("region_name", "thanks_anet")
         if self.registry:
             if map_name == "Fractals of the Mists":
                 for fractal in self.registry["fractals"]:
@@ -222,9 +222,13 @@ class GW2RPC:
         except APIError:
             log.exception("API Error!")
         state, map_asset = self.get_map_asset(map_info)
+        if config.display_tag:
+            tag = character.guild_tag
+        else:
+            tag = ""
         activiy = {
             "state": state,
-            "details": character.name,
+            "details": character.name + tag,
             "timestamps": {
                 'start': int(current_time)
             },

@@ -37,9 +37,8 @@ ELITESPECS = {
 
 
 class Character:
-    def __init__(self, mumble_data, api_info=None):
+    def __init__(self, mumble_data):
         self.__mumble_data = mumble_data
-        self.__api_info = api_info
         self.name = mumble_data["name"]
         self.race = RACES[mumble_data["race"]]
         self.__api_info = None
@@ -48,6 +47,7 @@ class Character:
         self.profession = self._get_profession()
         self.profession_icon = "prof_{}".format(
             self.profession.lower().replace(" ", ""))
+        self.guild_tag = self._get_guild_tag()
 
     def _get_profession(self):
         map_info = api.get_map_info(self.__mumble_data["map_id"])
@@ -56,6 +56,18 @@ class Character:
             if spec:
                 return spec
         return PROFESSIONS[self.__mumble_data["profession"]]
+
+    def _get_guild_tag(self):
+        tag = ""
+        if self.__api_info:
+            gid = self.__api_info.get("guild")
+            if gid:
+                try:
+                    res = api.get_guild(gid)
+                    tag = " [{}]".format(res["tag"])
+                except:
+                    pass
+        return tag
 
     def get_spec(self, name, map_info):
         character_info = self.__api_info

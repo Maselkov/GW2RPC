@@ -58,6 +58,9 @@ class GW2Api:
             return None
         return self._call_api("characters/" + name)
 
+    def get_guild(self, gid):
+        return self._call_api("guild/" + gid)
+
     def _call_api(self, endpoint, *, key=None):
         url = self._base_url + endpoint
         if key:
