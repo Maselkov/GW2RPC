@@ -15,7 +15,7 @@ class Config:
         if not os.path.exists("config.ini"):
             config["API"] = {"APIKey": ""}
             config["Discord"] = {"UpdateFrequency": 10}
-            config["AppSettings"] = {
+            config["Settings"] = {
                 "CloseWithGw2": True,
                 "DisplayGuildTag": True
             }
