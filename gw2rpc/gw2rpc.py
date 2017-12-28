@@ -16,7 +16,7 @@ from .mumble import DataUnchangedError, MumbleData
 from .rpc import DiscordRPC
 from .settings import config
 
-VERSION = 1.0
+VERSION = 1.1
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v1/"
 
