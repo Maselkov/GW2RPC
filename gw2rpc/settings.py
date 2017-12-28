@@ -16,7 +16,7 @@ class Config:
             config["API"] = {"APIKey": ""}
             config["Discord"] = {"UpdateFrequency": 10}
             config["Settings"] = {
-                "CloseWithGw2": True,
+                "CloseWithGw2": False,
                 "DisplayGuildTag": True
             }
             with open("config.ini", "w") as cfile:
