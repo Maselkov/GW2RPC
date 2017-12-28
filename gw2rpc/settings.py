@@ -24,8 +24,8 @@ class Config:
         config.read("config.ini")
         self.api_key = config["API"]["APIKey"]
         self.update_frequency = config.getint("Discord", "UpdateFrequency")
-        self.close_with_gw2 = set_boolean("AppSettings", "CloseWithGw2")
-        self.display_tag = set_boolean("AppSettings", "DisplayGuildTag")
+        self.close_with_gw2 = set_boolean("Settings", "CloseWithGw2")
+        self.display_tag = set_boolean("Settings", "DisplayGuildTag")
 
 
 config = Config()
