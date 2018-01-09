@@ -16,9 +16,11 @@ from .mumble import DataUnchangedError, MumbleData
 from .rpc import DiscordRPC
 from .settings import config
 
-VERSION = 1.1
+VERSION = 1.2
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v1/"
+
+GW2RPC_APP_ID = "385475290614464513"
 
 log = logging.getLogger()
 
@@ -78,7 +80,7 @@ class GW2RPC:
             except:
                 return None
 
-        self.rpc = DiscordRPC("385475290614464513")
+        self.rpc = DiscordRPC(GW2RPC_APP_ID)
         self.game = MumbleData()
         self.registry = fetch_registry()
         self.support_invite = fetch_support_invite()
@@ -269,6 +271,14 @@ class GW2RPC:
                 return False
             return True
 
+        def start_rpc():
+            while True:
+                try:
+                    self.rpc.start()
+                    break
+                except FileNotFoundError as e:
+                    time.sleep(10)
+
         try:
             while True:
                 try:
@@ -276,7 +286,7 @@ class GW2RPC:
                     if not gw2_running():
                         raise GameNotRunningError
                     if not self.rpc.running:
-                        self.rpc.start()
+                        start_rpc()
                         log.debug("starting self.rpc")
                     data = self.get_activity()
                     if not data:
