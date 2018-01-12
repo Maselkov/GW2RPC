@@ -292,7 +292,10 @@ class GW2RPC:
                     if not data:
                         data = self.in_character_selection()
                     log.debug(data)
-                    self.rpc.send_rich_presence(data, self.process.pid)
+                    try:
+                        self.rpc.send_rich_presence(data, self.process.pid)
+                    except BrokenPipeError:
+                        raise GameNotRunningError  # To start a new connection
                 except GameNotRunningError:
                     #  TODO
                     if self.rpc.running:
