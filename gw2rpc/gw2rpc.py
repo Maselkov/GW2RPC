@@ -276,7 +276,7 @@ class GW2RPC:
                 try:
                     self.rpc.start()
                     break
-                except FileNotFoundError as e:
+                except (FileNotFoundError, PermissionError) as e:
                     time.sleep(10)
 
         try:
