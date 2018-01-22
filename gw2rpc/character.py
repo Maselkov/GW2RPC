@@ -71,9 +71,10 @@ class Character:
 
     def get_spec(self, name, map_info):
         character_info = self.__api_info
-        if map_info["region_name"] == "Player vs. Player":
+        region = map_info.get("region_name")
+        if region == "Player vs. Player":
             return self.get_build(character_info, "pvp")
-        if map_info["region_name"] == "World vs. World":
+        if region == "World vs. World":
             return self.get_build(character_info, "wvw")
         return self.get_build(character_info, "pve")
 
