@@ -7,5 +7,6 @@ Features:
 * Display character and elite spec
 * Automatic update checking
 * Web based registry for maps
+* Supports multiple accounts
 
 Exe versions are made using Pyinstaller
