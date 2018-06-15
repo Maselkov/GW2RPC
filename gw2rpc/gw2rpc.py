@@ -213,7 +213,7 @@ class GW2RPC:
         }
 
     def get_activity(self):
-        data = self.game.get_mumble_data()
+        data = self.game.get_mumble_data(self.process)
         if not data:
             return None
         current_time = time.time()
@@ -299,6 +299,8 @@ class GW2RPC:
                 except GameNotRunningError:
                     #  TODO
                     if self.rpc.running:
+                        if self.rpc.last_pid:
+                            self.rpc.send_rich_presence(None, self.rpc.last_pid, True)
                         self.rpc.last_payload = {}
                         self.rpc.last_pid = None
                         self.rpc.last_update = time.time()

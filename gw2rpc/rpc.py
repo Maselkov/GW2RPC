@@ -66,7 +66,7 @@ class DiscordRPC:
         log.debug(f'OP Code: {code}; Length: {length}\nResponse:\n{json.loads(data[8:].decode("utf-8"))}\n')
 
     def send_rich_presence(self, activity, pid, force=False):
-        if self.compare_payloads(activity, self.last_payload) and not force:
+        if not force and self.compare_payloads(activity, self.last_payload):
             return self.refresh()
         current_time = time.time()
         payload = {
@@ -79,7 +79,7 @@ class DiscordRPC:
         }
         self.send_data(1, payload)
         self.last_update = current_time
-        self.last_payload = activity
+        self.last_payload = activity or {}
         self.last_pid = pid
         self.loop.run_until_complete(self.read_output())
 
