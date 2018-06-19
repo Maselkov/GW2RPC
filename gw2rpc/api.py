@@ -8,8 +8,8 @@ log = logging.getLogger()
 
 
 class APIError(Exception):
-    pass
-
+    def __init__(self, code):
+        self.code = code
 
 class GW2Api:
     def __init__(self, key=None):
@@ -53,6 +53,12 @@ class GW2Api:
     def get_map_info(self, map_id):
         return self._call_api("maps/" + str(map_id))
 
+    def get_continent_info(self, map_info):
+        ep = ("continents/{continent_id}/floors/{default_floor}/regi"
+              "ons/{region_id}/maps/{id}".format(**map_info))
+        print(ep)
+        return self._call_api(ep)
+
     def get_character(self, name):
         if not self._authenticated:
             return None
@@ -69,7 +75,7 @@ class GW2Api:
         else:
             r = self.__session.get(url)
         if r.status_code != 200:
-            raise APIError("{0.status_code}: {0.reason}".format(r))
+            raise APIError(r.status_code)
         return r.json()
 
 

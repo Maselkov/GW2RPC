@@ -65,9 +65,7 @@ class DiscordRPC:
         code, length = struct.unpack('<ii', data[:8])
         log.debug(f'OP Code: {code}; Length: {length}\nResponse:\n{json.loads(data[8:].decode("utf-8"))}\n')
 
-    def send_rich_presence(self, activity, pid, force=False):
-        if self.compare_payloads(activity, self.last_payload) and not force:
-            return self.refresh()
+    def send_rich_presence(self, activity, pid):
         current_time = time.time()
         payload = {
             "cmd": "SET_ACTIVITY",
@@ -78,20 +76,9 @@ class DiscordRPC:
             "nonce": f'{current_time:.20f}'
         }
         self.send_data(1, payload)
-        self.last_update = current_time
-        self.last_payload = activity
         self.last_pid = pid
         self.loop.run_until_complete(self.read_output())
 
-    def compare_payloads(self, p1, p2):
-        def asset_compare(asset):
-            return p1.get("assets", {}).get(asset) == p2.get("assets", {}).get(asset)
-        assets = asset_compare("large image") and asset_compare("small_image_text")
-        return p1.get("state") == p2.get("state") and assets and p1.get("details") == p2.get("details")
-
-    def refresh(self):
-        if time.time() - self.last_update >= 900:
-            self.send_rich_presence(self.last_payload, self.last_pid, force=True)
 
     def close(self):
         self.running = False

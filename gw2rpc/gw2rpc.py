@@ -12,11 +12,11 @@ from infi.systray import SysTrayIcon
 
 from .api import APIError, api  # TODO
 from .character import Character
-from .mumble import DataUnchangedError, MumbleData
+from .mumble import MumbleData
 from .rpc import DiscordRPC
 from .settings import config
 
-VERSION = 1.2
+VERSION = 2.0
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v1/"
 
@@ -94,6 +94,7 @@ class GW2RPC:
             on_quit=self.shutdown)
         self.systray.start()
         self.process = None
+        self.no_pois = set()
         self.check_for_updates()
 
     def shutdown(self, _=None):
@@ -108,7 +109,7 @@ class GW2RPC:
     def join_guild(self, _):
         try:
             webbrowser.open(self.support_invite)
-        except:
+        except webbrowser.Error:
             pass
 
     def check_for_updates(self):
@@ -135,24 +136,6 @@ class GW2RPC:
                 code=68)
             if res == 6:
                 webbrowser.open("https://gw2rpc.info/")
-
-    def update_gw2_process(self):
-        if self.process:
-            if self.process.is_running():
-                return
-            else:
-                if config.close_with_gw2:
-                    self.shutdown()
-        for pid in psutil.pids():
-            try:
-                p = psutil.Process(pid)
-                pname = p.name()
-                if pname == "Gw2-64.exe" or pname == "Gw2.exe":
-                    self.process = p
-                    return
-            except:
-                pass
-        self.process = None
 
     def get_map_asset(self, map_info):
         def get_region():
@@ -216,7 +199,6 @@ class GW2RPC:
         data = self.game.get_mumble_data()
         if not data:
             return None
-        current_time = time.time()
         map_id = data["map_id"]
         try:
             map_info = api.get_map_info(map_id)
@@ -225,31 +207,33 @@ class GW2RPC:
             log.exception("API Error!")
             return None
         state, map_asset = self.get_map_asset(map_info)
-        if config.display_tag:
-            tag = character.guild_tag
-        else:
-            tag = ""
+        tag = character.guild_tag if config.display_tag else ""
+        try:
+            if map_id in self.no_pois:
+                raise APIError
+            poi = self.find_closest_waypoint(map_info)
+            map_asset["large_text"] += "\nnear " + poi
+        except APIError:
+            self.no_pois.add(map_id)
+        details = character.name + tag
         activiy = {
             "state": state,
-            "details": character.name + tag,
+            "details": details,
             "timestamps": {
-                'start': int(current_time)
+                'start': self.game.last_map_change_time
             },
             "assets": {
-                **map_asset,
-                "small_image": character.profession_icon,
-                "small_text": "{0.race} {0.profession}".format(character)
+                **map_asset, "small_image":
+                character.profession_icon,
+                "small_text":
+                "{0.race} {0.profession}".format(character, tag)
             }
         }
         return activiy
 
     def in_character_selection(self):
-        current_time = time.time()
         activity = {
             "state": "in character selection",
-            "timestamps": {
-                'start': int(current_time)
-            },
             "assets": {
                 "large_image":
                 "default",
@@ -263,13 +247,44 @@ class GW2RPC:
         }
         return activity
 
+    def find_closest_waypoint(self, map_info):
+        continent_info = api.get_continent_info(map_info)
+        pois = continent_info["points_of_interest"]
+        position = self.game.get_position()
+        crect = map_info["continent_rect"]
+        mrect = map_info["map_rect"]
+        x_coord = crect[0][0] + (position.x - mrect[0][0]) / 24
+        y_coord = crect[0][1] + (mrect[1][1] - position.y) / 24
+        lowest_distance = float("inf")
+        landmark = None
+        for poi in pois.values():
+            if "name" not in poi:
+                continue
+            distance = (poi["coord"][0] - x_coord)**2 + (
+                poi["coord"][1] - y_coord)**2
+            if distance < lowest_distance:
+                lowest_distance = distance
+                landmark = poi["name"]
+        return landmark
+
     def main_loop(self):
-        def gw2_running():
-            if not self.process:
-                return False
-            if not self.process.is_running():
-                return False
-            return True
+        def update_gw2_process():
+            shutdown = False
+            if self.process:
+                if self.process.is_running():
+                    return
+                else:
+                    if config.close_with_gw2:
+                        shutdown = True
+            for process in psutil.process_iter():
+                name = process.name()
+                if name in ("Gw2-64.exe", "Gw2.exe"):
+                    self.process = process
+                    return
+            if shutdown:
+                self.shutdown()
+            self.process = None
+            raise GameNotRunningError
 
         def start_rpc():
             while True:
@@ -282,9 +297,7 @@ class GW2RPC:
         try:
             while True:
                 try:
-                    self.update_gw2_process()
-                    if not gw2_running():
-                        raise GameNotRunningError
+                    update_gw2_process()
                     if not self.rpc.running:
                         start_rpc()
                         log.debug("starting self.rpc")
@@ -299,16 +312,10 @@ class GW2RPC:
                 except GameNotRunningError:
                     #  TODO
                     if self.rpc.running:
-                        self.rpc.last_payload = {}
                         self.rpc.last_pid = None
-                        self.rpc.last_update = time.time()
-                        self.game.last_character = None
-                        self.game.last_map_id = None
                         self.rpc.close()
                         log.debug("Killing RPC")
-                except DataUnchangedError:
-                    pass
-                time.sleep(config.update_frequency)
+                time.sleep(15)
         except Exception as e:
             log.critical("GW2RPC has crashed", exc_info=e)
             create_msgbox(
