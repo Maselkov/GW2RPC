@@ -22,7 +22,7 @@ class Config:
             with open("config.ini", "w") as cfile:
                 config.write(cfile)
         config.read("config.ini")
-        self.api_key = config["API"]["APIKey"]
+        self.api_keys = [k for k in map(str.strip, config["API"]["APIKey"].split(',')) if k]
         self.update_frequency = config.getint("Discord", "UpdateFrequency")
         self.close_with_gw2 = set_boolean("Settings", "CloseWithGw2")
         self.display_tag = set_boolean("Settings", "DisplayGuildTag")
