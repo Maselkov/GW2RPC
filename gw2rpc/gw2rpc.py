@@ -138,14 +138,6 @@ class GW2RPC:
                 webbrowser.open("https://gw2rpc.info/")
 
     def get_map_asset(self, map_info):
-        def get_region():
-            world = api.world
-            if world:
-                for k, v in worlds.items():
-                    if world in v:
-                        return " [{}]".format(k)
-            return ""
-
         map_id = map_info["id"]
         map_name = map_info["name"]
         region = map_info.get("region_name", "thanks_anet")
@@ -192,10 +184,17 @@ class GW2RPC:
             state = name
         return "in " + state, {
             "large_image": str(image),
-            "large_text": name + get_region()
+            "large_text": name
         }
 
     def get_activity(self):
+        def get_region():
+            world = api.world
+            if world:
+                for k, v in worlds.items():
+                    if world in v:
+                        return " [{}]".format(k)
+            return ""
         data = self.game.get_mumble_data()
         if not data:
             return None
@@ -210,12 +209,13 @@ class GW2RPC:
         tag = character.guild_tag if config.display_tag else ""
         try:
             if map_id in self.no_pois:
-                raise APIError
+                raise APIError(404)
             poi = self.find_closest_waypoint(map_info)
-            map_asset["large_text"] += "\nnear " + poi
+            map_asset["large_text"] += " near " + poi
         except APIError:
             self.no_pois.add(map_id)
         details = character.name + tag
+        map_asset["large_text"] += get_region()
         activiy = {
             "state": state,
             "details": details,

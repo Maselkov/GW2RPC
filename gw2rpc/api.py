@@ -97,6 +97,9 @@ class MultiApi:
     def get_map_info(self, map_id):
         return self._unauthenticated_client.get_map_info(map_id)
 
+    def get_continent_info(self, map_info):
+        return self._unauthenticated_client.get_continent_info(map_info)
+
     def get_character(self, name):
         if self._last_used_client:
             try:
