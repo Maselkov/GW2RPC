@@ -94,6 +94,8 @@ class GW2RPC:
             on_quit=self.shutdown)
         self.systray.start()
         self.process = None
+        self.last_map_info = None
+        self.last_continent_info = None
         self.no_pois = set()
         self.check_for_updates()
 
@@ -182,10 +184,7 @@ class GW2RPC:
                     image = "default"
             name = map_name
             state = name
-        return "in " + state, {
-            "large_image": str(image),
-            "large_text": name
-        }
+        return "in " + state, {"large_image": str(image), "large_text": name}
 
     def get_activity(self):
         def get_region():
@@ -195,24 +194,38 @@ class GW2RPC:
                     if world in v:
                         return " [{}]".format(k)
             return ""
+
         data = self.game.get_mumble_data()
         if not data:
             return None
         map_id = data["map_id"]
         try:
-            map_info = api.get_map_info(map_id)
+            if self.last_map_info and map_id == self.last_map_info["id"]:
+                map_info = self.last_map_info
+            else:
+                map_info = api.get_map_info(map_id)
+                self.last_map_info = map_info
             character = Character(data)
         except APIError:
             log.exception("API Error!")
+            self.last_map_info = None
             return None
         state, map_asset = self.get_map_asset(map_info)
         tag = character.guild_tag if config.display_tag else ""
         try:
             if map_id in self.no_pois:
                 raise APIError(404)
-            poi = self.find_closest_waypoint(map_info)
-            map_asset["large_text"] += " near " + poi
+            if (self.last_continent_info
+                    and map_id == self.last_continent_info["id"]):
+                continent_info = self.last_continent_info
+            else:
+                continent_info = api.get_continent_info(map_info)
+                self.last_continent_info = continent_info
+            poi = self.find_closest_waypoint(map_info, continent_info)
+            if poi:
+                map_asset["large_text"] += " near " + poi
         except APIError:
+            self.last_continent_info = None
             self.no_pois.add(map_id)
         details = character.name + tag
         map_asset["large_text"] += get_region()
@@ -223,10 +236,8 @@ class GW2RPC:
                 'start': self.game.last_map_change_time
             },
             "assets": {
-                **map_asset, "small_image":
-                character.profession_icon,
-                "small_text":
-                "{0.race} {0.profession}".format(character, tag)
+                **map_asset, "small_image": character.profession_icon,
+                "small_text": "{0.race} {0.profession}".format(character, tag)
             }
         }
         return activiy
@@ -247,8 +258,7 @@ class GW2RPC:
         }
         return activity
 
-    def find_closest_waypoint(self, map_info):
-        continent_info = api.get_continent_info(map_info)
+    def find_closest_waypoint(self, map_info, continent_info):
         pois = continent_info["points_of_interest"]
         position = self.game.get_position()
         crect = map_info["continent_rect"]
