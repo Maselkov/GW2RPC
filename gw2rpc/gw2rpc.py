@@ -96,6 +96,7 @@ class GW2RPC:
         self.process = None
         self.last_map_info = None
         self.last_continent_info = None
+        self.last_boss = None
         self.no_pois = set()
         self.check_for_updates()
 
@@ -186,6 +187,30 @@ class GW2RPC:
             state = name
         return "in " + state, {"large_image": str(image), "large_text": name}
 
+    def get_raid_assets(self, map_info, continent_info):
+        def readable_id(_id):
+            _id = _id.split("_")
+            dont_capitalize = ("of", "the", "in")
+            return " ".join([
+                x.capitalize() if x not in dont_capitalize else x for x in _id
+            ])
+
+        boss = self.find_closest_point(
+            map_info,
+            continent_info,
+            iterable=self.registry["raids"][str(map_info["id"])])
+        if boss["type"] == "boss":
+            state = "fighting "
+        else:
+            state = "completing "
+        name = readable_id(boss["id"])
+        state += name
+        if self.last_boss:
+            if not self.last_boss == boss["id"]:
+                self.game.last_map_change_time = int(time.time())
+        self.last_boss = boss["id"]
+        return state, {"large_image": boss["id"], "large_text": name}
+
     def get_activity(self):
         def get_region():
             world = api.world
@@ -221,13 +246,19 @@ class GW2RPC:
             else:
                 continent_info = api.get_continent_info(map_info)
                 self.last_continent_info = continent_info
-            poi = self.find_closest_waypoint(map_info, continent_info)
-            if poi:
-                map_asset["large_text"] += " near " + poi
         except APIError:
             self.last_continent_info = None
             self.no_pois.add(map_id)
         details = character.name + tag
+        if self.last_continent_info:
+            if self.registry and str(map_id) in self.registry.get("raids", {}):
+                state, map_asset = self.get_raid_assets(
+                    map_info, continent_info)
+            else:
+                self.last_boss = None
+                point = self.find_closest_point(map_info, continent_info)
+                if point:
+                    map_asset["large_text"] += " near " + point["name"]
         map_asset["large_text"] += get_region()
         activiy = {
             "state": state,
@@ -258,24 +289,25 @@ class GW2RPC:
         }
         return activity
 
-    def find_closest_waypoint(self, map_info, continent_info):
-        pois = continent_info["points_of_interest"]
+    def find_closest_point(self, map_info, continent_info, *, iterable=None):
+        if not iterable:
+            iterable = continent_info["points_of_interest"].values()
         position = self.game.get_position()
         crect = map_info["continent_rect"]
         mrect = map_info["map_rect"]
         x_coord = crect[0][0] + (position.x - mrect[0][0]) / 24
         y_coord = crect[0][1] + (mrect[1][1] - position.y) / 24
         lowest_distance = float("inf")
-        landmark = None
-        for poi in pois.values():
-            if "name" not in poi:
+        point = None
+        for item in iterable:
+            if "name" not in item and "id" not in item:
                 continue
-            distance = (poi["coord"][0] - x_coord)**2 + (
-                poi["coord"][1] - y_coord)**2
+            distance = (item["coord"][0] - x_coord)**2 + (
+                item["coord"][1] - y_coord)**2
             if distance < lowest_distance:
                 lowest_distance = distance
-                landmark = poi["name"]
-        return landmark
+                point = item
+        return point
 
     def main_loop(self):
         def update_gw2_process():

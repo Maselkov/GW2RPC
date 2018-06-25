@@ -60,7 +60,6 @@ class GW2Api:
     def get_continent_info(self, map_info):
         ep = ("continents/{continent_id}/floors/{default_floor}/regi"
               "ons/{region_id}/maps/{id}".format(**map_info))
-        print(ep)
         return self._call_api(ep)
 
     def get_character(self, name):
