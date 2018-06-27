@@ -54,7 +54,8 @@ class DiscordRPC:
 
     def send_data(self, op: int, payload: dict):
         payload = json.dumps(payload)
-        data = self.sock_writer.write(struct.pack('<ii', op, len(payload)) + payload.encode('utf-8'))
+        self.sock_writer.write(struct.pack('<ii',
+                               op, len(payload)) + payload.encode('utf-8'))
 
     async def handshake(self):
         self.sock_reader = asyncio.StreamReader(loop=self.loop)
@@ -79,8 +80,9 @@ class DiscordRPC:
         self.last_pid = pid
         self.loop.run_until_complete(self.read_output())
 
-
     def close(self):
+        self.send_data(2, {'v': 1, 'client_id': self.client_id})
+        self.last_pid = None
         self.running = False
         self.sock_writer.close()
         self.sock_writer: asyncio.StreamWriter = None

@@ -8,7 +8,6 @@ class MumbleLinkException(Exception):
     pass
 
 
-
 # yapf:disable QA OFF
 class Link(ctypes.Structure):
     _fields_ = [
@@ -49,7 +48,7 @@ class MumbleData:
         if not result.identity:
             return None
         data = json.loads(result.identity)
-#        character = data["name"]
+        #        character = data["name"]
         map_id = data["map_id"]
         if self.last_map_id != map_id:
             self.last_map_change_time = int(time.time())
@@ -60,8 +59,8 @@ class MumbleData:
         self.memfile.seek(0)
         data = self.memfile.read(ctypes.sizeof(Link))
         result = self.Unpack(Link, data)
-
         return Position(result.fAvatarPosition)
+
 
 class Position:
     def __init__(self, position_data):
