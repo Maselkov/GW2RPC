@@ -5,6 +5,7 @@ import sys
 import threading
 import time
 import webbrowser
+import math
 
 import psutil
 import requests
@@ -75,8 +76,8 @@ class GW2RPC:
 
         def fetch_support_invite():
             try:
-                return requests.get(GW2RPC_BASE_URL + "support").json()[
-                    "support"]
+                return requests.get(GW2RPC_BASE_URL +
+                                    "support").json()["support"]
             except:
                 return None
 
@@ -195,14 +196,18 @@ class GW2RPC:
                 x.capitalize() if x not in dont_capitalize else x for x in _id
             ])
 
-        boss = self.find_closest_point(
+        boss, distance = self.find_closest_point(
             map_info,
             continent_info,
-            iterable=self.registry["raids"][str(map_info["id"])])
+            iterable=self.registry["raids"][str(map_info["id"])],
+            id_only=True)
         if boss["type"] == "boss":
             state = "fighting "
         else:
             state = "completing "
+        if "radius" in boss:
+            if distance > boss["radius"]:
+                return self.get_map_asset(map_info)
         name = readable_id(boss["id"])
         state += name
         if self.last_boss:
@@ -256,7 +261,8 @@ class GW2RPC:
                     map_info, continent_info)
             else:
                 self.last_boss = None
-                point = self.find_closest_point(map_info, continent_info)
+                point, distance = self.find_closest_point(
+                    map_info, continent_info)
                 if point:
                     map_asset["large_text"] += " near " + point["name"]
         map_asset["large_text"] += get_region()
@@ -289,7 +295,12 @@ class GW2RPC:
         }
         return activity
 
-    def find_closest_point(self, map_info, continent_info, *, iterable=None):
+    def find_closest_point(self,
+                           map_info,
+                           continent_info,
+                           *,
+                           iterable=None,
+                           id_only=False):
         if not iterable:
             iterable = continent_info["points_of_interest"].values()
         position = self.game.get_position()
@@ -300,14 +311,14 @@ class GW2RPC:
         lowest_distance = float("inf")
         point = None
         for item in iterable:
-            if "name" not in item and "id" not in item:
+            if not id_only and "name" not in item:
                 continue
             distance = (item["coord"][0] - x_coord)**2 + (
                 item["coord"][1] - y_coord)**2
             if distance < lowest_distance:
                 lowest_distance = distance
                 point = item
-        return point
+        return point, math.sqrt(lowest_distance)
 
     def main_loop(self):
         def update_gw2_process():
@@ -354,7 +365,6 @@ class GW2RPC:
                 except GameNotRunningError:
                     #  TODO
                     if self.rpc.running:
-                        self.rpc.last_pid = None
                         self.rpc.close()
                         log.debug("Killing RPC")
                 time.sleep(15)
