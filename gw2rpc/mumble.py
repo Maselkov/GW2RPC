@@ -30,9 +30,21 @@ class Link(ctypes.Structure):
 
 class MumbleData:
     def __init__(self):
-        self.memfile = mmap.mmap(-1, ctypes.sizeof(Link), "MumbleLink")
+        self.memfile = None
         self.last_map_id = None
-        self.last_map_change_time = None
+        self.last_timestamp = None
+        self.last_character_name = None
+
+    def create_map(self):
+        self.memfile = mmap.mmap(-1, ctypes.sizeof(Link), "MumbleLink")
+
+    def close_map(self):
+        if self.memfile:
+            self.memfile.close()
+            self.memfile = None
+            self.last_map_id = None
+            self.last_timestamp = None
+            self.last_character_name = None
 
     @staticmethod
     def Unpack(ctype, buf):
@@ -48,11 +60,12 @@ class MumbleData:
         if not result.identity:
             return None
         data = json.loads(result.identity)
-        #        character = data["name"]
+        character = data["name"]
         map_id = data["map_id"]
-        if self.last_map_id != map_id:
-            self.last_map_change_time = int(time.time())
+        if self.last_character_name != character or self.last_map_id != map_id:
+            self.last_timestamp = int(time.time())
         self.last_map_id = map_id
+        self.last_character_name = character
         return data
 
     def get_position(self):

@@ -212,7 +212,7 @@ class GW2RPC:
         state += name
         if self.last_boss:
             if not self.last_boss == boss["id"]:
-                self.game.last_map_change_time = int(time.time())
+                self.game.last_timestamp = int(time.time())
         self.last_boss = boss["id"]
         return state, {"large_image": boss["id"], "large_text": name}
 
@@ -270,7 +270,7 @@ class GW2RPC:
             "state": state,
             "details": details,
             "timestamps": {
-                'start': self.game.last_map_change_time
+                'start': self.game.last_timestamp
             },
             "assets": {
                 **map_asset, "small_image": character.profession_icon,
@@ -351,6 +351,8 @@ class GW2RPC:
             while True:
                 try:
                     update_gw2_process()
+                    if not self.game.memfile:
+                        self.game.create_map()
                     if not self.rpc.running:
                         start_rpc()
                         log.debug("starting self.rpc")
@@ -364,6 +366,7 @@ class GW2RPC:
                         raise GameNotRunningError  # To start a new connection
                 except GameNotRunningError:
                     #  TODO
+                    self.game.close_map()
                     if self.rpc.running:
                         self.rpc.close()
                         log.debug("Killing RPC")
