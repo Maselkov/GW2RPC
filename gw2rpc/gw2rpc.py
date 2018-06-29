@@ -98,6 +98,7 @@ class GW2RPC:
         self.last_map_info = None
         self.last_continent_info = None
         self.last_boss = None
+        self.boss_timestamp = None
         self.no_pois = set()
         self.check_for_updates()
 
@@ -207,12 +208,13 @@ class GW2RPC:
             state = "completing "
         if "radius" in boss:
             if distance > boss["radius"]:
+                self.last_boss = None
+                self.boss_timestamp = None
                 return self.get_map_asset(map_info)
         name = readable_id(boss["id"])
         state += name
-        if self.last_boss:
-            if not self.last_boss == boss["id"]:
-                self.game.last_timestamp = int(time.time())
+        if self.last_boss != boss["id"]:
+            self.boss_timestamp = int(time.time())
         self.last_boss = boss["id"]
         return state, {"large_image": boss["id"], "large_text": name}
 
@@ -243,7 +245,7 @@ class GW2RPC:
         state, map_asset = self.get_map_asset(map_info)
         tag = character.guild_tag if config.display_tag else ""
         try:
-            if map_id in self.no_pois:
+            if map_id in self.no_pois or "continent_id" not in map_info:
                 raise APIError(404)
             if (self.last_continent_info
                     and map_id == self.last_continent_info["id"]):
@@ -255,10 +257,12 @@ class GW2RPC:
             self.last_continent_info = None
             self.no_pois.add(map_id)
         details = character.name + tag
+        timestamp = self.game.last_timestamp
         if self.last_continent_info:
             if self.registry and str(map_id) in self.registry.get("raids", {}):
                 state, map_asset = self.get_raid_assets(
                     map_info, continent_info)
+                timestamp = self.boss_timestamp or self.game.last_timestamp
             else:
                 self.last_boss = None
                 point, distance = self.find_closest_point(
@@ -270,7 +274,7 @@ class GW2RPC:
             "state": state,
             "details": details,
             "timestamps": {
-                'start': self.game.last_timestamp
+                'start': timestamp
             },
             "assets": {
                 **map_asset, "small_image": character.profession_icon,
@@ -356,7 +360,10 @@ class GW2RPC:
                     if not self.rpc.running:
                         start_rpc()
                         log.debug("starting self.rpc")
-                    data = self.get_activity()
+                    try:
+                        data = self.get_activity()
+                    except requests.exceptions.ConnectionError:
+                        raise GameNotRunningError
                     if not data:
                         data = self.in_character_selection()
                     log.debug(data)
