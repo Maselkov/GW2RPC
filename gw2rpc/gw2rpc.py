@@ -189,7 +189,7 @@ class GW2RPC:
             state = name
         return "in " + state, {"large_image": str(image), "large_text": name}
 
-    def get_raid_assets(self, map_info, continent_info):
+    def get_raid_assets(self, map_info):
         def readable_id(_id):
             _id = _id.split("_")
             dont_capitalize = ("of", "the", "in")
@@ -197,26 +197,24 @@ class GW2RPC:
                 x.capitalize() if x not in dont_capitalize else x for x in _id
             ])
 
-        boss, distance = self.find_closest_point(
-            map_info,
-            continent_info,
-            iterable=self.registry["raids"][str(map_info["id"])],
-            id_only=True)
+        boss = self.find_closest_boss(map_info)
+        if not boss:
+            self.boss_timestamp = None
+            return self.get_map_asset(map_info)
         if boss["type"] == "boss":
             state = "fighting "
         else:
             state = "completing "
-        if "radius" in boss:
-            if distance > boss["radius"]:
-                self.last_boss = None
-                self.boss_timestamp = None
-                return self.get_map_asset(map_info)
+
         name = readable_id(boss["id"])
         state += name
         if self.last_boss != boss["id"]:
             self.boss_timestamp = int(time.time())
         self.last_boss = boss["id"]
-        return state, {"large_image": boss["id"], "large_text": name}
+        return state, {
+            "large_image": boss["id"],
+            "large_text": name + " ({})".format(map_info["name"])
+        }
 
     def get_activity(self):
         def get_region():
@@ -258,15 +256,13 @@ class GW2RPC:
             self.no_pois.add(map_id)
         details = character.name + tag
         timestamp = self.game.last_timestamp
-        if self.last_continent_info:
-            if self.registry and str(map_id) in self.registry.get("raids", {}):
-                state, map_asset = self.get_raid_assets(
-                    map_info, continent_info)
-                timestamp = self.boss_timestamp or self.game.last_timestamp
-            else:
-                self.last_boss = None
-                point, distance = self.find_closest_point(
-                    map_info, continent_info)
+        if self.registry and str(map_id) in self.registry.get("raids", {}):
+            state, map_asset = self.get_raid_assets(map_info)
+            timestamp = self.boss_timestamp or self.game.last_timestamp
+        else:
+            self.last_boss = None
+            if self.last_continent_info:
+                point = self.find_closest_point(map_info, continent_info)
                 if point:
                     map_asset["large_text"] += " near " + point["name"]
         map_asset["large_text"] += get_region()
@@ -299,30 +295,42 @@ class GW2RPC:
         }
         return activity
 
-    def find_closest_point(self,
-                           map_info,
-                           continent_info,
-                           *,
-                           iterable=None,
-                           id_only=False):
-        if not iterable:
-            iterable = continent_info["points_of_interest"].values()
-        position = self.game.get_position()
+    def convert_mumble_coordinates(self, map_info, position):
         crect = map_info["continent_rect"]
         mrect = map_info["map_rect"]
-        x_coord = crect[0][0] + (position.x - mrect[0][0]) / 24
-        y_coord = crect[0][1] + (mrect[1][1] - position.y) / 24
+        x = crect[0][0] + (position.x - mrect[0][0]) / 24
+        y = crect[0][1] + (mrect[1][1] - position.y) / 24
+        return x, y
+
+    def find_closest_point(self, map_info, continent_info):
+        position = self.game.get_position()
+        x_coord, y_coord = self.convert_mumble_coordinates(map_info, position)
         lowest_distance = float("inf")
         point = None
-        for item in iterable:
-            if not id_only and "name" not in item:
+        for item in continent_info["points_of_interest"].values():
+            if "name" not in item:
                 continue
             distance = (item["coord"][0] - x_coord)**2 + (
                 item["coord"][1] - y_coord)**2
             if distance < lowest_distance:
                 lowest_distance = distance
                 point = item
-        return point, math.sqrt(lowest_distance)
+        return point
+
+    def find_closest_boss(self, map_info):
+        position = self.game.get_position()
+        x_coord, y_coord = self.convert_mumble_coordinates(map_info, position)
+        closest = None
+        for boss in self.registry["raids"][str(map_info["id"])]:
+            distance = math.sqrt((boss["coord"][0] - x_coord)**2 +
+                                 (boss["coord"][1] - y_coord)**2)
+            if "radius" in boss and distance < boss["radius"]:
+                if "height" in boss:
+                    if position.z < boss["height"]:
+                        closest = boss
+                else:
+                    closest = boss
+        return closest
 
     def main_loop(self):
         def update_gw2_process():

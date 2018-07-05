@@ -82,4 +82,4 @@ class Position:
 
         self.x = m_to_in(position_data[0])
         self.y = m_to_in(position_data[2])
-        self.z = m_to_in(position_data[1])
+        self.z = position_data[1]
