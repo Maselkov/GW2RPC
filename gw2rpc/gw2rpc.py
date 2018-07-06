@@ -225,6 +225,14 @@ class GW2RPC:
                         return " [{}]".format(k)
             return ""
 
+        def get_closest_poi(map_info, continent_info):
+            region = map_info.get("region_name")
+            if config.disable_pois:
+                return None
+            if config.disable_pois_in_wvw and region == "World vs. World":
+                return None
+            return self.find_closest_point(map_info, continent_info)
+
         data = self.game.get_mumble_data()
         if not data:
             return None
@@ -262,7 +270,7 @@ class GW2RPC:
         else:
             self.last_boss = None
             if self.last_continent_info:
-                point = self.find_closest_point(map_info, continent_info)
+                point = get_closest_poi(map_info, continent_info)
                 if point:
                     map_asset["large_text"] += " near " + point["name"]
         map_asset["large_text"] += get_region()
