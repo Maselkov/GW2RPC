@@ -213,7 +213,7 @@ class GW2RPC:
         self.last_boss = boss["id"]
         return state, {
             "large_image": boss["id"],
-            "large_text": name + " ({})".format(map_info["name"])
+            "large_text": name + " - {}".format(map_info["name"])
         }
 
     def get_activity(self):
