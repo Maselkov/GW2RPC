@@ -1,13 +1,10 @@
 import ctypes
 import json
 import mmap
+import time
 
 
 class MumbleLinkException(Exception):
-    pass
-
-
-class DataUnchangedError(MumbleLinkException):
     pass
 
 
@@ -33,9 +30,21 @@ class Link(ctypes.Structure):
 
 class MumbleData:
     def __init__(self):
-        self.memfile = mmap.mmap(-1, ctypes.sizeof(Link), "MumbleLink")
-        self.last_character = None
+        self.memfile = None
         self.last_map_id = None
+        self.last_timestamp = None
+        self.last_character_name = None
+
+    def create_map(self):
+        self.memfile = mmap.mmap(-1, ctypes.sizeof(Link), "MumbleLink")
+
+    def close_map(self):
+        if self.memfile:
+            self.memfile.close()
+            self.memfile = None
+            self.last_map_id = None
+            self.last_timestamp = None
+            self.last_character_name = None
 
     @staticmethod
     def Unpack(ctype, buf):
@@ -53,8 +62,24 @@ class MumbleData:
         data = json.loads(result.identity)
         character = data["name"]
         map_id = data["map_id"]
-        if character == self.last_character and map_id == self.last_map_id:
-            raise DataUnchangedError
-        self.last_character = character
+        if self.last_character_name != character or self.last_map_id != map_id:
+            self.last_timestamp = int(time.time())
         self.last_map_id = map_id
+        self.last_character_name = character
         return data
+
+    def get_position(self):
+        self.memfile.seek(0)
+        data = self.memfile.read(ctypes.sizeof(Link))
+        result = self.Unpack(Link, data)
+        return Position(result.fAvatarPosition)
+
+
+class Position:
+    def __init__(self, position_data):
+        def m_to_in(m):
+            return m * 39.3700787
+
+        self.x = m_to_in(position_data[0])
+        self.y = m_to_in(position_data[2])
+        self.z = position_data[1]

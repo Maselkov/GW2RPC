@@ -8,7 +8,8 @@ log = logging.getLogger()
 
 
 class APIError(Exception):
-    pass
+    def __init__(self, code):
+        self.code = code
 
 
 class GW2Api:
@@ -19,7 +20,9 @@ class GW2Api:
                 required_permissions = ["characters", "builds", "account"]
                 for p in required_permissions:
                     if p not in res["permissions"]:
-                        log.warning("API key missing required permission: {}".format(p))
+                        log.warning(
+                            "API key missing required permission: {}".format(
+                                p))
                         return False
                 log.info("API key verified")
                 return True
@@ -54,6 +57,11 @@ class GW2Api:
     def get_map_info(self, map_id):
         return self._call_api("maps/" + str(map_id))
 
+    def get_continent_info(self, map_info):
+        ep = ("continents/{continent_id}/floors/{default_floor}/regi"
+              "ons/{region_id}/maps/{id}".format(**map_info))
+        return self._call_api(ep)
+
     def get_character(self, name):
         if not self._authenticated:
             return None
@@ -70,7 +78,7 @@ class GW2Api:
         else:
             r = self.__session.get(url)
         if r.status_code != 200:
-            raise APIError("{0.status_code}: {0.reason}".format(r))
+            raise APIError(r.status_code)
         return r.json()
 
 
@@ -81,10 +89,15 @@ class MultiApi:
         self._clients = [c for c in self._clients if c._authenticated]
         self._authenticated = len(self._clients) != 0
         self._last_used_client = None
-        self.account, self.world = (self._clients[0].account, self._clients[0].world) if self._authenticated else (None, None)
+        self.account, self.world = (
+            self._clients[0].account,
+            self._clients[0].world) if self._authenticated else (None, None)
 
     def get_map_info(self, map_id):
         return self._unauthenticated_client.get_map_info(map_id)
+
+    def get_continent_info(self, map_info):
+        return self._unauthenticated_client.get_continent_info(map_info)
 
     def get_character(self, name):
         if self._last_used_client:
@@ -108,7 +121,6 @@ class MultiApi:
             return self._last_used_client.get_guild(gid)
         # intentionally cause an error as there should have been a character request first
         return self._unauthenticated_client.get_guild(gid)
-
 
 
 api = MultiApi(config.api_keys)

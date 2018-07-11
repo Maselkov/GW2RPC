@@ -14,18 +14,26 @@ class Config:
         config = configparser.ConfigParser(allow_no_value=True)
         if not os.path.exists("config.ini"):
             config["API"] = {"APIKey": ""}
-            config["Discord"] = {"UpdateFrequency": 10}
             config["Settings"] = {
                 "CloseWithGw2": False,
                 "DisplayGuildTag": True
             }
+            config["PointsOfInterest"] = {
+                "DisableInWvW": False,
+                "DisableCompletely": False
+            }
             with open("config.ini", "w") as cfile:
                 config.write(cfile)
         config.read("config.ini")
-        self.api_keys = [k for k in map(str.strip, config["API"]["APIKey"].split(',')) if k]
-        self.update_frequency = config.getint("Discord", "UpdateFrequency")
+        self.api_keys = [
+            k for k in map(str.strip, config["API"]["APIKey"].split(',')) if k
+        ]
         self.close_with_gw2 = set_boolean("Settings", "CloseWithGw2")
         self.display_tag = set_boolean("Settings", "DisplayGuildTag")
+        self.disable_pois = set_boolean("PointsOfInterest",
+                                        "DisableCompletely")
+        self.disable_pois_in_wvw = set_boolean("PointsOfInterest",
+                                               "DisableInWvW")
 
 
 config = Config()

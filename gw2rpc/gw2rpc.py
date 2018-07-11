@@ -5,6 +5,7 @@ import sys
 import threading
 import time
 import webbrowser
+import math
 
 import psutil
 import requests
@@ -12,11 +13,11 @@ from infi.systray import SysTrayIcon
 
 from .api import APIError, api  # TODO
 from .character import Character
-from .mumble import DataUnchangedError, MumbleData
+from .mumble import MumbleData
 from .rpc import DiscordRPC
 from .settings import config
 
-VERSION = 1.2
+VERSION = 2.0
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v1/"
 
@@ -75,8 +76,8 @@ class GW2RPC:
 
         def fetch_support_invite():
             try:
-                return requests.get(GW2RPC_BASE_URL + "support").json()[
-                    "support"]
+                return requests.get(GW2RPC_BASE_URL +
+                                    "support").json()["support"]
             except:
                 return None
 
@@ -94,6 +95,11 @@ class GW2RPC:
             on_quit=self.shutdown)
         self.systray.start()
         self.process = None
+        self.last_map_info = None
+        self.last_continent_info = None
+        self.last_boss = None
+        self.boss_timestamp = None
+        self.no_pois = set()
         self.check_for_updates()
 
     def shutdown(self, _=None):
@@ -108,7 +114,7 @@ class GW2RPC:
     def join_guild(self, _):
         try:
             webbrowser.open(self.support_invite)
-        except:
+        except webbrowser.Error:
             pass
 
     def check_for_updates(self):
@@ -136,33 +142,7 @@ class GW2RPC:
             if res == 6:
                 webbrowser.open("https://gw2rpc.info/")
 
-    def update_gw2_process(self):
-        if self.process:
-            if self.process.is_running():
-                return
-            else:
-                if config.close_with_gw2:
-                    self.shutdown()
-        for pid in psutil.pids():
-            try:
-                p = psutil.Process(pid)
-                pname = p.name()
-                if pname == "Gw2-64.exe" or pname == "Gw2.exe":
-                    self.process = p
-                    return
-            except:
-                pass
-        self.process = None
-
     def get_map_asset(self, map_info):
-        def get_region():
-            world = api.world
-            if world:
-                for k, v in worlds.items():
-                    if world in v:
-                        return " [{}]".format(k)
-            return ""
-
         map_id = map_info["id"]
         map_name = map_info["name"]
         region = map_info.get("region_name", "thanks_anet")
@@ -207,49 +187,109 @@ class GW2RPC:
                     image = "default"
             name = map_name
             state = name
-        return "in " + state, {
-            "large_image": str(image),
-            "large_text": name + get_region()
+        return "in " + state, {"large_image": str(image), "large_text": name}
+
+    def get_raid_assets(self, map_info):
+        def readable_id(_id):
+            _id = _id.split("_")
+            dont_capitalize = ("of", "the", "in")
+            return " ".join([
+                x.capitalize() if x not in dont_capitalize else x for x in _id
+            ])
+
+        boss = self.find_closest_boss(map_info)
+        if not boss:
+            self.boss_timestamp = None
+            return self.get_map_asset(map_info)
+        if boss["type"] == "boss":
+            state = "fighting "
+        else:
+            state = "completing "
+
+        name = readable_id(boss["id"])
+        state += name
+        if self.last_boss != boss["id"]:
+            self.boss_timestamp = int(time.time())
+        self.last_boss = boss["id"]
+        return state, {
+            "large_image": boss["id"],
+            "large_text": name + " - {}".format(map_info["name"])
         }
 
     def get_activity(self):
+        def get_region():
+            world = api.world
+            if world:
+                for k, v in worlds.items():
+                    if world in v:
+                        return " [{}]".format(k)
+            return ""
+
+        def get_closest_poi(map_info, continent_info):
+            region = map_info.get("region_name")
+            if config.disable_pois:
+                return None
+            if config.disable_pois_in_wvw and region == "World vs. World":
+                return None
+            return self.find_closest_point(map_info, continent_info)
+
         data = self.game.get_mumble_data()
         if not data:
             return None
-        current_time = time.time()
         map_id = data["map_id"]
         try:
-            map_info = api.get_map_info(map_id)
+            if self.last_map_info and map_id == self.last_map_info["id"]:
+                map_info = self.last_map_info
+            else:
+                map_info = api.get_map_info(map_id)
+                self.last_map_info = map_info
             character = Character(data)
         except APIError:
             log.exception("API Error!")
+            self.last_map_info = None
             return None
         state, map_asset = self.get_map_asset(map_info)
-        if config.display_tag:
-            tag = character.guild_tag
+        tag = character.guild_tag if config.display_tag else ""
+        try:
+            if map_id in self.no_pois or "continent_id" not in map_info:
+                raise APIError(404)
+            if (self.last_continent_info
+                    and map_id == self.last_continent_info["id"]):
+                continent_info = self.last_continent_info
+            else:
+                continent_info = api.get_continent_info(map_info)
+                self.last_continent_info = continent_info
+        except APIError:
+            self.last_continent_info = None
+            self.no_pois.add(map_id)
+        details = character.name + tag
+        timestamp = self.game.last_timestamp
+        if self.registry and str(map_id) in self.registry.get("raids", {}):
+            state, map_asset = self.get_raid_assets(map_info)
+            timestamp = self.boss_timestamp or self.game.last_timestamp
         else:
-            tag = ""
+            self.last_boss = None
+            if self.last_continent_info:
+                point = get_closest_poi(map_info, continent_info)
+                if point:
+                    map_asset["large_text"] += " near " + point["name"]
+        map_asset["large_text"] += get_region()
         activiy = {
             "state": state,
-            "details": character.name + tag,
+            "details": details,
             "timestamps": {
-                'start': int(current_time)
+                'start': timestamp
             },
             "assets": {
-                **map_asset,
-                "small_image": character.profession_icon,
-                "small_text": "{0.race} {0.profession}".format(character)
+                **map_asset, "small_image": character.profession_icon,
+                "small_text": "{0.race} {0.profession}".format(character, tag)
             }
         }
         return activiy
 
     def in_character_selection(self):
-        current_time = time.time()
         activity = {
             "state": "in character selection",
-            "timestamps": {
-                'start': int(current_time)
-            },
             "assets": {
                 "large_image":
                 "default",
@@ -263,13 +303,61 @@ class GW2RPC:
         }
         return activity
 
+    def convert_mumble_coordinates(self, map_info, position):
+        crect = map_info["continent_rect"]
+        mrect = map_info["map_rect"]
+        x = crect[0][0] + (position.x - mrect[0][0]) / 24
+        y = crect[0][1] + (mrect[1][1] - position.y) / 24
+        return x, y
+
+    def find_closest_point(self, map_info, continent_info):
+        position = self.game.get_position()
+        x_coord, y_coord = self.convert_mumble_coordinates(map_info, position)
+        lowest_distance = float("inf")
+        point = None
+        for item in continent_info["points_of_interest"].values():
+            if "name" not in item:
+                continue
+            distance = (item["coord"][0] - x_coord)**2 + (
+                item["coord"][1] - y_coord)**2
+            if distance < lowest_distance:
+                lowest_distance = distance
+                point = item
+        return point
+
+    def find_closest_boss(self, map_info):
+        position = self.game.get_position()
+        x_coord, y_coord = self.convert_mumble_coordinates(map_info, position)
+        closest = None
+        for boss in self.registry["raids"][str(map_info["id"])]:
+            distance = math.sqrt((boss["coord"][0] - x_coord)**2 +
+                                 (boss["coord"][1] - y_coord)**2)
+            if "radius" in boss and distance < boss["radius"]:
+                if "height" in boss:
+                    if position.z < boss["height"]:
+                        closest = boss
+                else:
+                    closest = boss
+        return closest
+
     def main_loop(self):
-        def gw2_running():
-            if not self.process:
-                return False
-            if not self.process.is_running():
-                return False
-            return True
+        def update_gw2_process():
+            shutdown = False
+            if self.process:
+                if self.process.is_running():
+                    return
+                else:
+                    if config.close_with_gw2:
+                        shutdown = True
+            for process in psutil.process_iter():
+                name = process.name()
+                if name in ("Gw2-64.exe", "Gw2.exe"):
+                    self.process = process
+                    return
+            if shutdown:
+                self.shutdown()
+            self.process = None
+            raise GameNotRunningError
 
         def start_rpc():
             while True:
@@ -282,13 +370,16 @@ class GW2RPC:
         try:
             while True:
                 try:
-                    self.update_gw2_process()
-                    if not gw2_running():
-                        raise GameNotRunningError
+                    update_gw2_process()
+                    if not self.game.memfile:
+                        self.game.create_map()
                     if not self.rpc.running:
                         start_rpc()
                         log.debug("starting self.rpc")
-                    data = self.get_activity()
+                    try:
+                        data = self.get_activity()
+                    except requests.exceptions.ConnectionError:
+                        raise GameNotRunningError
                     if not data:
                         data = self.in_character_selection()
                     log.debug(data)
@@ -298,17 +389,11 @@ class GW2RPC:
                         raise GameNotRunningError  # To start a new connection
                 except GameNotRunningError:
                     #  TODO
+                    self.game.close_map()
                     if self.rpc.running:
-                        self.rpc.last_payload = {}
-                        self.rpc.last_pid = None
-                        self.rpc.last_update = time.time()
-                        self.game.last_character = None
-                        self.game.last_map_id = None
                         self.rpc.close()
                         log.debug("Killing RPC")
-                except DataUnchangedError:
-                    pass
-                time.sleep(config.update_frequency)
+                time.sleep(15)
         except Exception as e:
             log.critical("GW2RPC has crashed", exc_info=e)
             create_msgbox(
