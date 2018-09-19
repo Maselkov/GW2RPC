@@ -349,8 +349,8 @@ class GW2RPC:
                 else:
                     if config.close_with_gw2:
                         shutdown = True
-            for process in psutil.process_iter():
-                name = process.name()
+            for process in psutil.process_iter(attrs=['name']):
+                name = process.info['name']
                 if name in ("Gw2-64.exe", "Gw2.exe"):
                     self.process = process
                     return
