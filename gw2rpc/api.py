@@ -71,7 +71,7 @@ class GW2Api:
         return self._call_api("guild/" + gid)
 
     def _call_api(self, endpoint, *, key=None):
-        url = self._base_url + endpoint
+        url = self._base_url + endpoint + "?lang=" + config.lang
         if key:
             headers = {**self.__headers, **{"Authorization": "Bearer " + key}}
             r = requests.get(url, headers=headers)
