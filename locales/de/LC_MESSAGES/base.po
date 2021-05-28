@@ -121,7 +121,7 @@ msgstr "Holoschmied"
 
 #: gw2rpc/character.py:32
 msgid "Deadeye"
-msgstr ""
+msgstr "Scharfschütze"
 
 #: gw2rpc/character.py:33
 msgid "Mirage"
@@ -416,6 +416,9 @@ msgstr "Urbanes Schlachtfeld"
 
 msgid "Aquatic Ruins"
 msgstr "Unterwasserruinen"
+
+msgid "Siren's Reef"
+msgstr "Riff der Sirene"
 
 msgid "Cliffside"
 msgstr "Felswand"

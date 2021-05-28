@@ -416,7 +416,10 @@ msgid "Urban Battleground"
 msgstr ""
 
 msgid "Urban Battleground"
-msgstr "Aquatic Ruins"
+msgstr ""
+
+msgid "Siren's Reef"
+msgstr ""
 
 msgid "Aquatic Ruins"
 msgstr ""
