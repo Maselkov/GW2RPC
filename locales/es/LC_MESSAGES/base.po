@@ -161,7 +161,7 @@ msgstr "Desierto de Cristal"
 
 #: gw2rpc/gw2rpc.py:40
 msgid "Darkhaven"
-msgstr "Puertanegra"
+msgstr "Refugio Oscuro"
 
 #: gw2rpc/gw2rpc.py:40
 msgid "Devona's Rest"
