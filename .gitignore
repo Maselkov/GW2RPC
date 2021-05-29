@@ -1,3 +1,7 @@
+# gettext stuff
+pygettext.py
+msgfmt.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
