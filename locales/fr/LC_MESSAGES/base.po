@@ -469,8 +469,8 @@ msgstr "Roche des abysses"
 msgid "Sunqua Peak"
 msgstr "Pic de Sunqua"
 
-msgid "Skorvald the Shattered"
-msgstr "Skorvald le brisé"
+msgid "Skorvald"
+msgstr "Skorvald"
 
 msgid "Ensolyss"
 msgstr "Ensolyss"
@@ -487,5 +487,5 @@ msgstr "Arkk"
 msgid "M.A.M.A."
 msgstr "A.M.A.M."
 
-msgid "Siax the Corrupted"
-msgstr "Siax le corrompu"
+msgid "Siax"
+msgstr "Siax"

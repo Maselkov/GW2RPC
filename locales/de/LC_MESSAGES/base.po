@@ -465,8 +465,8 @@ msgstr "Tiefenstein"
 msgid "Sunqua Peak"
 msgstr "Sunqua-Gipfel"
 
-msgid "Skorvald the Shattered"
-msgstr "Skorvald der Zerschmetterte"
+msgid "Skorvald"
+msgstr "Skorvald"
 
 msgid "Ensolyss"
 msgstr "Ensolyss"
@@ -483,5 +483,5 @@ msgstr "Arkk"
 msgid "M.A.M.A."
 msgstr "M.A.M.A."
 
-msgid "Siax the Corrupted"
-msgstr "Siax der Verdorbene"
+msgid "Siax"
+msgstr "Siax"

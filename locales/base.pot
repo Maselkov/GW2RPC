@@ -466,7 +466,7 @@ msgstr ""
 msgid "Sunqua Peak"
 msgstr ""
 
-msgid "Skorvald the Shattered"
+msgid "Skorvald"
 msgstr ""
 
 msgid "Ensolyss"
@@ -484,5 +484,5 @@ msgstr ""
 msgid "M.A.M.A."
 msgstr ""
 
-msgid "Siax the Corrupted"
+msgid "Siax"
 msgstr ""

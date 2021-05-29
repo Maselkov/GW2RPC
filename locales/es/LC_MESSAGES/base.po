@@ -466,8 +466,8 @@ msgstr "Rocahonda"
 msgid "Sunqua Peak"
 msgstr "Pico de Sunqua"
 
-msgid "Skorvald the Shattered"
-msgstr "Skorvald el Asolado"
+msgid "Skorvald"
+msgstr "Skorvald"
 
 msgid "Ensolyss"
 msgstr ""
@@ -484,5 +484,5 @@ msgstr ""
 msgid "M.A.M.A."
 msgstr ""
 
-msgid "Siax the Corrupted"
-msgstr "Siax el Corrompido"
+msgid "Siax"
+msgstr "Siax"
