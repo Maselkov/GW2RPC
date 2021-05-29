@@ -166,25 +166,12 @@ class GW2RPC:
         if self.registry:
             if region == "26":  #  Fractals of the Mists 
                 image = "fotm"
-                found_flag = False
                 for fractal in self.registry["fractals"]:
-                    if map_id in [1177, 1205, 1384]:
-                        if fractal["id"] == map_id:
-                            for boss in fractal["bosses"]:
-                                distance = math.sqrt((boss["coord"][0] - position.x)**2 +
-                                            (boss["coord"][1] - position.y)**2)
-                                
-                                if distance <= boss["radius"]:
-                                    state = _("fighting ") + _(boss["name"]) + " " + _("in ") + _(fractal["name"]) + _(" fractal")
-                                    # TODO refactor this into a function
-                                    found_flag = True
-                                    break
-                                else:
-                                    state = _(fractal["name"]) + _(" fractal")
-                            if found_flag:
-                                break
+                    state = self.find_fractal_boss(map_id, fractal, position)
+                    if state:
+                        break
 
-                    elif fractal["id"] == map_id:
+                    if fractal["id"] == map_id:
                         state = _(fractal["name"]) + _(" fractal")
                         break
                 else:
@@ -196,8 +183,8 @@ class GW2RPC:
                     image = self.registry["special"][map_name]
                 elif map_id in self.registry["valid"]:
                     # TODO: Images for strike missions (i.e. map_id 1341) are missing
-                    #image = map_id
-                    image = self.registry["regions"][region]
+                    image = map_id
+                    #image = self.registry["regions"][region]
                 elif region in self.registry["regions"]:
                     image = self.registry["regions"][region]
                 else:
@@ -378,6 +365,22 @@ class GW2RPC:
                     closest = boss
         return closest
 
+    def find_fractal_boss(self, map_id, fractal, position):
+        state = None
+        if map_id in [1177, 1205, 1384]:
+            if fractal["id"] == map_id:
+                for boss in fractal["bosses"]:
+                    distance = math.sqrt((boss["coord"][0] - position.x)**2 +
+                                (boss["coord"][1] - position.y)**2)
+                    
+                    if distance <= boss["radius"]:
+                        state = _("fighting ") + _(boss["name"]) + " " + _("in ") + _(fractal["name"]) + _(" fractal")
+                        return state
+                    else:
+                        state = _(fractal["name"]) + _(" fractal")
+        else:
+            return None
+        return state
     def main_loop(self):
         def update_gw2_process():
             shutdown = False
