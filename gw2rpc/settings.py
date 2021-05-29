@@ -11,8 +11,7 @@ class Config:
                 value = False
             return value
 
-        #supported_languages = ["en", "es", "de", "fr"]
-        supported_languages = ["en", "de"]
+        supported_languages = ["en", "es", "de", "fr"]
 
         config = configparser.ConfigParser(allow_no_value=True)
         if not os.path.exists("config.ini"):
@@ -34,7 +33,10 @@ class Config:
         ]
         self.close_with_gw2 = set_boolean("Settings", "CloseWithGw2")
         self.display_tag = set_boolean("Settings", "DisplayGuildTag")
-        self.lang = config["Settings"]["Lang"] if config["Settings"]["Lang"] in supported_languages else "en"
+        if not "Lang" in config["Settings"] or "lang" in config["Settings"]:
+            self.lang = "en"
+        else:
+            self.lang = config["Settings"]["Lang"] if config["Settings"]["Lang"] in supported_languages else "en"
         self.disable_pois = set_boolean("PointsOfInterest",
                                         "DisableCompletely")
         self.disable_pois_in_wvw = set_boolean("PointsOfInterest",
