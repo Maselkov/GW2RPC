@@ -158,25 +158,46 @@ class GW2RPC:
         #region = map_info.get("region_name", "thanks_anet")
         region = str(map_info.get("region_id", "thanks_anet"))
 
-        print(map_info)
-        print(region)
-        print(self.registry["regions"])
+        #print(map_info)
+
+        position = self.game.get_position()
+        print("{} {}".format(position.x, position.y))
 
         if self.registry:
             if region == "26":  #  Fractals of the Mists 
                 image = "fotm"
+                found_flag = False
                 for fractal in self.registry["fractals"]:
-                    if fractal["id"] == map_id:
+                    if map_id in [1177, 1205, 1384]:
+                        if fractal["id"] == map_id:
+                            for boss in fractal["bosses"]:
+                                distance = math.sqrt((boss["coord"][0] - position.x)**2 +
+                                            (boss["coord"][1] - position.y)**2)
+                                
+                                if distance <= boss["radius"]:
+                                    state = _("fighting ") + _(boss["name"]) + " " + _("in ") + _(fractal["name"]) + _(" fractal")
+                                    # TODO refactor this into a function
+                                    found_flag = True
+                                    break
+                                else:
+                                    state = _(fractal["name"]) + _(" fractal")
+                            if found_flag:
+                                break
+
+                    elif fractal["id"] == map_id:
                         state = _(fractal["name"]) + _(" fractal")
                         break
                 else:
-                    state = _("Fractals of the Mists")
+                    if not state:
+                        state = _("Fractals of the Mists")
                 name = "Fractals of the Mists"
             else:
                 if map_name in self.registry["special"]:
                     image = self.registry["special"][map_name]
                 elif map_id in self.registry["valid"]:
-                    image = map_id
+                    # TODO: Images for strike missions (i.e. map_id 1341) are missing
+                    #image = map_id
+                    image = self.registry["regions"][region]
                 elif region in self.registry["regions"]:
                     image = self.registry["regions"][region]
                 else:
@@ -222,7 +243,6 @@ class GW2RPC:
             state = _("fighting ")
         else:
             state = _("completing ")
-
         name = readable_id(boss["id"])
         state += name
         if self.last_boss != boss["id"]:

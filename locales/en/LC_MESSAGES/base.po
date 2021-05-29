@@ -469,4 +469,23 @@ msgstr ""
 msgid "Sunqua Peak"
 msgstr ""
 
+msgid "Skorvald the Shattered"
+msgstr ""
 
+msgid "Ensolyss"
+msgstr ""
+
+msgid "Ai"
+msgstr ""
+
+msgid "Artsariiv"
+msgstr ""
+
+msgid "Arkk"
+msgstr ""
+
+msgid "M.A.M.A."
+msgstr ""
+
+msgid "Siax the Corrupted"
+msgstr ""

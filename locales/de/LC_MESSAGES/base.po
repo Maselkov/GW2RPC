@@ -145,203 +145,203 @@ msgstr "Abtrünniger"
 
 #: gw2rpc/gw2rpc.py:39
 msgid "Anvil Rock"
-msgstr ""
+msgstr "Amboss-Stein"
 
 #: gw2rpc/gw2rpc.py:39
 msgid "Blackgate"
-msgstr ""
+msgstr "Schwarztor"
 
 #: gw2rpc/gw2rpc.py:39
 msgid "Borlis Pass"
-msgstr ""
+msgstr "Borlis-Pass"
 
 #: gw2rpc/gw2rpc.py:39
 msgid "Crystal Desert"
-msgstr ""
+msgstr "Kristallwüste"
 
 #: gw2rpc/gw2rpc.py:40
 msgid "Darkhaven"
-msgstr ""
+msgstr "Finsterfreistatt"
 
 #: gw2rpc/gw2rpc.py:40
 msgid "Devona's Rest"
-msgstr ""
+msgstr "Devonas Ruh"
 
 #: gw2rpc/gw2rpc.py:40
 msgid "Dragonbrand"
-msgstr ""
+msgstr "Drachenbrand"
 
 #: gw2rpc/gw2rpc.py:40
 msgid "Ehmry Bay"
-msgstr ""
+msgstr "Ehmry-Bucht"
 
 #: gw2rpc/gw2rpc.py:41
 msgid "Eredon Terrace"
-msgstr ""
+msgstr "Eredon-Terrasse"
 
 #: gw2rpc/gw2rpc.py:41
 msgid "Ferguson's Crossing"
-msgstr ""
+msgstr "Fergusons-Kreuzung"
 
 #: gw2rpc/gw2rpc.py:41
 msgid "Fort Aspenwood"
-msgstr ""
+msgstr "Fort Epsenwald"
 
 #: gw2rpc/gw2rpc.py:42
 msgid "Gate of Madness"
-msgstr ""
+msgstr "Tor des Wahnsinns"
 
 #: gw2rpc/gw2rpc.py:42
 msgid "Henge of Denravi"
-msgstr ""
+msgstr "Steinkreis von Denravi"
 
 #: gw2rpc/gw2rpc.py:42
 msgid "Isle of Janthir"
-msgstr ""
+msgstr "Janthir-Insel"
 
 #: gw2rpc/gw2rpc.py:43
 msgid "Jade Quarry"
-msgstr ""
+msgstr "Jade-Steinbruch"
 
 #: gw2rpc/gw2rpc.py:43
 msgid "Kaineng"
-msgstr ""
+msgstr "Kaineng"
 
 #: gw2rpc/gw2rpc.py:43
 msgid "Maguuma"
-msgstr ""
+msgstr "Maguuma"
 
 #: gw2rpc/gw2rpc.py:43
 msgid "Northern Shiverpeaks"
-msgstr ""
+msgstr "Nördliche Zittergipfel"
 
 #: gw2rpc/gw2rpc.py:44
 msgid "Sanctum of Rall"
-msgstr ""
+msgstr "Heilige Halle von Rall"
 
 #: gw2rpc/gw2rpc.py:44
 msgid "Sea of Sorrows"
-msgstr ""
+msgstr "Meer des Leids"
 
 #: gw2rpc/gw2rpc.py:44
 msgid "Sorrow's Furnace"
-msgstr ""
+msgstr "Hochofen der Betrübnis"
 
 #: gw2rpc/gw2rpc.py:45
 msgid "Stormbluff Isle"
-msgstr ""
+msgstr "Sturmklippen-Insel"
 
 #: gw2rpc/gw2rpc.py:45
 msgid "Tarnished Coast"
-msgstr ""
+msgstr "Befleckte Küste"
 
 #: gw2rpc/gw2rpc.py:45
 msgid "Yak's Bend"
-msgstr ""
+msgstr "Yakbiegung"
 
 #: gw2rpc/gw2rpc.py:48
 msgid "Aurora Glade"
-msgstr ""
+msgstr "Auroralichtung"
 
 #: gw2rpc/gw2rpc.py:48
 msgid "Blacktide"
-msgstr ""
+msgstr "Schwarzwasser"
 
 #: gw2rpc/gw2rpc.py:48
 msgid "Desolation"
-msgstr ""
+msgstr "Ödnis"
 
 #: gw2rpc/gw2rpc.py:48
 msgid "Far Shiverpeaks"
-msgstr ""
+msgstr "Ferne Zittergipfel"
 
 #: gw2rpc/gw2rpc.py:49
 msgid "Fissure of Woe"
-msgstr ""
+msgstr "Riss des Kummers"
 
 #: gw2rpc/gw2rpc.py:49
 msgid "Gandara"
-msgstr ""
+msgstr "Gandara"
 
 #: gw2rpc/gw2rpc.py:49
 msgid "Gunnar's Hold"
-msgstr ""
+msgstr "Gunnars Feste"
 
 #: gw2rpc/gw2rpc.py:49
 msgid "Piken Square"
-msgstr ""
+msgstr "Piken-Platz"
 
 #: gw2rpc/gw2rpc.py:50
 msgid "Ring of Fire"
-msgstr ""
+msgstr "Feuerring"
 
 #: gw2rpc/gw2rpc.py:50
 msgid "Ruins of Surmia"
-msgstr ""
+msgstr "Ruinen von Surmia"
 
 #: gw2rpc/gw2rpc.py:50
 msgid "Seafarer's Rest"
-msgstr ""
+msgstr "Seemannsruh"
 
 #: gw2rpc/gw2rpc.py:50
 msgid "Underworld"
-msgstr ""
+msgstr "Unterwelt"
 
 #: gw2rpc/gw2rpc.py:51
 msgid "Arborstone [FR]"
-msgstr ""
+msgstr "Arborstein [FR]"
 
 #: gw2rpc/gw2rpc.py:51
 msgid "Augury Rock [FR]"
-msgstr ""
+msgstr "Fels der Weissagung [FR]"
 
 #: gw2rpc/gw2rpc.py:51
 msgid "Vabbi"
-msgstr ""
+msgstr "Vaabi"
 
 #: gw2rpc/gw2rpc.py:51
 msgid "Whiteside Ridge"
-msgstr ""
+msgstr "Weißflankgrat"
 
 #: gw2rpc/gw2rpc.py:52
 msgid "Fort Ranik [FR]"
-msgstr ""
+msgstr "Fort Ranik [FR]"
 
 #: gw2rpc/gw2rpc.py:52
 msgid "Jade Sea [FR]"
-msgstr ""
+msgstr "Jademeer [FR]"
 
 #: gw2rpc/gw2rpc.py:52
 msgid "Vizunah Square [FR]"
-msgstr ""
+msgstr "Vizunah-Platz [FR]"
 
 #: gw2rpc/gw2rpc.py:53
 msgid "Abaddon's Mouth [DE]"
-msgstr ""
+msgstr "Abaddons Maul [DE]"
 
 #: gw2rpc/gw2rpc.py:53
 msgid "Drakkar Lake [DE]"
-msgstr ""
+msgstr "Drakkar-See [DE]"
 
 #: gw2rpc/gw2rpc.py:53
 msgid "Dzagonur [DE]"
-msgstr ""
+msgstr "Dzagonur [DE]"
 
 #: gw2rpc/gw2rpc.py:54
 msgid "Elona Reach [DE]"
-msgstr ""
+msgstr "Elonaspitze [DE]"
 
 #: gw2rpc/gw2rpc.py:54
 msgid "Kodash [DE]"
-msgstr ""
+msgstr "Kodash [DE]"
 
 #: gw2rpc/gw2rpc.py:54
 msgid "Miller's Sound [DE]"
-msgstr ""
+msgstr "Millersund [DE]"
 
 #: gw2rpc/gw2rpc.py:55
 msgid "Baruch Bay [SP]"
-msgstr ""
+msgstr "Baruch Bucht [ES]"
 
 #: gw2rpc/gw2rpc.py:55
 msgid "Riverside [DE]"
@@ -361,7 +361,7 @@ msgstr "Guild Wars 2 mit Discord"
 
 #: gw2rpc/gw2rpc.py:137
 msgid "Could not check for updates - check your connection!"
-msgstr "Konnte nicht nach Updates suchen - Verbindung prüfen!"
+msgstr "Konnte nicht nach Updates suchen - Bitte Verbindung prüfen!"
 
 #: gw2rpc/gw2rpc.py:143
 msgid "There is a new update for GW2 Rich Presence available. Would you like to be taken to the download page now?"
@@ -454,7 +454,7 @@ msgid "Nightmare"
 msgstr "Albtraum"
 
 msgid "Shattered Observatory"
-msgstr "Zerschmetterstes Observatorium"
+msgstr "Zerschmettertes Observatorium"
 
 msgid "Twilight Oasis"
 msgstr "Zwielichtoase"
@@ -465,3 +465,23 @@ msgstr "Tiefenstein"
 msgid "Sunqua Peak"
 msgstr "Sunqua-Gipfel"
 
+msgid "Skorvald the Shattered"
+msgstr "Skorvald der Zerschmetterte"
+
+msgid "Ensolyss"
+msgstr "Ensolyss"
+
+msgid "Ai"
+msgstr "Ai"
+
+msgid "Artsariiv"
+msgstr "Artsariiv"
+
+msgid "Arkk"
+msgstr "Arkk"
+
+msgid "M.A.M.A."
+msgstr "M.A.M.A."
+
+msgid "Siax the Corrupted"
+msgstr "Siax der Verdorbene"
