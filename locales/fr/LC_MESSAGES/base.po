@@ -17,456 +17,455 @@ msgstr ""
 
 #: gw2rpc/character.py:6
 msgid "Guardian"
-msgstr ""
+msgstr "Gardien"
 
 #: gw2rpc/character.py:7
 msgid "Warrior"
-msgstr ""
+msgstr "Guerrier"
 
 #: gw2rpc/character.py:8
 msgid "Engineer"
-msgstr ""
+msgstr "Ingénieur"
 
 #: gw2rpc/character.py:9
 msgid "Ranger"
-msgstr ""
+msgstr "Rôdeur"
 
 #: gw2rpc/character.py:10
 msgid "Thief"
-msgstr ""
+msgstr "Voleur"
 
 #: gw2rpc/character.py:11
 msgid "Elementalist"
-msgstr ""
+msgstr "Elémentaliste"
 
 #: gw2rpc/character.py:12
 msgid "Mesmer"
-msgstr ""
+msgstr "Envouteur"
 
 #: gw2rpc/character.py:13
 msgid "Necromancer"
-msgstr ""
+msgstr "Nécromancien"
 
 #: gw2rpc/character.py:14
 msgid "Revenant"
-msgstr ""
+msgstr "Revenant"
 
 #: gw2rpc/character.py:17
 msgid "Asura"
-msgstr ""
+msgstr "Asura"
 
 #: gw2rpc/character.py:17
 msgid "Charr"
-msgstr ""
+msgstr "Charr"
 
 #: gw2rpc/character.py:17
 msgid "Human"
-msgstr ""
+msgstr "Humain"
 
 #: gw2rpc/character.py:17
 msgid "Norn"
-msgstr ""
+msgstr "Norn"
 
 #: gw2rpc/character.py:17
 msgid "Sylvari"
-msgstr ""
+msgstr "Sylvari"
 
 #: gw2rpc/character.py:20
 msgid "Druid"
-msgstr ""
+msgstr "Druide"
 
 #: gw2rpc/character.py:21
 msgid "Daredevil"
-msgstr ""
+msgstr "Fracasseur"
 
 #: gw2rpc/character.py:22
 msgid "Berserker"
-msgstr ""
+msgstr "Berserker"
 
 #: gw2rpc/character.py:23
 msgid "Dragonhunter"
-msgstr ""
+msgstr "Draconnier"
 
 #: gw2rpc/character.py:24
 msgid "Reaper"
-msgstr ""
+msgstr "Faucheur"
 
 #: gw2rpc/character.py:25
 msgid "Chronomancer"
-msgstr ""
+msgstr "Chronomancien"
 
 #: gw2rpc/character.py:26
 msgid "Scrapper"
-msgstr ""
+msgstr "Mécatronicien"
 
 #: gw2rpc/character.py:27
 msgid "Tempest"
-msgstr ""
+msgstr "Cataclyste"
 
 #: gw2rpc/character.py:28
 msgid "Herald"
-msgstr ""
+msgstr "Hérault"
 
 #: gw2rpc/character.py:29
 msgid "Soulbeast"
-msgstr ""
+msgstr "Animorphe"
 
 #: gw2rpc/character.py:30
 msgid "Weaver"
-msgstr ""
+msgstr "Tissesort"
 
 #: gw2rpc/character.py:31
 msgid "Holosmith"
-msgstr ""
+msgstr "Holographiste"
 
 #: gw2rpc/character.py:32
 msgid "Deadeye"
-msgstr ""
+msgstr "Sniper"
 
 #: gw2rpc/character.py:33
 msgid "Mirage"
-msgstr ""
+msgstr "Mirage"
 
 #: gw2rpc/character.py:34
 msgid "Scourge"
-msgstr ""
+msgstr "Fléau"
 
 #: gw2rpc/character.py:35
 msgid "Spellbreaker"
-msgstr ""
+msgstr "Brisesort"
 
 #: gw2rpc/character.py:36
 msgid "Firebrand"
-msgstr ""
+msgstr "Incendiaire"
 
 #: gw2rpc/character.py:37
 msgid "Renegade"
-msgstr ""
+msgstr "Renégat"
 
 #: gw2rpc/gw2rpc.py:39
 msgid "Anvil Rock"
-msgstr ""
+msgstr "Rocher de l'enclume"
 
 #: gw2rpc/gw2rpc.py:39
 msgid "Blackgate"
-msgstr ""
+msgstr "Portenoire"
 
 #: gw2rpc/gw2rpc.py:39
 msgid "Borlis Pass"
-msgstr ""
+msgstr "Passage de Borlis"
 
 #: gw2rpc/gw2rpc.py:39
 msgid "Crystal Desert"
-msgstr ""
+msgstr "Désert de cristal"
 
 #: gw2rpc/gw2rpc.py:40
 msgid "Darkhaven"
-msgstr ""
+msgstr "Refuge noir"
 
 #: gw2rpc/gw2rpc.py:40
 msgid "Devona's Rest"
-msgstr ""
+msgstr "Repos de Devona"
 
 #: gw2rpc/gw2rpc.py:40
 msgid "Dragonbrand"
-msgstr ""
+msgstr "Stigmate du dragon"
 
 #: gw2rpc/gw2rpc.py:40
 msgid "Ehmry Bay"
-msgstr ""
+msgstr "Baie d'Ehmry"
 
 #: gw2rpc/gw2rpc.py:41
 msgid "Eredon Terrace"
-msgstr ""
+msgstr "Plateau d'Eredon"
 
 #: gw2rpc/gw2rpc.py:41
 msgid "Ferguson's Crossing"
-msgstr ""
+msgstr "Croisée de Ferguson"
 
 #: gw2rpc/gw2rpc.py:41
 msgid "Fort Aspenwood"
-msgstr ""
+msgstr "Fort Trembleforêt"
 
 #: gw2rpc/gw2rpc.py:42
 msgid "Gate of Madness"
-msgstr ""
+msgstr "Porte de la folie"
 
 #: gw2rpc/gw2rpc.py:42
 msgid "Henge of Denravi"
-msgstr ""
+msgstr "Cromlech de Denravi"
 
 #: gw2rpc/gw2rpc.py:42
 msgid "Isle of Janthir"
-msgstr ""
+msgstr "Ile de Janthir"
 
 #: gw2rpc/gw2rpc.py:43
 msgid "Jade Quarry"
-msgstr ""
+msgstr "Carrière de jade"
 
 #: gw2rpc/gw2rpc.py:43
 msgid "Kaineng"
-msgstr ""
+msgstr "Kaineng"
 
 #: gw2rpc/gw2rpc.py:43
 msgid "Maguuma"
-msgstr ""
+msgstr "Maguuma"
 
 #: gw2rpc/gw2rpc.py:43
 msgid "Northern Shiverpeaks"
-msgstr ""
+msgstr "Cimefroides du nord"
 
 #: gw2rpc/gw2rpc.py:44
 msgid "Sanctum of Rall"
-msgstr ""
+msgstr "Sanctuaire de Rall"
 
 #: gw2rpc/gw2rpc.py:44
 msgid "Sea of Sorrows"
-msgstr ""
+msgstr "Mer des lamentations"
 
 #: gw2rpc/gw2rpc.py:44
 msgid "Sorrow's Furnace"
-msgstr ""
+msgstr "Fournaise des lamentations"
 
 #: gw2rpc/gw2rpc.py:45
 msgid "Stormbluff Isle"
-msgstr ""
+msgstr "Ile e la Falaise tumultueuse"
 
 #: gw2rpc/gw2rpc.py:45
 msgid "Tarnished Coast"
-msgstr ""
+msgstr "Côte ternie"
 
 #: gw2rpc/gw2rpc.py:45
 msgid "Yak's Bend"
-msgstr ""
+msgstr "Courbe du Yak"
 
 #: gw2rpc/gw2rpc.py:48
 msgid "Aurora Glade"
-msgstr ""
+msgstr "Clairière de l'aurore"
 
 #: gw2rpc/gw2rpc.py:48
 msgid "Blacktide"
-msgstr ""
+msgstr "Noirflot"
 
 #: gw2rpc/gw2rpc.py:48
 msgid "Desolation"
-msgstr ""
+msgstr "Désolation"
 
 #: gw2rpc/gw2rpc.py:48
 msgid "Far Shiverpeaks"
-msgstr ""
+msgstr "Lointaines Cimefroides"
 
 #: gw2rpc/gw2rpc.py:49
 msgid "Fissure of Woe"
-msgstr ""
+msgstr "Fissure du malheur"
 
 #: gw2rpc/gw2rpc.py:49
 msgid "Gandara"
-msgstr ""
+msgstr "Gandara"
 
 #: gw2rpc/gw2rpc.py:49
 msgid "Gunnar's Hold"
-msgstr ""
+msgstr "Campement de Gunnar"
 
 #: gw2rpc/gw2rpc.py:49
 msgid "Piken Square"
-msgstr ""
+msgstr "Place Piken"
 
 #: gw2rpc/gw2rpc.py:50
 msgid "Ring of Fire"
-msgstr ""
+msgstr "Cercle de feu"
 
 #: gw2rpc/gw2rpc.py:50
 msgid "Ruins of Surmia"
-msgstr ""
+msgstr "Ruines de Surmia"
 
 #: gw2rpc/gw2rpc.py:50
 msgid "Seafarer's Rest"
-msgstr ""
+msgstr "Repos du Marin"
 
 #: gw2rpc/gw2rpc.py:50
 msgid "Underworld"
-msgstr ""
+msgstr "Outre-monde"
 
 #: gw2rpc/gw2rpc.py:51
 msgid "Arborstone [FR]"
-msgstr ""
+msgstr "Pierre Arborea [FR]"
 
 #: gw2rpc/gw2rpc.py:51
 msgid "Augury Rock [FR]"
-msgstr ""
+msgstr "Roche de l'augure [FR]"
 
 #: gw2rpc/gw2rpc.py:51
 msgid "Vabbi"
-msgstr ""
+msgstr "Vabbi"
 
 #: gw2rpc/gw2rpc.py:51
 msgid "Whiteside Ridge"
-msgstr ""
+msgstr "Crête de Verseblanc"
 
 #: gw2rpc/gw2rpc.py:52
 msgid "Fort Ranik [FR]"
-msgstr ""
+msgstr "Fort Ranik [FR]"
 
 #: gw2rpc/gw2rpc.py:52
 msgid "Jade Sea [FR]"
-msgstr ""
+msgstr "Mer de Jade [FR]"
 
 #: gw2rpc/gw2rpc.py:52
 msgid "Vizunah Square [FR]"
-msgstr ""
+msgstr "Place de Vizunah [FR]"
 
 #: gw2rpc/gw2rpc.py:53
 msgid "Abaddon's Mouth [DE]"
-msgstr ""
+msgstr "Bouche d'Abaddon [DE]"
 
 #: gw2rpc/gw2rpc.py:53
 msgid "Drakkar Lake [DE]"
-msgstr ""
+msgstr "Lac Drakkar [DE]"
 
 #: gw2rpc/gw2rpc.py:53
 msgid "Dzagonur [DE]"
-msgstr ""
+msgstr "Dzagonur [DE]"
 
 #: gw2rpc/gw2rpc.py:54
 msgid "Elona Reach [DE]"
-msgstr ""
+msgstr "Bief d'Elona [DE]"
 
 #: gw2rpc/gw2rpc.py:54
 msgid "Kodash [DE]"
-msgstr ""
+msgstr "Kodash [DE]"
 
 #: gw2rpc/gw2rpc.py:54
 msgid "Miller's Sound [DE]"
-msgstr ""
+msgstr "Détroit de Miller [DE]"
 
 #: gw2rpc/gw2rpc.py:55
 msgid "Baruch Bay [SP]"
-msgstr ""
+msgstr "Baie de Baruch [SP]"
 
 #: gw2rpc/gw2rpc.py:55
 msgid "Riverside [DE]"
-msgstr ""
+msgstr "Provinces fluviales [DE]"
 
 #: gw2rpc/gw2rpc.py:92
 msgid "About"
-msgstr ""
+msgstr "À propos"
 
 #: gw2rpc/gw2rpc.py:94
 msgid "Join support server"
-msgstr ""
+msgstr "Rejoindre le serveur d'assistance"
 
 #: gw2rpc/gw2rpc.py:97
 msgid "Guild Wars 2 with Discord"
-msgstr ""
+msgstr "Guild Wars 2 avec Discord"
 
 #: gw2rpc/gw2rpc.py:137
 msgid "Could not check for updates - check your connection!"
-msgstr ""
+msgstr "Impossible de vérifier les mises à jour - vérifiez votre connexion!"
 
 #: gw2rpc/gw2rpc.py:143
 msgid "There is a new update for GW2 Rich Presence available. Would you like to be taken to the download page now?"
-msgstr ""
+msgstr "Il y a une mise à jour disponible pour GW2 Rich Presence. Souhaitez-vous vous rendre à la page de téléchargement immédiatement?"
 
 #: gw2rpc/gw2rpc.py:165
 msgid "Fractals of the Mists"
-msgstr ""
+msgstr "Fractales des Brumes"
 
 #: gw2rpc/gw2rpc.py:170
 msgid " fractal"
-msgstr ""
+msgstr " fractale"
 
 #: gw2rpc/gw2rpc.py:198 gw2rpc/gw2rpc.py:199
 msgid "in "
-msgstr ""
+msgstr "dans "
 
 #: gw2rpc/gw2rpc.py:214
 msgid "fighting "
-msgstr ""
+msgstr "en combat contre "
 
 #: gw2rpc/gw2rpc.py:216
 msgid "completing "
-msgstr ""
+msgstr "fin du combat contre "
 
 #: gw2rpc/gw2rpc.py:285
 msgid " near "
-msgstr ""
+msgstr " près de "
 
 #: gw2rpc/gw2rpc.py:302
 msgid "in character selection"
-msgstr ""
+msgstr "dans la sélection de personnage"
 
 #: gw2rpc/gw2rpc.py:307
 msgid "Character Selection"
-msgstr ""
+msgstr "Sélection de personnage"
 
 
 msgid "Mistlock Observatory"
-msgstr ""
+msgstr "Sanctuaire de Gardebrume"
 
 msgid "Uncategorized"
-msgstr ""
+msgstr "Non classée"
 
 msgid "Snowblind"
-msgstr ""
+msgstr "Aveugleneige"
 
 msgid "Swampland"
-msgstr ""
+msgstr "Marais"
 
 msgid "Urban Battleground"
-msgstr ""
+msgstr "Champ de bataille urbain"
 
 msgid "Urban Battleground"
-msgstr ""
+msgstr "Champ de bataille urbain"
 
 msgid "Siren's Reef"
-msgstr ""
+msgstr "Récif de la sirène"
 
 msgid "Aquatic Ruins"
-msgstr ""
+msgstr "Ruines aquatiques"
 
 msgid "Cliffside"
-msgstr ""
+msgstr "Flanc de falaise"
 
 msgid "Underground Facility"
-msgstr ""
+msgstr "Complexe souterrain"
 
 msgid "Volcanic"
-msgstr ""
+msgstr "Volcanique"
 
 msgid "Molten Furnace"
-msgstr ""
+msgstr "Fournaise de la Fusion"
 
 msgid "Aetherblade"
-msgstr ""
+msgstr "Etherlame"
 
 msgid "Thaumanova Reactor"
-msgstr ""
+msgstr "Réacteur de Thaumanova"
 
 msgid "Solid Ocean"
-msgstr ""
+msgstr "Océan solide"
 
 msgid "Molten Boss"
-msgstr ""
+msgstr "Boss de la Fusion"
 
 msgid "Mai Trin"
-msgstr ""
+msgstr "Mai Trin"
 
 msgid "Chaos"
-msgstr ""
+msgstr "Chaos"
 
 msgid "Nightmare"
-msgstr ""
+msgstr "Cauchemars"
 
 msgid "Shattered Observatory"
-msgstr ""
+msgstr "Observatoire détruit"
 
 msgid "Twilight Oasis"
-msgstr ""
+msgstr "Oasis du crépuscule"
 
 msgid "Deepstone"
-msgstr ""
+msgstr "Roche des abysses"
 
 msgid "Sunqua Peak"
-msgstr ""
-
+msgstr "Pic de Sunqua"
 
