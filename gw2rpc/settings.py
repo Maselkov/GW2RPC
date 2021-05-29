@@ -1,5 +1,8 @@
 import configparser
 import os
+import logging
+
+log = logging.getLogger()
 
 
 class Config:
@@ -33,10 +36,11 @@ class Config:
         ]
         self.close_with_gw2 = set_boolean("Settings", "CloseWithGw2")
         self.display_tag = set_boolean("Settings", "DisplayGuildTag")
-        if not "Lang" in config["Settings"] or "lang" in config["Settings"]:
-            self.lang = "en"
-        else:
+        try:
             self.lang = config["Settings"]["Lang"] if config["Settings"]["Lang"] in supported_languages else "en"
+        except KeyError:
+            log.error("Missing language parameter, defaulting to en. Add 'lang = en' for localization support to config.ini.")
+            self.lang = "en"
         self.disable_pois = set_boolean("PointsOfInterest",
                                         "DisableCompletely")
         self.disable_pois_in_wvw = set_boolean("PointsOfInterest",
