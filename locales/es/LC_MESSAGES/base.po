@@ -372,8 +372,8 @@ msgid "Fractals of the Mists"
 msgstr "Fractales de la Niebla"
 
 #: gw2rpc/gw2rpc.py:170
-msgid " fractal"
-msgstr " fractal"
+msgid "fractal"
+msgstr "fractal"
 
 #: gw2rpc/gw2rpc.py:198 gw2rpc/gw2rpc.py:199
 msgid "in "
