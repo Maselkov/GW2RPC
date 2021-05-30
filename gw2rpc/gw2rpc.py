@@ -20,6 +20,13 @@ from .mumble import MumbleData
 from .rpc import DiscordRPC
 from .settings import config
 
+import sys
+import os
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
+
 VERSION = 2.1
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v1/"
@@ -28,7 +35,11 @@ GW2RPC_APP_ID = "385475290614464513"
 
 log = logging.getLogger()
 
-lang = gettext.translation('base', localedir='locales', languages=[config.lang])
+# First one only for building
+locales_path = resource_path("./locales")
+locales_path = resource_path("../locales")
+
+lang = gettext.translation('base', localedir=locales_path, languages=[config.lang])
 lang.install()
 _ = lang.gettext
 
@@ -68,7 +79,10 @@ class GW2RPC:
     def __init__(self):
         def fetch_registry():
             
-            registry = json.loads(open('gw2rpc/registry.json').read())
+            # First one only for building
+            registry_path = resource_path('./data/registry.json')
+            registry_path = resource_path('../data/registry.json')
+            registry = json.loads(open(registry_path).read())
             return registry
 
             #url = GW2RPC_BASE_URL + "registry"
@@ -172,11 +186,11 @@ class GW2RPC:
                         break
 
                     if fractal["id"] == map_id:
-                        state = _(fractal["name"]) + _(" fractal")
+                        state = _("in ") + _("fractal") + ": " + _(fractal["name"]) 
                         break
                 else:
                     if not state:
-                        state = _("Fractals of the Mists")
+                        state = _("in ") + _("Fractals of the Mists")
                 name = "Fractals of the Mists"
             else:
                 if map_name in self.registry["special"]:
@@ -190,7 +204,7 @@ class GW2RPC:
                 else:
                     image = "default"
                 name = map_name
-                state = name
+                state = _("in ") + name
         else:
             # Fallback for api
             special = {
@@ -210,9 +224,9 @@ class GW2RPC:
                 else:
                     image = "default"
             name = map_name
-            state = name
-        print(_("in ") + state, {"large_image": str(image), "large_text":  _(name)})
-        return _("in ") + state, {"large_image": str(image), "large_text":  _(name)}
+            state = _("in ") + name
+        print(state, {"large_image": str(image), "large_text":  _(name)})
+        return state, {"large_image": str(image), "large_text":  _(name)}
 
     def get_raid_assets(self, map_info):
         def readable_id(_id):
@@ -374,10 +388,10 @@ class GW2RPC:
                                 (boss["coord"][1] - position.y)**2)
                     
                     if distance <= boss["radius"]:
-                        state = _("fighting ") + _(boss["name"]) + " " + _("in ") + _(fractal["name"]) + _(" fractal")
+                        state = _("fighting ") + _(boss["name"]) + " " + _("in ") + _(fractal["name"])
                         return state
                     else:
-                        state = _(fractal["name"]) + _(" fractal")
+                        state = _("in ") + _("fractal") + ": " + _(fractal["name"])
         else:
             return None
         return state
