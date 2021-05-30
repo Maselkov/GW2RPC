@@ -37,7 +37,7 @@ log = logging.getLogger()
 
 # First one only for building
 locales_path = resource_path("./locales")
-locales_path = resource_path("../locales")
+#locales_path = resource_path("../locales")
 
 lang = gettext.translation('base', localedir=locales_path, languages=[config.lang])
 lang.install()
@@ -81,7 +81,7 @@ class GW2RPC:
             
             # First one only for building
             registry_path = resource_path('./data/registry.json')
-            registry_path = resource_path('../data/registry.json')
+            #registry_path = resource_path('../data/registry.json')
             registry = json.loads(open(registry_path).read())
             return registry
 
@@ -132,7 +132,7 @@ class GW2RPC:
     def about(self, _):
         message = (
             "Version: {}\n\nhttps://gw2rpc.info\n\nBy Maselkov & "
-            "N1tR0\nIcons by Zebban\nWebsite by Penemue".format(VERSION))
+            "N1tR0\nIcons by Zebban\nWebsite by Penemue\nTranslations by Seshu (de), TheRaytheone (es), z0n3g (fr)".format(VERSION))
         threading.Thread(target=create_msgbox, args=[message]).start()
 
     def join_guild(self, _):
