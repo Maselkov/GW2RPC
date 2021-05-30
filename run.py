@@ -3,7 +3,6 @@ import logging.handlers
 
 from gw2rpc.gw2rpc import GW2RPC
 from gw2rpc.settings import config
-import gettext
 
 def setup_logging():
     formatter = logging.Formatter(
@@ -19,9 +18,6 @@ def setup_logging():
 
 
 if __name__ == "__main__":
-    lang = gettext.translation('base', localedir='locales', languages=[config.lang])
-    lang.install()
-    _ = lang.gettext
     setup_logging()
     rpc = GW2RPC()
     rpc.main_loop()
