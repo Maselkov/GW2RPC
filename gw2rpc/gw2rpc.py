@@ -27,9 +27,10 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.1
+VERSION = 2.11
 
-GW2RPC_BASE_URL = "https://gw2rpc.info/api/v1/"
+GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
+#GW2RPC_BASE_URL = "http://localhost:5000/api/v2/"
 
 GW2RPC_APP_ID = "385475290614464513"
 
@@ -80,17 +81,17 @@ class GW2RPC:
         def fetch_registry():
             
             # First one only for building
-            registry_path = resource_path('./data/registry.json')
+            #registry_path = resource_path('./data/registry.json')
             #registry_path = resource_path('../data/registry.json')
-            registry = json.loads(open(registry_path).read())
-            return registry
+            #registry = json.loads(open(registry_path).read())
+            #return registry
 
-            #url = GW2RPC_BASE_URL + "registry"
-            #res = requests.get(url)
-            #if res.status_code != 200:
-            #    log.error("Could not fetch the web registry")
-            #    return None
-            #return res.json()
+            url = GW2RPC_BASE_URL + "registry"
+            res = requests.get(url)
+            if res.status_code != 200:
+                log.error("Could not fetch the web registry")
+                return None
+            return res.json()
 
         def icon_path():
             try:
@@ -169,13 +170,10 @@ class GW2RPC:
     def get_map_asset(self, map_info):
         map_id = map_info["id"]
         map_name = map_info["name"]
-        #region = map_info.get("region_name", "thanks_anet")
         region = str(map_info.get("region_id", "thanks_anet"))
 
-        #print(map_info)
-
         position = self.game.get_position()
-        print("{} {}".format(position.x, position.y))
+        #print("{} {}".format(position.x, position.y))
 
         if self.registry:
             if region == "26":  #  Fractals of the Mists 
@@ -208,11 +206,26 @@ class GW2RPC:
         else:
             # Fallback for api
             special = {
-                "Fractals of the Mists": "fotm",
-                "Windswept Haven": "gh_haven",
-                "Gilded Hollow": "gh_hollow",
-                "Lost Precipice": "gh_precipice"
-            }.get(map_info["name"])
+                "1068": "gh_hollow", 
+                "1101": "gh_hollow", 
+                "1107": "gh_hollow", 
+                "1108": "gh_hollow", 
+                "1121": "gh_hollow", 
+                "1069": "gh_precipice", 
+                "1076": "gh_precipice", 
+                "1071": "gh_precipice", 
+                "1104": "gh_precipice", 
+                "1124": "gh_precipice", 
+                "882": "wintersday_snowball",
+                "877": "wintersday_snowball", 
+                "1155": "1155", 
+                "1214": "gh_haven", 
+                "1215": "gh_haven", 
+                "1232": "gh_haven", 
+                "1224": "gh_haven", 
+                "1243": "gh_haven", 
+                "1250": "gh_haven"
+            }.get(map_info["id"])
             if special:
                 return special
             if map_info["type"] == "Public":
@@ -225,7 +238,6 @@ class GW2RPC:
                     image = "default"
             name = map_name
             state = _("in ") + name
-        print(state, {"large_image": str(image), "large_text":  _(name)})
         return state, {"large_image": str(image), "large_text":  _(name)}
 
     def get_raid_assets(self, map_info):
