@@ -1,5 +1,8 @@
 import configparser
 import os
+import logging
+
+log = logging.getLogger()
 
 
 class Config:
@@ -11,12 +14,15 @@ class Config:
                 value = False
             return value
 
+        supported_languages = ["en", "es", "de", "fr"]
+
         config = configparser.ConfigParser(allow_no_value=True)
         if not os.path.exists("config.ini"):
             config["API"] = {"APIKey": ""}
             config["Settings"] = {
                 "CloseWithGw2": False,
-                "DisplayGuildTag": True
+                "DisplayGuildTag": True,
+                "Lang" : "en"
             }
             config["PointsOfInterest"] = {
                 "DisableInWvW": False,
@@ -30,6 +36,11 @@ class Config:
         ]
         self.close_with_gw2 = set_boolean("Settings", "CloseWithGw2")
         self.display_tag = set_boolean("Settings", "DisplayGuildTag")
+        try:
+            self.lang = config["Settings"]["Lang"] if config["Settings"]["Lang"] in supported_languages else "en"
+        except KeyError:
+            log.error("Missing language parameter, defaulting to en. Add 'lang = en' for localization support to config.ini.")
+            self.lang = "en"
         self.disable_pois = set_boolean("PointsOfInterest",
                                         "DisableCompletely")
         self.disable_pois_in_wvw = set_boolean("PointsOfInterest",

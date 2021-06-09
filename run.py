@@ -2,7 +2,7 @@ import logging
 import logging.handlers
 
 from gw2rpc.gw2rpc import GW2RPC
-
+from gw2rpc.settings import config
 
 def setup_logging():
     formatter = logging.Formatter(

@@ -10,6 +10,9 @@ import math
 import psutil
 import requests
 from infi.systray import SysTrayIcon
+import gettext
+
+import json
 
 from .api import APIError, api  # TODO
 from .character import Character
@@ -17,14 +20,29 @@ from .mumble import MumbleData
 from .rpc import DiscordRPC
 from .settings import config
 
-VERSION = 2.0
+import sys
+import os
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
 
-GW2RPC_BASE_URL = "https://gw2rpc.info/api/v1/"
+VERSION = 2.11
+
+GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
+#GW2RPC_BASE_URL = "http://localhost:5000/api/v2/"
 
 GW2RPC_APP_ID = "385475290614464513"
 
 log = logging.getLogger()
 
+# First one only for building
+locales_path = resource_path("./locales")
+#locales_path = resource_path("../locales")
+
+lang = gettext.translation('base', localedir=locales_path, languages=[config.lang])
+lang.install()
+_ = lang.gettext
 
 class GameNotRunningError(Exception):
     pass
@@ -32,23 +50,23 @@ class GameNotRunningError(Exception):
 
 worlds = {
     'NA': [
-        'Anvil Rock', 'Blackgate', 'Borlis Pass', 'Crystal Desert',
-        'Darkhaven', "Devona's Rest", 'Dragonbrand', 'Ehmry Bay',
-        'Eredon Terrace', "Ferguson's Crossing", 'Fort Aspenwood',
-        'Gate of Madness', 'Henge of Denravi', 'Isle of Janthir',
-        'Jade Quarry', 'Kaineng', 'Maguuma', 'Northern Shiverpeaks',
-        'Sanctum of Rall', 'Sea of Sorrows', "Sorrow's Furnace",
-        'Stormbluff Isle', 'Tarnished Coast', "Yak's Bend"
+        _('Anvil Rock'), _('Blackgate'), _('Borlis Pass'), _('Crystal Desert'),
+        _('Darkhaven'), _("Devona's Rest"), _('Dragonbrand'), _('Ehmry Bay'),
+        _('Eredon Terrace'), _("Ferguson's Crossing"), _('Fort Aspenwood'),
+        _('Gate of Madness'), _('Henge of Denravi'), _('Isle of Janthir'),
+        _('Jade Quarry'), _('Kaineng'), _('Maguuma'), _('Northern Shiverpeaks'),
+        _('Sanctum of Rall'), _('Sea of Sorrows'), _("Sorrow's Furnace"),
+        _('Stormbluff Isle'), _('Tarnished Coast'), _("Yak's Bend")
     ],
     'EU': [
-        'Aurora Glade', 'Blacktide', 'Desolation', 'Far Shiverpeaks',
-        'Fissure of Woe', 'Gandara', "Gunnar's Hold", 'Piken Square',
-        'Ring of Fire', 'Ruins of Surmia', "Seafarer's Rest", 'Underworld',
-        'Vabbi', 'Whiteside Ridge', 'Arborstone [FR]', 'Augury Rock [FR]',
-        'Fort Ranik [FR]', 'Jade Sea [FR]', 'Vizunah Square [FR]',
-        "Abaddon's Mouth [DE]", 'Drakkar Lake [DE]', 'Dzagonur [DE]',
-        'Elona Reach [DE]', 'Kodash [DE]', "Miller's Sound [DE]",
-        'Riverside [DE]', 'Baruch Bay [SP]'
+        _('Aurora Glade'), _('Blacktide'), _('Desolation'), _('Far Shiverpeaks'),
+        _('Fissure of Woe'), _('Gandara'), _("Gunnar's Hold"), _('Piken Square'),
+        _('Ring of Fire'), _('Ruins of Surmia'), _("Seafarer's Rest"), _('Underworld'),
+        _('Vabbi'), _('Whiteside Ridge'), _('Arborstone [FR]'), _('Augury Rock [FR]'),
+        _('Fort Ranik [FR]'), _('Jade Sea [FR]'), _('Vizunah Square [FR]'),
+        _("Abaddon's Mouth [DE]"), _('Drakkar Lake [DE]'), _('Dzagonur [DE]'),
+        _('Elona Reach [DE]'), _('Kodash [DE]'), _("Miller's Sound [DE]"),
+        _('Riverside [DE]'), _('Baruch Bay [SP]')
     ]
 }
 
@@ -61,6 +79,13 @@ def create_msgbox(description, *, title='GW2RPC', code=0):
 class GW2RPC:
     def __init__(self):
         def fetch_registry():
+            
+            # First one only for building
+            #registry_path = resource_path('./data/registry.json')
+            #registry_path = resource_path('../data/registry.json')
+            #registry = json.loads(open(registry_path).read())
+            #return registry
+
             url = GW2RPC_BASE_URL + "registry"
             res = requests.get(url)
             if res.status_code != 200:
@@ -85,12 +110,12 @@ class GW2RPC:
         self.game = MumbleData()
         self.registry = fetch_registry()
         self.support_invite = fetch_support_invite()
-        menu_options = (("About", None, self.about), )
+        menu_options = ((_("About"), None, self.about), )
         if self.support_invite:
-            menu_options += (("Join support server", None, self.join_guild), )
+            menu_options += ((_("Join support server"), None, self.join_guild), )
         self.systray = SysTrayIcon(
             icon_path(),
-            "Guild Wars 2 with Discord",
+            _("Guild Wars 2 with Discord"),
             menu_options,
             on_quit=self.shutdown)
         self.systray.start()
@@ -108,7 +133,7 @@ class GW2RPC:
     def about(self, _):
         message = (
             "Version: {}\n\nhttps://gw2rpc.info\n\nBy Maselkov & "
-            "N1TR0\nIcons by Zebban\nWebsite by Penemue".format(VERSION))
+            "N1tR0\nIcons by Zebban\nWebsite by Penemue\nTranslations by Seshu (de), TheRaytheone (es), z0n3g (fr)".format(VERSION))
         threading.Thread(target=create_msgbox, args=[message]).start()
 
     def join_guild(self, _):
@@ -130,14 +155,14 @@ class GW2RPC:
         if not build:
             log.error("Could not retrieve build!")
             create_msgbox(
-                "Could not check for updates - check your connection!")
+                _("Could not check for updates - check your connection!"))
             return
         if build > VERSION:
             log.info("New version found! Current: {} New: {}".format(
                 VERSION, build))
             res = create_msgbox(
-                "There is a new update for GW2 Rich Presence available. "
-                "Would you like to be taken to the download page now?",
+                _("There is a new update for GW2 Rich Presence available. "
+                "Would you like to be taken to the download page now?"),
                 code=68)
             if res == 6:
                 webbrowser.open("https://gw2rpc.info/")
@@ -145,36 +170,62 @@ class GW2RPC:
     def get_map_asset(self, map_info):
         map_id = map_info["id"]
         map_name = map_info["name"]
-        region = map_info.get("region_name", "thanks_anet")
+        region = str(map_info.get("region_id", "thanks_anet"))
+
+        position = self.game.get_position()
+        #print("{} {}".format(position.x, position.y))
+
         if self.registry:
-            if map_name == "Fractals of the Mists":
+            if region == "26":  #  Fractals of the Mists 
+                image = "fotm"
                 for fractal in self.registry["fractals"]:
+                    state = self.find_fractal_boss(map_id, fractal, position)
+                    if state:
+                        break
+
                     if fractal["id"] == map_id:
-                        state = fractal["name"] + " fractal"
-                        image = "fotm"
+                        state = _("in ") + _("fractal") + ": " + _(fractal["name"]) 
                         break
                 else:
-                    image = "fotm"
-                    state = "Fractals of the Mists"
+                    if not state:
+                        state = _("in ") + _("Fractals of the Mists")
                 name = "Fractals of the Mists"
             else:
                 if map_name in self.registry["special"]:
                     image = self.registry["special"][map_name]
                 elif map_id in self.registry["valid"]:
+                    # TODO: Images for strike missions (i.e. map_id 1341) are missing
                     image = map_id
+                    #image = self.registry["regions"][region]
                 elif region in self.registry["regions"]:
                     image = self.registry["regions"][region]
                 else:
                     image = "default"
                 name = map_name
-                state = name
+                state = _("in ") + name
         else:
+            # Fallback for api
             special = {
-                "Fractals of the Mists": "fotm",
-                "Windswept Haven": "gh_haven",
-                "Gilded Hollow": "gh_hollow",
-                "Lost Precipice": "gh_precipice"
-            }.get(map_info["name"])
+                "1068": "gh_hollow", 
+                "1101": "gh_hollow", 
+                "1107": "gh_hollow", 
+                "1108": "gh_hollow", 
+                "1121": "gh_hollow", 
+                "1069": "gh_precipice", 
+                "1076": "gh_precipice", 
+                "1071": "gh_precipice", 
+                "1104": "gh_precipice", 
+                "1124": "gh_precipice", 
+                "882": "wintersday_snowball",
+                "877": "wintersday_snowball", 
+                "1155": "1155", 
+                "1214": "gh_haven", 
+                "1215": "gh_haven", 
+                "1232": "gh_haven", 
+                "1224": "gh_haven", 
+                "1243": "gh_haven", 
+                "1250": "gh_haven"
+            }.get(map_info["id"])
             if special:
                 return special
             if map_info["type"] == "Public":
@@ -186,8 +237,8 @@ class GW2RPC:
                 else:
                     image = "default"
             name = map_name
-            state = name
-        return "in " + state, {"large_image": str(image), "large_text": name}
+            state = _("in ") + name
+        return state, {"large_image": str(image), "large_text":  _(name)}
 
     def get_raid_assets(self, map_info):
         def readable_id(_id):
@@ -202,10 +253,9 @@ class GW2RPC:
             self.boss_timestamp = None
             return self.get_map_asset(map_info)
         if boss["type"] == "boss":
-            state = "fighting "
+            state = _("fighting ")
         else:
-            state = "completing "
-
+            state = _("completing ")
         name = readable_id(boss["id"])
         state += name
         if self.last_boss != boss["id"]:
@@ -226,10 +276,11 @@ class GW2RPC:
             return ""
 
         def get_closest_poi(map_info, continent_info):
-            region = map_info.get("region_name")
+            #region = map_info.get("region_name")
+            region = map_info.get("region_id")
             if config.disable_pois:
                 return None
-            if config.disable_pois_in_wvw and region == "World vs. World":
+            if config.disable_pois_in_wvw and region == 7: #TODO change to region_Id
                 return None
             return self.find_closest_point(map_info, continent_info)
 
@@ -272,29 +323,29 @@ class GW2RPC:
             if self.last_continent_info:
                 point = get_closest_poi(map_info, continent_info)
                 if point:
-                    map_asset["large_text"] += " near " + point["name"]
+                    map_asset["large_text"] += _(" near ") + point["name"]
         map_asset["large_text"] += get_region()
-        activiy = {
-            "state": state,
+        activity = {
+            "state": _(state),
             "details": details,
             "timestamps": {
                 'start': timestamp
             },
             "assets": {
                 **map_asset, "small_image": character.profession_icon,
-                "small_text": "{0.race} {0.profession}".format(character, tag)
+                "small_text": "{} {} {}".format(_(character.race), _(character.profession), tag)
             }
         }
-        return activiy
+        return activity
 
     def in_character_selection(self):
         activity = {
-            "state": "in character selection",
+            "state": _("in character selection"),
             "assets": {
                 "large_image":
                 "default",
                 "large_text":
-                "Character Selection",
+                _("Character Selection"),
                 "small_image":
                 "gw2rpclogo",
                 "small_text":
@@ -340,6 +391,22 @@ class GW2RPC:
                     closest = boss
         return closest
 
+    def find_fractal_boss(self, map_id, fractal, position):
+        state = None
+        if map_id in [1177, 1205, 1384]:
+            if fractal["id"] == map_id:
+                for boss in fractal["bosses"]:
+                    distance = math.sqrt((boss["coord"][0] - position.x)**2 +
+                                (boss["coord"][1] - position.y)**2)
+                    
+                    if distance <= boss["radius"]:
+                        state = _("fighting ") + _(boss["name"]) + " " + _("in ") + _(fractal["name"])
+                        return state
+                    else:
+                        state = _("in ") + _("fractal") + ": " + _(fractal["name"])
+        else:
+            return None
+        return state
     def main_loop(self):
         def update_gw2_process():
             shutdown = False

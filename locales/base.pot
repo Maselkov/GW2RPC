@@ -1,0 +1,488 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-05-28 15:15+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: gw2rpc/character.py:6
+msgid "Guardian"
+msgstr ""
+
+#: gw2rpc/character.py:7
+msgid "Warrior"
+msgstr ""
+
+#: gw2rpc/character.py:8
+msgid "Engineer"
+msgstr ""
+
+#: gw2rpc/character.py:9
+msgid "Ranger"
+msgstr ""
+
+#: gw2rpc/character.py:10
+msgid "Thief"
+msgstr ""
+
+#: gw2rpc/character.py:11
+msgid "Elementalist"
+msgstr ""
+
+#: gw2rpc/character.py:12
+msgid "Mesmer"
+msgstr ""
+
+#: gw2rpc/character.py:13
+msgid "Necromancer"
+msgstr ""
+
+#: gw2rpc/character.py:14
+msgid "Revenant"
+msgstr ""
+
+#: gw2rpc/character.py:17
+msgid "Asura"
+msgstr ""
+
+#: gw2rpc/character.py:17
+msgid "Charr"
+msgstr ""
+
+#: gw2rpc/character.py:17
+msgid "Human"
+msgstr ""
+
+#: gw2rpc/character.py:17
+msgid "Norn"
+msgstr ""
+
+#: gw2rpc/character.py:17
+msgid "Sylvari"
+msgstr ""
+
+#: gw2rpc/character.py:20
+msgid "Druid"
+msgstr ""
+
+#: gw2rpc/character.py:21
+msgid "Daredevil"
+msgstr ""
+
+#: gw2rpc/character.py:22
+msgid "Berserker"
+msgstr ""
+
+#: gw2rpc/character.py:23
+msgid "Dragonhunter"
+msgstr ""
+
+#: gw2rpc/character.py:24
+msgid "Reaper"
+msgstr ""
+
+#: gw2rpc/character.py:25
+msgid "Chronomancer"
+msgstr ""
+
+#: gw2rpc/character.py:26
+msgid "Scrapper"
+msgstr ""
+
+#: gw2rpc/character.py:27
+msgid "Tempest"
+msgstr ""
+
+#: gw2rpc/character.py:28
+msgid "Herald"
+msgstr ""
+
+#: gw2rpc/character.py:29
+msgid "Soulbeast"
+msgstr ""
+
+#: gw2rpc/character.py:30
+msgid "Weaver"
+msgstr ""
+
+#: gw2rpc/character.py:31
+msgid "Holosmith"
+msgstr ""
+
+#: gw2rpc/character.py:32
+msgid "Deadeye"
+msgstr ""
+
+#: gw2rpc/character.py:33
+msgid "Mirage"
+msgstr ""
+
+#: gw2rpc/character.py:34
+msgid "Scourge"
+msgstr ""
+
+#: gw2rpc/character.py:35
+msgid "Spellbreaker"
+msgstr ""
+
+#: gw2rpc/character.py:36
+msgid "Firebrand"
+msgstr ""
+
+#: gw2rpc/character.py:37
+msgid "Renegade"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:39
+msgid "Anvil Rock"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:39
+msgid "Blackgate"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:39
+msgid "Borlis Pass"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:39
+msgid "Crystal Desert"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:40
+msgid "Darkhaven"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:40
+msgid "Devona's Rest"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:40
+msgid "Dragonbrand"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:40
+msgid "Ehmry Bay"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:41
+msgid "Eredon Terrace"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:41
+msgid "Ferguson's Crossing"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:41
+msgid "Fort Aspenwood"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:42
+msgid "Gate of Madness"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:42
+msgid "Henge of Denravi"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:42
+msgid "Isle of Janthir"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:43
+msgid "Jade Quarry"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:43
+msgid "Kaineng"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:43
+msgid "Maguuma"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:43
+msgid "Northern Shiverpeaks"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:44
+msgid "Sanctum of Rall"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:44
+msgid "Sea of Sorrows"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:44
+msgid "Sorrow's Furnace"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:45
+msgid "Stormbluff Isle"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:45
+msgid "Tarnished Coast"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:45
+msgid "Yak's Bend"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:48
+msgid "Aurora Glade"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:48
+msgid "Blacktide"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:48
+msgid "Desolation"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:48
+msgid "Far Shiverpeaks"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:49
+msgid "Fissure of Woe"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:49
+msgid "Gandara"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:49
+msgid "Gunnar's Hold"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:49
+msgid "Piken Square"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:50
+msgid "Ring of Fire"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:50
+msgid "Ruins of Surmia"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:50
+msgid "Seafarer's Rest"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:50
+msgid "Underworld"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:51
+msgid "Arborstone [FR]"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:51
+msgid "Augury Rock [FR]"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:51
+msgid "Vabbi"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:51
+msgid "Whiteside Ridge"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:52
+msgid "Fort Ranik [FR]"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:52
+msgid "Jade Sea [FR]"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:52
+msgid "Vizunah Square [FR]"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:53
+msgid "Abaddon's Mouth [DE]"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:53
+msgid "Drakkar Lake [DE]"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:53
+msgid "Dzagonur [DE]"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:54
+msgid "Elona Reach [DE]"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:54
+msgid "Kodash [DE]"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:54
+msgid "Miller's Sound [DE]"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:55
+msgid "Baruch Bay [SP]"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:55
+msgid "Riverside [DE]"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:92
+msgid "About"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:94
+msgid "Join support server"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:97
+msgid "Guild Wars 2 with Discord"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:137
+msgid "Could not check for updates - check your connection!"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:143
+msgid "There is a new update for GW2 Rich Presence available. Would you like to be taken to the download page now?"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:165
+msgid "Fractals of the Mists"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:170
+msgid " fractal"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:198 gw2rpc/gw2rpc.py:199
+msgid "in "
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:214
+msgid "fighting "
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:216
+msgid "completing "
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:285
+msgid " near "
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:302
+msgid "in character selection"
+msgstr ""
+
+#: gw2rpc/gw2rpc.py:307
+msgid "Character Selection"
+msgstr ""
+
+
+msgid "Mistlock Observatory"
+msgstr ""
+
+msgid "Uncategorized"
+msgstr ""
+
+msgid "Snowblind"
+msgstr ""
+
+msgid "Swampland"
+msgstr ""
+
+msgid "Urban Battleground"
+msgstr ""
+
+msgid "Siren's Reef"
+msgstr ""
+
+msgid "Aquatic Ruins"
+msgstr ""
+
+msgid "Cliffside"
+msgstr ""
+
+msgid "Underground Facility"
+msgstr ""
+
+msgid "Volcanic"
+msgstr ""
+
+msgid "Molten Furnace"
+msgstr ""
+
+msgid "Aetherblade"
+msgstr ""
+
+msgid "Thaumanova Reactor"
+msgstr ""
+
+msgid "Solid Ocean"
+msgstr ""
+
+msgid "Molten Boss"
+msgstr ""
+
+msgid "Mai Trin"
+msgstr ""
+
+msgid "Chaos"
+msgstr ""
+
+msgid "Nightmare"
+msgstr ""
+
+msgid "Shattered Observatory"
+msgstr ""
+
+msgid "Twilight Oasis"
+msgstr ""
+
+msgid "Deepstone"
+msgstr ""
+
+msgid "Sunqua Peak"
+msgstr ""
+
+msgid "Skorvald"
+msgstr ""
+
+msgid "Ensolyss"
+msgstr ""
+
+msgid "Ai"
+msgstr ""
+
+msgid "Artsariiv"
+msgstr ""
+
+msgid "Arkk"
+msgstr ""
+
+msgid "M.A.M.A."
+msgstr ""
+
+msgid "Siax"
+msgstr ""
