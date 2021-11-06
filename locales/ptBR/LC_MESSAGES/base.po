@@ -413,31 +413,31 @@ msgid "Swampland"
 msgstr "Pântano"
 
 msgid "Urban Battleground"
-msgstr "Campo de batalha urbano"
+msgstr "Campo de Batalha Urbano"
 
 msgid "Siren's Reef"
-msgstr ""
+msgstr "Recife da Sereia"
 
 msgid "Aquatic Ruins"
 msgstr "Ruínas Aquáticas"
 
 msgid "Cliffside"
-msgstr ""
+msgstr "Cliffside"
 
 msgid "Underground Facility"
-msgstr ""
+msgstr "Instalação Subterrânea"
 
 msgid "Volcanic"
-msgstr ""
+msgstr "Vulcânica"
 
 msgid "Molten Furnace"
-msgstr ""
+msgstr "Forno Fundido"
 
 msgid "Aetherblade"
-msgstr ""
+msgstr "Lâmina de Éter"
 
 msgid "Thaumanova Reactor"
-msgstr ""
+msgstr "Reator Thaumanova"
 
 msgid "Solid Ocean"
 msgstr "Oceano Sólido"
