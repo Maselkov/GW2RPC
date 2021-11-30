@@ -559,9 +559,6 @@ msgstr ""
 msgid "Qadim"
 msgstr ""
 
-msgid "Freezie"
-msgstr ""
-
 msgid "Cardinal Sabir"
 msgstr ""
 
@@ -571,40 +568,28 @@ msgstr ""
 msgid "Qadim the Peerless"
 msgstr ""
 
-msgid "Legendary icebrood construct"
-msgstr ""
-
-msgid "Boneskinner"
-msgstr ""
-
-msgid "Voice And Claw of the Fallen"
-msgstr ""
-
-msgid "Fraenir of Jormag"
-msgstr ""
-
 msgid "Harbinger"
 msgstr ""
 
 msgid "Willbender"
 msgstr ""
 
-msgid "Virtuoso",
+msgid "Virtuoso"
 msgstr ""
 
-msgid "Catalyst",
+msgid "Catalyst"
 msgstr ""
 
-msgid "Bladesworn",
+msgid "Bladesworn"
 msgstr ""
 
-msgid "Vindicator",
+msgid "Vindicator"
 msgstr ""
 
-msgid "Mechanist",
+msgid "Mechanist"
 msgstr ""
 
-msgid "Specter",
+msgid "Specter"
 msgstr ""
 
 msgid "Untamed"
