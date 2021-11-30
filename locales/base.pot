@@ -594,3 +594,6 @@ msgstr ""
 
 msgid "Untamed"
 msgstr ""
+
+msgid "Commander"
+msgstr ""

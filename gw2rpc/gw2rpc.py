@@ -37,8 +37,8 @@ GW2RPC_APP_ID = "385475290614464513"
 log = logging.getLogger()
 
 # First one only for building
-locales_path = resource_path("./locales")
-#locales_path = resource_path("../locales")
+#locales_path = resource_path("./locales")
+locales_path = resource_path("../locales")
 
 lang = gettext.translation('base', localedir=locales_path, languages=[config.lang])
 lang.install()
@@ -81,6 +81,7 @@ class GW2RPC:
         def fetch_registry():
             
             # First one only for building
+            # Only used for debugging without the web based API
             #registry_path = resource_path('./data/registry.json')
             #registry_path = resource_path('../data/registry.json')
             #registry = json.loads(open(registry_path).read())
@@ -174,7 +175,9 @@ class GW2RPC:
 
         position = self.game.get_position()
         #print("{} {}".format(position.x, position.y))
-
+        #print("{} {}".format(map_id, map_name))
+        #print("{} {}".format(position.x, position.y))
+        
         if self.registry:
             if region == "26":  #  Fractals of the Mists 
                 image = "fotm"
@@ -194,9 +197,7 @@ class GW2RPC:
                 if map_name in self.registry["special"]:
                     image = self.registry["special"][map_name]
                 elif map_id in self.registry["valid"]:
-                    # TODO: Images for strike missions (i.e. map_id 1341) are missing
                     image = map_id
-                    #image = self.registry["regions"][region]
                 elif region in self.registry["regions"]:
                     image = self.registry["regions"][region]
                 else:
@@ -288,6 +289,7 @@ class GW2RPC:
         if not data:
             return None
         map_id = data["map_id"]
+        is_commander = data["commander"]
         try:
             if self.last_map_info and map_id == self.last_map_info["id"]:
                 map_info = self.last_map_info
@@ -325,6 +327,14 @@ class GW2RPC:
                 if point:
                     map_asset["large_text"] += _(" near ") + point["name"]
         map_asset["large_text"] += get_region()
+
+        if is_commander:
+            small_image = "commander_tag"
+            small_text = "{} {} {} {}".format(_("Commander: "), _(character.race), _(character.profession), tag)
+        else: 
+            small_image = character.profession_icon
+            small_text = "{} {} {}".format(_(character.race), _(character.profession), tag)
+
         activity = {
             "state": _(state),
             "details": details,
@@ -332,8 +342,8 @@ class GW2RPC:
                 'start': timestamp
             },
             "assets": {
-                **map_asset, "small_image": character.profession_icon,
-                "small_text": "{} {} {}".format(_(character.race), _(character.profession), tag)
+                **map_asset, "small_image": small_image,
+                "small_text": small_text
             }
         }
         return activity

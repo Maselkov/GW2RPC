@@ -593,3 +593,6 @@ msgstr "Phantom"
 
 msgid "Untamed"
 msgstr "Ungezähmter"
+
+msgid "Commander"
+msgstr "Kommandeur"
