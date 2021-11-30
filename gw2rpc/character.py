@@ -32,7 +32,16 @@ ELITESPECS = {
     60: "Scourge",
     61: "Spellbreaker",
     62: "Firebrand",
-    63: "Renegade"
+    63: "Renegade",
+    64: "Harbinger",
+    65: "Willbender",
+    66: "Virtuoso",
+    67: "Catalyst",
+    68: "Bladesworn",
+    69: "Vindicator",
+    70: "Mechanist",
+    71: "Specter",
+    72: "Untamed"
 }
 
 
