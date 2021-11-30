@@ -485,3 +485,111 @@ msgstr "M.A.M.A."
 
 msgid "Siax"
 msgstr "Siax"
+
+msgid "Vale Guardian"
+msgstr "Talwächter"
+
+msgid "Spirit Woods"
+msgstr "Geisterlauf"
+
+msgid "Gorseval"
+msgstr ""
+
+msgid "Sabetha"
+msgstr ""
+
+msgid "Slothasor"
+msgstr "Faultierion"
+
+msgid "Bandit Trio"
+msgstr "Banditen-Trio"
+
+msgid "Matthias"
+msgstr ""
+
+msgid "Escort"
+msgstr "Belagert die Festung"
+
+msgid "Keep Construct"
+msgstr "Festenkonstrukt"
+
+msgid "Xera"
+msgstr ""
+
+msgid "Twisted Castle"
+msgstr "Verdrehtes Schloss"
+
+msgid "Cairn"
+msgstr ""
+
+msgid "Mursaat Overseer"
+msgstr "Mursaat-Aufseher"
+
+msgid "Samarog"
+msgstr ""
+
+msgid "Deimos"
+msgstr ""
+
+msgid "Soulless Horror"
+msgstr "Seelenloser Schrecken"
+
+msgid "River of Souls"
+msgstr "Fluss der Seelen"
+
+msgid "Broken King"
+msgstr "Gebrochener König"
+
+msgid "Eater of Souls"
+msgstr "Seelenverzehrer"
+
+msgid "Dhuum"
+msgstr ""
+
+msgid "Statue of Darkness"
+msgstr "Statue der Dunkelheit"
+
+msgid "Conjured Amalgamate"
+msgstr "Beschworene Verschmelzung"
+
+msgid "Twin Largos"
+msgstr "Zwillings-Largos"
+
+msgid "Qadim"
+msgstr ""
+
+msgid "Cardinal Sabir"
+msgstr "Kardinal Sabir"
+
+msgid "Cardinal Adina"
+msgstr "Kardinal Adina"
+
+msgid "Qadim the Peerless"
+msgstr "Qadim der Unvergleichliche"
+
+msgid "Harbinger"
+msgstr "Vorbote"
+
+msgid "Willbender"
+msgstr "Willensverdreher"
+
+msgid "Virtuoso"
+msgstr "Virtuose"
+
+msgid "Catalyst"
+msgstr "Katalysierer"
+
+msgid "Bladesworn"
+msgstr "Klingengeschworene"
+
+msgid "Vindicator"
+msgstr "Rechtssuchende"
+
+msgid "Mechanist"
+msgstr "Mech-Lenker"
+
+msgid "Specter"
+msgstr "Phantom"
+
+msgid "Untamed"
+msgstr "Ungezähmter"
