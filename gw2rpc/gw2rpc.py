@@ -257,7 +257,7 @@ class GW2RPC:
             state = _("fighting ")
         else:
             state = _("completing ")
-        name = readable_id(boss["id"])
+        name = _(readable_id(boss["id"]))
         state += name
         if self.last_boss != boss["id"]:
             self.boss_timestamp = int(time.time())
@@ -330,10 +330,11 @@ class GW2RPC:
 
         if is_commander:
             small_image = "commander_tag"
-            small_text = "{} {} {} {}".format(_("Commander: "), _(character.race), _(character.profession), tag)
+            #small_text = "{}: {} {} {}".format(_("Commander"), _(character.race), _(character.profession), tag)
+            details = "{}: {}".format(_("Commander"), details)
         else: 
             small_image = character.profession_icon
-            small_text = "{} {} {}".format(_(character.race), _(character.profession), tag)
+        small_text = "{} {} {}".format(_(character.race), _(character.profession), tag)
 
         activity = {
             "state": _(state),
