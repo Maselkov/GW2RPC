@@ -43,6 +43,7 @@ ELITESPECS = {
     71: "Specter",
     72: "Untamed"
 }
+# Images for specter and catalyst are missing
 
 
 class Character:
@@ -53,18 +54,10 @@ class Character:
         self.__api_info = None
         if api._authenticated:
             self.__api_info = api.get_character(self.name)
-        self.profession = self._get_profession()
+        self.profession = ELITESPECS[mumble_data["spec"]]
         self.profession_icon = "prof_{}".format(
             self.profession.lower().replace(" ", ""))
         self.guild_tag = self._get_guild_tag()
-
-    def _get_profession(self):
-        map_info = api.get_map_info(self.__mumble_data["map_id"])
-        if self.__api_info:
-            spec = self.get_spec(self.name, map_info)
-            if spec:
-                return spec
-        return PROFESSIONS[self.__mumble_data["profession"]]
 
     def _get_guild_tag(self):
         tag = ""
@@ -77,21 +70,3 @@ class Character:
                 except:
                     pass
         return tag
-
-    def get_spec(self, name, map_info):
-        character_info = self.__api_info
-        region = map_info.get("region_name")
-        if region == "Player vs. Player":
-            return self.get_build(character_info, "pvp")
-        if region == "World vs. World":
-            return self.get_build(character_info, "wvw")
-        return self.get_build(character_info, "pve")
-
-    def get_build(self, character_info, gametype):
-        if character_info["specializations"][gametype][2]:
-            spec_id = character_info["specializations"][gametype][2]["id"]
-            if spec_id in ELITESPECS.keys():
-                profession = ELITESPECS[character_info["specializations"][
-                    gametype][2]["id"]]
-                return profession
-        return None
