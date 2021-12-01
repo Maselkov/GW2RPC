@@ -328,9 +328,8 @@ class GW2RPC:
                     map_asset["large_text"] += _(" near ") + point["name"]
         map_asset["large_text"] += get_region()
 
-        if is_commander:
+        if not config.hide_commander_tag and is_commander:
             small_image = "commander_tag"
-            #small_text = "{}: {} {} {}".format(_("Commander"), _(character.race), _(character.profession), tag)
             details = "{}: {}".format(_("Commander"), details)
         else: 
             small_image = character.profession_icon

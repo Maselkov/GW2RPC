@@ -22,7 +22,8 @@ class Config:
             config["Settings"] = {
                 "CloseWithGw2": False,
                 "DisplayGuildTag": True,
-                "Lang" : "en"
+                "Lang" : "en",
+                "HideCommanderTag": False
             }
             config["PointsOfInterest"] = {
                 "DisableInWvW": False,
@@ -36,6 +37,7 @@ class Config:
         ]
         self.close_with_gw2 = set_boolean("Settings", "CloseWithGw2")
         self.display_tag = set_boolean("Settings", "DisplayGuildTag")
+        self.hide_commander_tag = set_boolean("Settings", "HideCommanderTag")
         try:
             self.lang = config["Settings"]["Lang"] if config["Settings"]["Lang"] in supported_languages else "en"
         except KeyError:
