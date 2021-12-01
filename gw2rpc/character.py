@@ -54,10 +54,17 @@ class Character:
         self.__api_info = None
         if api._authenticated:
             self.__api_info = api.get_character(self.name)
-        self.profession = ELITESPECS[mumble_data["spec"]]
+        self.profession = self.get_elite_spec()
         self.profession_icon = "prof_{}".format(
             self.profession.lower().replace(" ", ""))
         self.guild_tag = self._get_guild_tag()
+
+    def get_elite_spec(self):
+        if self.__mumble_data["spec"] not in ELITESPECS.keys():
+            # Meaning that its a core class, fall back
+            return PROFESSIONS[self.__mumble_data["profession"]]
+        else:
+            return ELITESPECS[self.__mumble_data["spec"]]
 
     def _get_guild_tag(self):
         tag = ""
