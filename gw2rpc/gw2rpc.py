@@ -27,7 +27,7 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.11
+VERSION = 2.2
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
 #GW2RPC_BASE_URL = "http://localhost:5000/api/v2/"
