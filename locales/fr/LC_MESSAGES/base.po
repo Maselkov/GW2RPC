@@ -489,3 +489,114 @@ msgstr "A.M.A.M."
 
 msgid "Siax"
 msgstr "Siax"
+
+msgid "Vale Guardian"
+msgstr "Gardien de la Vallée"
+
+msgid "Spirit Woods"
+msgstr "Les Bois des esprits"
+
+msgid "Gorseval"
+msgstr ""
+
+msgid "Sabetha"
+msgstr ""
+
+msgid "Slothasor"
+msgstr "Paressor"
+
+msgid "Bandit Trio"
+msgstr ""
+
+msgid "Matthias"
+msgstr ""
+
+msgid "Escort"
+msgstr "Assaut de la forteresse"
+
+msgid "Keep Construct"
+msgstr "Titan du fort"
+
+msgid "Xera"
+msgstr ""
+
+msgid "Twisted Castle"
+msgstr "Le Château corrompu"
+
+msgid "Cairn"
+msgstr ""
+
+msgid "Mursaat Overseer"
+msgstr "Surveillant mursaat"
+
+msgid "Samarog"
+msgstr ""
+
+msgid "Deimos"
+msgstr ""
+
+msgid "Soulless Horror"
+msgstr "Horreur sans âme"
+
+msgid "River of Souls"
+msgstr "La rivière des âmes"
+
+msgid "Broken King"
+msgstr "Roi brisé"
+
+msgid "Eater of Souls"
+msgstr "Mangeur d'âmes"
+
+msgid "Dhuum"
+msgstr ""
+
+msgid "Statue of Darkness"
+msgstr "Statue des ténèbres"
+
+msgid "Conjured Amalgamate"
+msgstr "Amalgame conjuré"
+
+msgid "Twin Largos"
+msgstr "Jumeaux largos"
+
+msgid "Qadim"
+msgstr ""
+
+msgid "Cardinal Sabir"
+msgstr ""
+
+msgid "Cardinal Adina"
+msgstr ""
+
+msgid "Qadim the Peerless"
+msgstr "Qadim l'Inégalé"
+
+msgid "Harbinger"
+msgstr "Augure"
+
+msgid "Willbender"
+msgstr "Subjugueur"
+
+msgid "Virtuoso"
+msgstr "Virtuose"
+
+msgid "Catalyst"
+msgstr "Catalyseur"
+
+msgid "Bladesworn"
+msgstr "Jurelame"
+
+msgid "Vindicator"
+msgstr "Justicier"
+
+msgid "Mechanist"
+msgstr "Méchamancien"
+
+msgid "Specter"
+msgstr "Spectre"
+
+msgid "Untamed"
+msgstr "Indomptable"
+
+msgid "Commander"
+msgstr "Commandant"

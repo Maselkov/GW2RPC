@@ -489,3 +489,114 @@ msgstr ""
 
 msgid "Siax"
 msgstr ""
+
+msgid "Vale Guardian"
+msgstr ""
+
+msgid "Spirit Woods"
+msgstr ""
+
+msgid "Gorseval"
+msgstr ""
+
+msgid "Sabetha"
+msgstr ""
+
+msgid "Slothasor"
+msgstr ""
+
+msgid "Bandit Trio"
+msgstr ""
+
+msgid "Matthias"
+msgstr ""
+
+msgid "Escort"
+msgstr ""
+
+msgid "Keep Construct"
+msgstr ""
+
+msgid "Xera"
+msgstr ""
+
+msgid "Twisted Castle"
+msgstr ""
+
+msgid "Cairn"
+msgstr ""
+
+msgid "Mursaat Overseer"
+msgstr ""
+
+msgid "Samarog"
+msgstr ""
+
+msgid "Deimos"
+msgstr ""
+
+msgid "Soulless Horror"
+msgstr ""
+
+msgid "River of Souls"
+msgstr ""
+
+msgid "Broken King"
+msgstr ""
+
+msgid "Eater of Souls"
+msgstr ""
+
+msgid "Dhuum"
+msgstr ""
+
+msgid "Statue of Darkness"
+msgstr ""
+
+msgid "Conjured Amalgamate"
+msgstr ""
+
+msgid "Twin Largos"
+msgstr ""
+
+msgid "Qadim"
+msgstr ""
+
+msgid "Cardinal Sabir"
+msgstr ""
+
+msgid "Cardinal Adina"
+msgstr ""
+
+msgid "Qadim the Peerless"
+msgstr ""
+
+msgid "Harbinger"
+msgstr ""
+
+msgid "Willbender"
+msgstr ""
+
+msgid "Virtuoso"
+msgstr ""
+
+msgid "Catalyst"
+msgstr ""
+
+msgid "Bladesworn"
+msgstr ""
+
+msgid "Vindicator"
+msgstr ""
+
+msgid "Mechanist"
+msgstr ""
+
+msgid "Specter"
+msgstr ""
+
+msgid "Untamed"
+msgstr ""
+
+msgid "Commander"
+msgstr ""

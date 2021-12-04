@@ -486,3 +486,114 @@ msgstr ""
 
 msgid "Siax"
 msgstr "Siax"
+
+msgid "Vale Guardian"
+msgstr "Guardián del valle"
+
+msgid "Spirit Woods"
+msgstr "Bosques espirituales"
+
+msgid "Gorseval"
+msgstr ""
+
+msgid "Sabetha"
+msgstr ""
+
+msgid "Slothasor"
+msgstr "Perezón"
+
+msgid "Bandit Trio"
+msgstr "Campamento de prisioneros"
+
+msgid "Matthias"
+msgstr "Matías Gabrel"
+
+msgid "Escort"
+msgstr "Asedio a la fortaleza"
+
+msgid "Keep Construct"
+msgstr "Ensamblaje de la fortaleza"
+
+msgid "Xera"
+msgstr ""
+
+msgid "Twisted Castle"
+msgstr "Castillo Retorcido"
+
+msgid "Cairn"
+msgstr ""
+
+msgid "Mursaat Overseer"
+msgstr "Dirigente mursaat"
+
+msgid "Samarog"
+msgstr ""
+
+msgid "Deimos"
+msgstr ""
+
+msgid "Soulless Horror"
+msgstr "Horror sin alma"
+
+msgid "River of Souls"
+msgstr "Río de almas"
+
+msgid "Broken King"
+msgstr "Rey Roto"
+
+msgid "Eater of Souls"
+msgstr "Devorador de almas"
+
+msgid "Dhuum"
+msgstr ""
+
+msgid "Statue of Darkness"
+msgstr "Estatua de Oscuridad"
+
+msgid "Conjured Amalgamate"
+msgstr "Amalgamado conjurado"
+
+msgid "Twin Largos"
+msgstr "Largos gemelos"
+
+msgid "Qadim"
+msgstr ""
+
+msgid "Cardinal Sabir"
+msgstr "Cardenal Sabir"
+
+msgid "Cardinal Adina"
+msgstr "Cardenal Adina"
+
+msgid "Qadim the Peerless"
+msgstr "Qadim el Simpar"
+
+msgid "Harbinger"
+msgstr "Augurador"
+
+msgid "Willbender"
+msgstr "Subyugador"
+
+msgid "Virtuoso"
+msgstr "Virtuoso"
+
+msgid "Catalyst"
+msgstr "Catalizador"
+
+msgid "Bladesworn"
+msgstr "Jurafilos"
+
+msgid "Vindicator"
+msgstr "Justiciero"
+
+msgid "Mechanist"
+msgstr "Mechanista"
+
+msgid "Specter"
+msgstr "Espectro"
+
+msgid "Untamed"
+msgstr "Indómito"
+
+msgid "Commander"
+msgstr "Comandante"
