@@ -37,8 +37,8 @@ GW2RPC_APP_ID = "385475290614464513"
 log = logging.getLogger()
 
 # First one only for building
-#locales_path = resource_path("./locales")
-locales_path = resource_path("../locales")
+locales_path = resource_path("./locales")
+#locales_path = resource_path("../locales")
 
 lang = gettext.translation('base', localedir=locales_path, languages=[config.lang])
 lang.install()
@@ -426,11 +426,16 @@ class GW2RPC:
                 else:
                     if config.close_with_gw2:
                         shutdown = True
-            for process in psutil.process_iter(attrs=['name']):
-                name = process.info['name']
-                if name in ("Gw2-64.exe", "Gw2.exe"):
-                    self.process = process
-                    return
+            try:
+                for process in psutil.process_iter(attrs=['name']):
+                    name = process.info['name']
+                    if name in ("Gw2-64.exe", "Gw2.exe"):
+                        self.process = process
+                        return
+            except psutil.NoSuchProcess:
+                log.debug("A process exited while iterating over the process list.")
+                pass
+
             if shutdown:
                 self.shutdown()
             self.process = None
