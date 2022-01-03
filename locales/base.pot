@@ -616,3 +616,33 @@ msgstr ""
 
 msgid "Mistlock Sanctuary"
 msgstr ""
+
+msgid "Jackal",
+msgstr ""
+
+msgid "Griffon",
+msgstr ""
+
+msgid "Springer",
+msgstr ""
+
+msgid "Skimmer",
+msgstr ""
+
+msgid "Raptor",
+msgstr ""
+
+msgid "Roller Beetle",
+msgstr ""
+
+msgid "Warclaw",
+msgstr ""
+
+msgid "Skyscale",
+msgstr ""
+
+msgid "Siege Turtle"
+msgstr ""
+
+msgid "riding on"
+msgstr ""
