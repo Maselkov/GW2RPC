@@ -12,8 +12,6 @@ import requests
 from infi.systray import SysTrayIcon
 import gettext
 
-import json
-
 from .api import APIError, api  # TODO
 from .character import Character
 from .mumble import MumbleData
@@ -27,7 +25,7 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.2
+VERSION = 2.21
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
 #GW2RPC_BASE_URL = "http://localhost:5000/api/v2/"
@@ -37,8 +35,8 @@ GW2RPC_APP_ID = "385475290614464513"
 log = logging.getLogger()
 
 # First one only for building
-locales_path = resource_path("./locales")
-#locales_path = resource_path("../locales")
+#locales_path = resource_path("./locales")
+locales_path = resource_path("../locales")
 
 lang = gettext.translation('base', localedir=locales_path, languages=[config.lang])
 lang.install()
@@ -403,8 +401,8 @@ class GW2RPC:
 
     def find_fractal_boss(self, map_id, fractal, position):
         state = None
-        if map_id in [1177, 1205, 1384]:
-            if fractal["id"] == map_id:
+        if fractal["id"] == map_id:
+            try:
                 for boss in fractal["bosses"]:
                     distance = math.sqrt((boss["coord"][0] - position.x)**2 +
                                 (boss["coord"][1] - position.y)**2)
@@ -414,9 +412,10 @@ class GW2RPC:
                         return state
                     else:
                         state = _("in ") + _("fractal") + ": " + _(fractal["name"])
-        else:
-            return None
+            except KeyError:
+                state = _("in ") + _("fractal") + ": " + _(fractal["name"])
         return state
+        
     def main_loop(self):
         def update_gw2_process():
             shutdown = False
