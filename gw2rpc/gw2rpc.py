@@ -11,6 +11,7 @@ import psutil
 import requests
 from infi.systray import SysTrayIcon
 import gettext
+import urllib.parse
 
 from .api import APIError, api  # TODO
 from .character import Character
@@ -204,7 +205,7 @@ class GW2RPC:
                 mounts = self.registry["mounts"].keys()
                 if mount_index and str(mount_index) in mounts:
                     mount = self.registry["mounts"][str(mount_index)]
-                    state = _("riding on") + " " + _(mount) + " " + _("in ") + name
+                    state = _("on") + " " + _(mount) + " " + _("in ") + name
                 else:
                     state = _("in ") + name
         else:
@@ -288,6 +289,7 @@ class GW2RPC:
                 return None
             return self.find_closest_point(map_info, continent_info)
 
+        buttons = []
         data = self.game.get_mumble_data()
         if not data:
             return None
@@ -330,6 +332,9 @@ class GW2RPC:
                 point = get_closest_poi(map_info, continent_info)
                 if point:
                     map_asset["large_text"] += _(" near ") + point["name"]
+                    payload = {'chat_code': point["chat_link"], 'name': point["name"]}
+                    url = "https://gw2rpc.info/copy-paste?" + urllib.parse.urlencode(payload)
+                    buttons.append({"label": _("Closest") + " PoI: {}".format(point["chat_link"]), "url": url})
         map_asset["large_text"] += get_region()
 
         if not config.hide_commander_tag and is_commander:
@@ -338,6 +343,7 @@ class GW2RPC:
         else: 
             small_image = character.profession_icon
         small_text = "{} {} {}".format(_(character.race), _(character.profession), tag)
+        buttons.append({"label": "GW2RPC.info ↗️", "url": "https://gw2rpc.info"})
 
         activity = {
             "state": _(state),
@@ -348,7 +354,8 @@ class GW2RPC:
             "assets": {
                 **map_asset, "small_image": small_image,
                 "small_text": small_text
-            }
+            },
+            "buttons": buttons
         }
         return activity
 
@@ -364,7 +371,8 @@ class GW2RPC:
                 "gw2rpclogo",
                 "small_text":
                 "GW2RPC Version {}\nhttps://gw2rpc.info".format(VERSION)
-            }
+            },
+            "buttons": [{"label": "GW2RPC.info ↗️", "url": "https://gw2rpc.info"}]
         }
         return activity
 
