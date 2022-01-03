@@ -597,3 +597,22 @@ msgstr ""
 
 msgid "Commander"
 msgstr ""
+
+msgid "Whisper of Jormag"
+msgstr ""
+
+msgid "Boneskinner"
+msgstr ""
+
+msgid "Fraenir of Jormag"
+msgstr ""
+
+msgid "Voice And Claw of the Fallen"
+msgstr ""
+
+# TODO check the name for case sensitivity!
+msgid "Legendary Icebrood Construct"
+msgstr ""
+
+msgid "Mistlock Sanctuary"
+msgstr ""

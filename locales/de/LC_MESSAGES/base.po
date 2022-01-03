@@ -400,7 +400,7 @@ msgid "Character Selection"
 msgstr "Charakterauswahl"
 
 msgid "Mistlock Observatory"
-msgstr "Nebelsperren-Zuflucht"
+msgstr "Nebelsperren Observatorium"
 
 msgid "Uncategorized"
 msgstr "Nicht kategorisiert"
