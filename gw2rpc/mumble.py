@@ -8,23 +8,44 @@ from .settings import config
 class MumbleLinkException(Exception):
     pass
 
+class Context(ctypes.Structure):
+    _fields_ = [
+        ("serverAddress", ctypes.c_ubyte * 28),   # 28 bytes
+        ("mapId", ctypes.c_uint32),               # 4 bytes
+        ("mapType", ctypes.c_uint32),             # 4 bytes
+        ("shardId", ctypes.c_uint32),             # 4 bytes
+        ("instance", ctypes.c_uint32),            # 4 bytes
+        ("buildId", ctypes.c_uint32),             # 4 bytes
+        ("uiState", ctypes.c_uint32),             # 4 bytes
+        ("compassWidth", ctypes.c_uint16),        # 2 bytes
+        ("compassHeight", ctypes.c_uint16),       # 2 bytes
+        ("compassRotation", ctypes.c_float),      # 4 bytes
+        ("playerX", ctypes.c_float),              # 4 bytes
+        ("playerY", ctypes.c_float),              # 4 bytes
+        ("mapCenterX", ctypes.c_float),           # 4 bytes
+        ("mapCenterY", ctypes.c_float),           # 4 bytes
+        ("mapScale", ctypes.c_float),             # 4 bytes
+        ("processId", ctypes.c_uint32),           # 4 bytes
+        ("mountIndex", ctypes.c_uint8),           # 1 byte
+    ]
+
 
 # yapf:disable QA OFF
 class Link(ctypes.Structure):
     _fields_ = [
-        ("uiVersion",       ctypes.c_uint32),
-        ("uiTick",          ctypes.c_ulong),
-        ("fAvatarPosition", ctypes.c_float * 3),
-        ("fAvatarFront",    ctypes.c_float * 3),
-        ("fAvatarTop",      ctypes.c_float * 3),
-        ("name",            ctypes.c_wchar * 256),
-        ("fCameraPosition", ctypes.c_float * 3),
-        ("fCameraFront",    ctypes.c_float * 3),
-        ("fCameraTop",      ctypes.c_float * 3),
-        ("identity",        ctypes.c_wchar * 256),
-        ("context_len",     ctypes.c_uint32),
-        ("context",         ctypes.c_uint32 * 64),
-        ("description",     ctypes.c_wchar * 2048)
+        ("uiVersion", ctypes.c_uint32),           # 4 bytes
+        ("uiTick", ctypes.c_ulong),               # 4 bytes
+        ("fAvatarPosition", ctypes.c_float * 3),  # 3*4 bytes
+        ("fAvatarFront", ctypes.c_float * 3),     # 3*4 bytes
+        ("fAvatarTop", ctypes.c_float * 3),       # 3*4 bytes
+        ("name", ctypes.c_wchar * 256),           # 512 bytes
+        ("fCameraPosition", ctypes.c_float * 3),  # 3*4 bytes
+        ("fCameraFront", ctypes.c_float * 3),     # 3*4 bytes
+        ("fCameraTop", ctypes.c_float * 3),       # 3*4 bytes
+        ("identity", ctypes.c_wchar * 256),       # 512 bytes
+        ("context_len", ctypes.c_uint32),         # 4 bytes
+        # ("context", ctypes.c_ubyte * 256),      # 256 bytes, see below
+        # ("description", ctypes.c_wchar * 2048), # 4096 bytes, always empty
     ]
 # yapf:enable QA ON
 
@@ -35,9 +56,13 @@ class MumbleData:
         self.last_map_id = None
         self.last_timestamp = None
         self.last_character_name = None
+        self.size_link = ctypes.sizeof(Link)
+        self.size_context = ctypes.sizeof(Context)
 
     def create_map(self):
-        self.memfile = mmap.mmap(-1, ctypes.sizeof(Link), config.mumblelink)
+        size_discarded = 256 - self.size_context + 4096 # empty areas of context and description
+        memfile_length = self.size_link + self.size_context + size_discarded
+        self.memfile = mmap.mmap(-1, memfile_length, config.mumblelink)
 
     def close_map(self):
         if self.memfile:
@@ -56,11 +81,14 @@ class MumbleData:
 
     def get_mumble_data(self):
         self.memfile.seek(0)
-        data = self.memfile.read(ctypes.sizeof(Link))
+        data = self.memfile.read(self.size_link)
+        context = self.memfile.read(self.size_context)
         result = self.Unpack(Link, data)
+        result_context = self.Unpack(Context, context)
         if not result.identity:
             return None
         data = json.loads(result.identity)
+        data["mount_index"] = result_context.mountIndex
         character = data["name"]
         map_id = data["map_id"]
         if self.last_character_name != character or self.last_map_id != map_id:
@@ -71,7 +99,7 @@ class MumbleData:
 
     def get_position(self):
         self.memfile.seek(0)
-        data = self.memfile.read(ctypes.sizeof(Link))
+        data = self.memfile.read(self.size_link)
         result = self.Unpack(Link, data)
         return Position(result.fAvatarPosition)
 
