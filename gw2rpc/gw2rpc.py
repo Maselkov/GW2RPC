@@ -166,7 +166,7 @@ class GW2RPC:
             if res == 6:
                 webbrowser.open("https://gw2rpc.info/")
 
-    def get_map_asset(self, map_info):
+    def get_map_asset(self, map_info, mount_index=None):
         map_id = map_info["id"]
         map_name = map_info["name"]
         region = str(map_info.get("region_id", "thanks_anet"))
@@ -201,7 +201,12 @@ class GW2RPC:
                 else:
                     image = "default"
                 name = map_name
-                state = _("in ") + name
+                mounts = self.registry["mounts"].keys()
+                if mount_index and str(mount_index) in mounts:
+                    mount = self.registry["mounts"][str(mount_index)]
+                    state = _("riding on") + " " + _(mount) + " " + _("in ") + name
+                else:
+                    state = _("in ") + name
         else:
             # Fallback for api
             special = {
@@ -239,7 +244,7 @@ class GW2RPC:
             state = _("in ") + name
         return state, {"large_image": str(image), "large_text":  _(name)}
 
-    def get_raid_assets(self, map_info):
+    def get_raid_assets(self, map_info, mount_index=None):
         def readable_id(_id):
             _id = _id.split("_")
             dont_capitalize = ("of", "the", "in")
@@ -250,7 +255,7 @@ class GW2RPC:
         boss = self.find_closest_boss(map_info)
         if not boss:
             self.boss_timestamp = None
-            return self.get_map_asset(map_info)
+            return self.get_map_asset(map_info, mount_index)
         if boss["type"] == "boss":
             state = _("fighting ")
         else:
@@ -279,7 +284,7 @@ class GW2RPC:
             region = map_info.get("region_id")
             if config.disable_pois:
                 return None
-            if config.disable_pois_in_wvw and region == 7: #TODO change to region_Id
+            if config.disable_pois_in_wvw and region == 7:
                 return None
             return self.find_closest_point(map_info, continent_info)
 
@@ -288,6 +293,7 @@ class GW2RPC:
             return None
         map_id = data["map_id"]
         is_commander = data["commander"]
+        mount_index = data["mount_index"]
         try:
             if self.last_map_info and map_id == self.last_map_info["id"]:
                 map_info = self.last_map_info
@@ -299,7 +305,7 @@ class GW2RPC:
             log.exception("API Error!")
             self.last_map_info = None
             return None
-        state, map_asset = self.get_map_asset(map_info)
+        state, map_asset = self.get_map_asset(map_info, mount_index=mount_index)
         tag = character.guild_tag if config.display_tag else ""
         try:
             if map_id in self.no_pois or "continent_id" not in map_info:
@@ -316,7 +322,7 @@ class GW2RPC:
         details = character.name + tag
         timestamp = self.game.last_timestamp
         if self.registry and str(map_id) in self.registry.get("raids", {}):
-            state, map_asset = self.get_raid_assets(map_info)
+            state, map_asset = self.get_raid_assets(map_info, mount_index)
             timestamp = self.boss_timestamp or self.game.last_timestamp
         else:
             self.last_boss = None
