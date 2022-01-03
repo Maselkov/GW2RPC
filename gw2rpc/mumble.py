@@ -3,6 +3,7 @@ import json
 import mmap
 import time
 
+from .settings import config
 
 class MumbleLinkException(Exception):
     pass
@@ -36,7 +37,7 @@ class MumbleData:
         self.last_character_name = None
 
     def create_map(self):
-        self.memfile = mmap.mmap(-1, ctypes.sizeof(Link), "MumbleLink")
+        self.memfile = mmap.mmap(-1, ctypes.sizeof(Link), config.mumblelink)
 
     def close_map(self):
         if self.memfile:

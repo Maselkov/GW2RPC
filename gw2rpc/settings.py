@@ -14,6 +14,13 @@ class Config:
                 value = False
             return value
 
+        def set_string(header, setting, default):
+            try:
+                value = config[header][setting]
+            except KeyError:
+                value = default
+            return value
+
         supported_languages = ["en", "es", "de", "fr"]
 
         config = configparser.ConfigParser(allow_no_value=True)
@@ -29,6 +36,9 @@ class Config:
                 "DisableInWvW": False,
                 "DisableCompletely": False
             }
+            config["Multiboxing"] = {
+                "MumbleLink": "MumbleLink"
+            }
             with open("config.ini", "w") as cfile:
                 config.write(cfile)
         config.read("config.ini")
@@ -38,6 +48,7 @@ class Config:
         self.close_with_gw2 = set_boolean("Settings", "CloseWithGw2")
         self.display_tag = set_boolean("Settings", "DisplayGuildTag")
         self.hide_commander_tag = set_boolean("Settings", "HideCommanderTag")
+        self.mumblelink = set_string("Multiboxing", "MumbleLink", "MumbleLink")
         try:
             self.lang = config["Settings"]["Lang"] if config["Settings"]["Lang"] in supported_languages else "en"
         except KeyError:
