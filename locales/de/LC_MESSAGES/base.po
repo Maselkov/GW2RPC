@@ -596,3 +596,33 @@ msgstr "Ungezähmter"
 
 msgid "Commander"
 msgstr "Kommandeur"
+
+msgid "jackal"
+msgstr "Schakal"
+
+msgid "griffon"
+msgstr "Greif"
+
+msgid "springer"
+msgstr "Springer"
+
+msgid "skimmer"
+msgstr "Schweberochen"
+
+msgid "raptor"
+msgstr "Raptor"
+
+msgid "roller beetle"
+msgstr "Rollkäfer"
+
+msgid "warclaw"
+msgstr "Kriegsklaue"
+
+msgid "skyscale"
+msgstr "Himmelsschuppe"
+
+msgid "siege turtle"
+msgstr ""
+
+msgid "on"
+msgstr "auf"
