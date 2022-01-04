@@ -34,7 +34,8 @@ class Config:
             }
             config["PointsOfInterest"] = {
                 "DisableInWvW": False,
-                "DisableCompletely": False
+                "DisableCompletely": False,
+                "HidePoiButton": False
             }
             config["Multiboxing"] = {
                 "MumbleLink": "MumbleLink"
@@ -58,6 +59,8 @@ class Config:
                                         "DisableCompletely")
         self.disable_pois_in_wvw = set_boolean("PointsOfInterest",
                                                "DisableInWvW")
+        self.hide_poi_button = set_boolean("PointsOfInterest",
+                                                "HidePoiButton")
 
 
 config = Config()

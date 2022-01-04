@@ -36,8 +36,8 @@ GW2RPC_APP_ID = "385475290614464513"
 log = logging.getLogger()
 
 # First one only for building
-#locales_path = resource_path("./locales")
-locales_path = resource_path("../locales")
+locales_path = resource_path("./locales")
+#locales_path = resource_path("../locales")
 
 lang = gettext.translation('base', localedir=locales_path, languages=[config.lang])
 lang.install()
@@ -332,9 +332,10 @@ class GW2RPC:
                 point = get_closest_poi(map_info, continent_info)
                 if point:
                     map_asset["large_text"] += _(" near ") + point["name"]
-                    payload = {'chat_code': point["chat_link"], 'name': point["name"]}
-                    url = "https://gw2rpc.info/copy-paste?" + urllib.parse.urlencode(payload)
-                    buttons.append({"label": _("Closest") + " PoI: {}".format(point["chat_link"]), "url": url})
+                    if not config.hide_poi_button:
+                        payload = {'chat_code': point["chat_link"], 'name': point["name"]}
+                        url = "https://gw2rpc.info/copy-paste?" + urllib.parse.urlencode(payload)
+                        buttons.append({"label": _("Closest") + " PoI: {}".format(point["chat_link"]), "url": url})
         map_asset["large_text"] += get_region()
 
         if not config.hide_commander_tag and is_commander:
