@@ -14,7 +14,7 @@ https://gw2rpc.info
 * Web based registry for maps
 * Configurable settings
 * Supports multiple accounts
-
+---
 ## How to install
 Simply extract and run the `gw2rpc.exe`. It will start in your system tray. It needs to be running in background for Rich Presence to work.
 
@@ -24,9 +24,11 @@ To make starting Rich Presence easier, there is an .exe called `launch_gw2_with_
 
 You can also put a shortcut to `gw2rpc.exe` into your autorun so that it runs automatically on Windows boot.
 
+---
 ## How to update
 If a new version is released, simply replace the updated files. To get the newest configuration file, you might also delete the old one and let it be recreated on the first start of `gw2rpc.exe` for you.
 
+---
 ## Configuration file
 See below for the example configuration file
 ```
@@ -47,11 +49,15 @@ HidePoiButton = False           ; Dont show the copy paste button for PoI if tru
 [Multiboxing]
 MumbleLink = MumbleLink         ; Name for custom MumbleLink API, i.e. for multiboxing
 ```
-
+---
 ## Build and development Instructions
 This project was tested with python3 version 3.9.1, allthough later versions might work too.
+
+---
 ### Install dependencies
 Install dependencies with the command `pip3 install -r requirements.txt`
+
+---
 ### Generating locales
 First you have to generate the binary locale files with `msgformat.py`, i.e.
 ```
@@ -64,10 +70,14 @@ for file in $(ls locales); do cd locales/${file}/LC_MESSAGES && ../../../Tools/i
 mt.py -o base.mo base && cd ../../../; done
 ```
 Inside the LC_MESSAGES folders, you should now have the `base.po` and `base.mo` files.
+
+---
 ### Running
 Make sure to change `locales_path = resource_path("./locales")` to `locales_path = resource_path("../locales")` in `gw2rpc.py` and run the program from the projects root directory with `python.exe .\run.py`.
 
  Make sure that you run it from a Windows Terminal / Powershell as there are some Windows specific dependencies to get the tasks list. The tray icon should appear when the program is running.
+
+---
 ### Debugging
 Something like 
 ```
@@ -75,6 +85,8 @@ Something like
         print("{} {}".format(position.x, position.y))
 ```
 in the `get_map_asset` function in `gw2rpc.py` might be helpful to develop and debug.
+
+---
 ### Build
 First make sure to change the `locales_path` back to `./locales`, as mentioned above.
 
