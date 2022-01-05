@@ -140,7 +140,6 @@ class GW2RPC:
                 return None
 
         self.rpc = DiscordRPC(GW2RPC_APP_ID)
-        self.game = MumbleData()
         self.registry = fetch_registry()
         self.support_invite = fetch_support_invite()
         menu_options = ((_("About"), None, self.about), )
@@ -160,6 +159,8 @@ class GW2RPC:
         self.no_pois = set()
         self.check_for_updates()
         self.mumble_objects = create_mumble_objects()
+        # Select the first mumble object as initially in focus
+        self.game = self.mumble_objects[0]
 
     def shutdown(self, _=None):
         os._exit(0)  # Nuclear option
