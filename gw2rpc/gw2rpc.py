@@ -36,8 +36,8 @@ GW2RPC_APP_ID = "385475290614464513"
 log = logging.getLogger()
 
 # First one only for building
-locales_path = resource_path("./locales")
-#locales_path = resource_path("../locales")
+#locales_path = resource_path("./locales")
+locales_path = resource_path("../locales")
 
 lang = gettext.translation('base', localedir=locales_path, languages=[config.lang])
 lang.install()
@@ -77,6 +77,39 @@ def create_msgbox(description, *, title='GW2RPC', code=0):
 
 class GW2RPC:
     def __init__(self):
+
+        def get_mumble_links():
+            """
+            Search for running Gw2 processes and check for their mumbleLink Parameter field
+            Adds them to a list, or adds the default 'MumbleLink' if there are no parameters
+            """
+            mumble_links = set()
+            try:
+                for process in psutil.process_iter():
+                    pinfo = process.as_dict(attrs=['pid', 'name', 'cmdline'])
+                    if pinfo['name'] in ("Gw2-64.exe", "Gw2.exe"):
+                        cmdline = pinfo['cmdline']
+                        try:
+                            mumble_links.add(cmdline[cmdline.index('-mumble') + 1])
+                        except ValueError:
+                            mumble_links.add("MumbleLink")
+            except psutil.NoSuchProcess:
+                pass
+            return mumble_links
+
+        def create_mumble_objects():
+            """
+            Creates the datastructure MumbleData for all known mumble_link names
+            """
+            mumble_links = get_mumble_links()
+            mumble_objects = []
+            for m in mumble_links:
+                o = MumbleData(m)
+                if not o.memfile:
+                    o.create_map()
+                mumble_objects.append(o)
+            return mumble_objects
+
         def fetch_registry():
             
             # First one only for building
@@ -126,6 +159,7 @@ class GW2RPC:
         self.boss_timestamp = None
         self.no_pois = set()
         self.check_for_updates()
+        self.mumble_objects = create_mumble_objects()
 
     def shutdown(self, _=None):
         os._exit(0)  # Nuclear option
@@ -166,6 +200,15 @@ class GW2RPC:
                 code=68)
             if res == 6:
                 webbrowser.open("https://gw2rpc.info/")
+
+    def get_active_instance(self):
+        """
+        Iterates through all known Mumble Links, reads data from memfile and checks whether the instance is active
+        """
+        for o in self.mumble_objects:
+            o.get_mumble_data()
+            if o.in_focus:
+                return o
 
     def get_map_asset(self, map_info, mount_index=None):
         map_id = map_info["id"]
@@ -290,6 +333,8 @@ class GW2RPC:
             return self.find_closest_point(map_info, continent_info)
 
         buttons = []
+        active = self.get_active_instance()
+        self.game = active if active else self.game
         data = self.game.get_mumble_data()
         if not data:
             return None

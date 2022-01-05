@@ -51,18 +51,20 @@ class Link(ctypes.Structure):
 
 
 class MumbleData:
-    def __init__(self):
+    def __init__(self, mumble_link="MumbleLink"):
+        self.mumble_link = mumble_link
         self.memfile = None
         self.last_map_id = None
         self.last_timestamp = None
         self.last_character_name = None
         self.size_link = ctypes.sizeof(Link)
         self.size_context = ctypes.sizeof(Context)
+        self.in_focus = False
 
     def create_map(self):
         size_discarded = 256 - self.size_context + 4096 # empty areas of context and description
         memfile_length = self.size_link + self.size_context + size_discarded
-        self.memfile = mmap.mmap(-1, memfile_length, config.mumblelink)
+        self.memfile = mmap.mmap(-1, memfile_length, self.mumble_link)
 
     def close_map(self):
         if self.memfile:
@@ -89,6 +91,9 @@ class MumbleData:
             return None
         data = json.loads(result.identity)
         data["mount_index"] = result_context.mountIndex
+        uiState = str(bin(result_context.uiState))[2:].zfill(32)
+        # Determines if the active instance is in focus
+        self.in_focus = True if uiState[28] == "1" else False
         character = data["name"]
         map_id = data["map_id"]
         if self.last_character_name != character or self.last_map_id != map_id:
