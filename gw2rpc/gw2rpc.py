@@ -78,37 +78,6 @@ def create_msgbox(description, *, title='GW2RPC', code=0):
 class GW2RPC:
     def __init__(self):
 
-        def get_mumble_links():
-            """
-            Search for running Gw2 processes and check for their mumbleLink Parameter field
-            Adds them to a list, or adds the default 'MumbleLink' if there are no parameters
-            """
-            mumble_links = set()
-            try:
-                for process in psutil.process_iter():
-                    pinfo = process.as_dict(attrs=['pid', 'name', 'cmdline'])
-                    if pinfo['name'] in ("Gw2-64.exe", "Gw2.exe"):
-                        cmdline = pinfo['cmdline']
-                        try:
-                            mumble_links.add(cmdline[cmdline.index('-mumble') + 1])
-                        except ValueError:
-                            mumble_links.add("MumbleLink")
-            except psutil.NoSuchProcess:
-                pass
-            return mumble_links
-
-        def create_mumble_objects():
-            """
-            Creates the datastructure MumbleData for all known mumble_link names
-            """
-            mumble_links = get_mumble_links()
-            mumble_objects = []
-            for m in mumble_links:
-                o = MumbleData(m)
-                if not o.memfile:
-                    o.create_map()
-                mumble_objects.append(o)
-            return mumble_objects
 
         def fetch_registry():
             
@@ -158,9 +127,45 @@ class GW2RPC:
         self.boss_timestamp = None
         self.no_pois = set()
         self.check_for_updates()
-        self.mumble_objects = create_mumble_objects()
+        self.mumble_links = self.get_mumble_links()
+        self.mumble_objects = self.create_mumble_objects()
         # Select the first mumble object as initially in focus
-        self.game = self.mumble_objects[0]
+        if len(self.mumble_objects) > 0:
+            self.game = self.mumble_objects[0]
+        else:
+            self.game = MumbleData()
+
+
+    def get_mumble_links(self):
+        """
+        Search for running Gw2 processes and check for their mumbleLink Parameter field
+        Adds them to a list, or adds the default 'MumbleLink' if there are no parameters
+        """
+        mumble_links = set()
+        try:
+            for process in psutil.process_iter():
+                pinfo = process.as_dict(attrs=['pid', 'name', 'cmdline'])
+                if pinfo['name'] in ("Gw2-64.exe", "Gw2.exe"):
+                    cmdline = pinfo['cmdline']
+                    try:
+                        mumble_links.add(cmdline[cmdline.index('-mumble') + 1])
+                    except ValueError:
+                        mumble_links.add("MumbleLink")
+        except psutil.NoSuchProcess:
+            pass
+        return mumble_links
+
+    def create_mumble_objects(self):
+        """
+        Creates the datastructure MumbleData for all known mumble_link names
+        """
+        mumble_objects = []
+        for m in self.mumble_links:
+            o = MumbleData(m)
+            if not o.memfile:
+                o.create_map()
+            mumble_objects.append(o)
+        return mumble_objects
 
     def shutdown(self, _=None):
         os._exit(0)  # Nuclear option
@@ -333,15 +338,45 @@ class GW2RPC:
                 return None
             return self.find_closest_point(map_info, continent_info)
 
-        buttons = []
+        def update_mumble_links():
+            all_links = self.get_mumble_links()
+            new_links = all_links.difference(self.mumble_links)
+            dead_links = self.mumble_links.difference(all_links)
+
+            # Remove dead links
+            for m in dead_links:
+                for o in self.mumble_objects:
+                    # Kill the object
+                    if o.mumble_link == m:
+                        o.close_map
+                        self.mumble_objects.remove(o)
+                        del o
+                self.mumble_links.remove(m)
+
+            # Initialize the newly found Mumble Links
+            for m in new_links:
+                o = MumbleData(m)
+                if not o.memfile:
+                    o.create_map()
+                self.mumble_objects.append(o)
+            self.mumble_links.update(new_links)
+
+            # Every found mumble link is new -> was empty before
+            # Set the first object to game
+            if all_links and all_links == new_links:
+                self.game = self.mumble_objects[0]
+
+        update_mumble_links()
         active = self.get_active_instance()
         self.game = active if active else self.game
         data = self.game.get_mumble_data()
         if not data:
             return None
+        buttons = []
         map_id = data["map_id"]
         is_commander = data["commander"]
         mount_index = data["mount_index"]
+        in_combat = data["in_combat"]
         try:
             if self.last_map_info and map_id == self.last_map_info["id"]:
                 map_info = self.last_map_info
@@ -389,6 +424,8 @@ class GW2RPC:
             details = "{}: {}".format(_("Commander"), details)
         else: 
             small_image = character.profession_icon
+        if in_combat:
+            details = "{} {}".format(details, "⚔️")
         small_text = "{} {} {}".format(_(character.race), _(character.profession), tag)
         buttons.append({"label": "GW2RPC.info ↗️", "url": "https://gw2rpc.info"})
 
