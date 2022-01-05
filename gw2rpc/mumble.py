@@ -58,6 +58,7 @@ class MumbleData:
         self.size_link = ctypes.sizeof(Link)
         self.size_context = ctypes.sizeof(Context)
         self.in_focus = False
+        self.in_combat = False
 
     def create_map(self):
         size_discarded = 256 - self.size_context + 4096 # empty areas of context and description
@@ -88,10 +89,13 @@ class MumbleData:
         if not result.identity:
             return None
         data = json.loads(result.identity)
+
+        uiState = result_context.uiState
+        self.in_focus = bool(uiState & 0b1000)
+        self.in_combat = bool(uiState & 0b1000000)
+        
         data["mount_index"] = result_context.mountIndex
-        uiState = str(bin(result_context.uiState))[2:].zfill(32)
-        # Determines if the active instance is in focus
-        self.in_focus = True if uiState[28] == "1" else False
+        data["in_combat"] = self.in_combat
         character = data["name"]
         map_id = data["map_id"]
         if self.last_character_name != character or self.last_map_id != map_id:
