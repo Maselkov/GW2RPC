@@ -27,6 +27,7 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 VERSION = 2.21
+HEADERS = {'User-Agent': 'GW2RPC v{}'.format(VERSION)}
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
 #GW2RPC_BASE_URL = "http://localhost:5000/api/v2/"
@@ -89,7 +90,7 @@ class GW2RPC:
             #return registry
 
             url = GW2RPC_BASE_URL + "registry"
-            res = requests.get(url)
+            res = requests.get(url, headers=HEADERS)
             if res.status_code != 200:
                 log.error("Could not fetch the web registry")
                 return None
@@ -104,7 +105,7 @@ class GW2RPC:
         def fetch_support_invite():
             try:
                 return requests.get(GW2RPC_BASE_URL +
-                                    "support").json()["support"]
+                                    "support", headers=HEADERS).json()["support"]
             except:
                 return None
 
@@ -185,7 +186,7 @@ class GW2RPC:
     def check_for_updates(self):
         def get_build():
             url = GW2RPC_BASE_URL + "build"
-            r = requests.get(url)
+            r = requests.get(url, headers=HEADERS)
             try:
                 return r.json()["build"]
             except:
