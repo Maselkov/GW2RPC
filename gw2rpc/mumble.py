@@ -3,8 +3,6 @@ import json
 import mmap
 import time
 
-from .settings import config
-
 class MumbleLinkException(Exception):
     pass
 
