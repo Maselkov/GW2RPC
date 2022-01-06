@@ -233,7 +233,9 @@ class GW2RPC:
             if region == "26":  #  Fractals of the Mists 
                 image = "fotm"
                 for fractal in self.registry["fractals"]:
-                    state = self.find_fractal_boss(map_id, fractal, position)
+                    state, name = self.find_fractal_boss(map_id, fractal, position)
+                    if name:
+                        image = name.replace('.', "_").lower()
                     if state:
                         break
 
@@ -514,12 +516,12 @@ class GW2RPC:
                     
                     if distance <= boss["radius"]:
                         state = _("fighting ") + _(boss["name"]) + " " + _("in ") + _(fractal["name"])
-                        return state
+                        return state, boss["name"]
                     else:
                         state = _("in ") + _("fractal") + ": " + _(fractal["name"])
             except KeyError:
                 state = _("in ") + _("fractal") + ": " + _(fractal["name"])
-        return state
+        return state, None
         
     def main_loop(self):
         def update_gw2_process():
