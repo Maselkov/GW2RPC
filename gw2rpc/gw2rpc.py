@@ -132,7 +132,7 @@ class GW2RPC:
         self.mumble_objects = self.create_mumble_objects()
         # Select the first mumble object as initially in focus
         if len(self.mumble_objects) > 0:
-            self.game = self.mumble_objects[0]
+            self.game = self.mumble_objects[0][0]
         else:
             self.game = MumbleData()
 
@@ -141,6 +141,7 @@ class GW2RPC:
         """
         Search for running Gw2 processes and check for their mumbleLink Parameter field
         Adds them to a list, or adds the default 'MumbleLink' if there are no parameters
+        Returns a list of tuples of str: mumbleLink and process
         """
         mumble_links = set()
         try:
@@ -149,9 +150,9 @@ class GW2RPC:
                 if pinfo['name'] in ("Gw2-64.exe", "Gw2.exe"):
                     cmdline = pinfo['cmdline']
                     try:
-                        mumble_links.add(cmdline[cmdline.index('-mumble') + 1])
+                        mumble_links.add((cmdline[cmdline.index('-mumble') + 1], process))
                     except ValueError:
-                        mumble_links.add("MumbleLink")
+                        mumble_links.add(("MumbleLink", process))
         except psutil.NoSuchProcess:
             pass
         return mumble_links
@@ -159,13 +160,14 @@ class GW2RPC:
     def create_mumble_objects(self):
         """
         Creates the datastructure MumbleData for all known mumble_link names
+        Returns a list of tuples of mumble object and process
         """
         mumble_objects = []
-        for m in self.mumble_links:
+        for m, p in self.mumble_links:
             o = MumbleData(m)
             if not o.memfile:
                 o.create_map()
-            mumble_objects.append(o)
+            mumble_objects.append((o, p))
         return mumble_objects
 
     def shutdown(self, _=None):
@@ -212,10 +214,10 @@ class GW2RPC:
         """
         Iterates through all known Mumble Links, reads data from memfile and checks whether the instance is active
         """
-        for o in self.mumble_objects:
-            o.get_mumble_data()
+        for o, p in self.mumble_objects:
+            o.get_mumble_data(process=p)
             if o.in_focus:
-                return o
+                return (o, p)
 
     def get_map_asset(self, map_info, mount_index=None):
         map_id = map_info["id"]
@@ -345,32 +347,36 @@ class GW2RPC:
             dead_links = self.mumble_links.difference(all_links)
 
             # Remove dead links
-            for m in dead_links:
-                for o in self.mumble_objects:
+            for m, p1 in dead_links:
+                for o, p2 in self.mumble_objects:
                     # Kill the object
                     if o.mumble_link == m:
                         o.close_map
-                        self.mumble_objects.remove(o)
+                        self.mumble_objects.remove((o, p2))
                         del o
-                self.mumble_links.remove(m)
+                self.mumble_links.remove((m, p1))
 
             # Initialize the newly found Mumble Links
-            for m in new_links:
+            for m, p in new_links:
                 o = MumbleData(m)
                 if not o.memfile:
                     o.create_map()
-                self.mumble_objects.append(o)
-            self.mumble_links.update(new_links)
+                self.mumble_objects.append((o, p))
+                self.mumble_links.add((m, p))
 
             # Every found mumble link is new -> was empty before
             # Set the first object to game
             if all_links and all_links == new_links:
-                self.game = self.mumble_objects[0]
+                self.game = self.mumble_objects[0][0]
 
         update_mumble_links()
-        active = self.get_active_instance()
+        try:
+            active, active_p = self.get_active_instance()
+        except TypeError:
+            active = self.get_active_instance()
+            active_p=None
         self.game = active if active else self.game
-        data = self.game.get_mumble_data()
+        data = self.game.get_mumble_data(process=active_p)
         if not data:
             return None
         buttons = []

@@ -2,6 +2,7 @@ import ctypes
 import json
 import mmap
 import time
+import socket
 
 class MumbleLinkException(Exception):
     pass
@@ -59,6 +60,7 @@ class MumbleData:
         self.size_context = ctypes.sizeof(Context)
         self.in_focus = False
         self.in_combat = False
+        self.last_server_ip = None
 
     def create_map(self):
         size_discarded = 256 - self.size_context + 4096 # empty areas of context and description
@@ -80,7 +82,7 @@ class MumbleData:
             ctypes.pointer(cstring), ctypes.POINTER(ctype)).contents
         return ctype_instance
 
-    def get_mumble_data(self):
+    def get_mumble_data(self, process=None):
         self.memfile.seek(0)
         data = self.memfile.read(self.size_link)
         context = self.memfile.read(self.size_context)
@@ -94,6 +96,26 @@ class MumbleData:
         self.in_focus = bool(uiState & 0b1000)
         self.in_combat = bool(uiState & 0b1000000)
         
+        # Check if in character selection or ingame
+        address_family = result_context.serverAddress[0]
+        if address_family == socket.AF_INET:
+            self.last_server_ip = socket.inet_ntop(socket.AF_INET, bytearray(result_context.serverAddress[4:8]))
+        elif address_family == socket.AF_INET6:
+            # NOT implemented, because format of IPv6 Server address in Context struct is not documented!
+            self.last_server_ip = None
+        else:
+            self.last_server_ip = None
+
+        if process and self.last_server_ip:
+            try:
+                for conn in process.connections():
+                    if conn.status == 'ESTABLISHED' and conn.raddr.ip == self.last_server_ip:
+                        break
+                else:
+                    return None
+            except:
+                pass
+
         data["mount_index"] = result_context.mountIndex
         data["in_combat"] = self.in_combat
         character = data["name"]
