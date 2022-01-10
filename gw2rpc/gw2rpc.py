@@ -128,13 +128,14 @@ class GW2RPC:
         self.boss_timestamp = None
         self.no_pois = set()
         self.check_for_updates()
+        self.game = None
         self.mumble_links = self.get_mumble_links()
         self.mumble_objects = self.create_mumble_objects()
         # Select the first mumble object as initially in focus
         if len(self.mumble_objects) > 0:
             self.game = self.mumble_objects[0][0]
-        else:
-            self.game = MumbleData()
+        #else:
+        #    self.game = MumbleData()
 
 
     def get_mumble_links(self):
@@ -218,6 +219,7 @@ class GW2RPC:
             o.get_mumble_data(process=p)
             if o.in_focus:
                 return (o, p)
+        return None, None
 
     def get_map_asset(self, map_info, mount_index=None):
         map_id = map_info["id"]
@@ -348,6 +350,11 @@ class GW2RPC:
             new_links = all_links.difference(self.mumble_links)
             dead_links = self.mumble_links.difference(all_links)
 
+            #print(f"Previous active links {self.mumble_links}")
+            #print(f"All currently active links {all_links}")
+            #print(f"Newly discovered links {new_links}")
+            #print(f"Now dead links {dead_links}")
+
             # Remove dead links
             for m, p1 in dead_links:
                 for o, p2 in self.mumble_objects:
@@ -372,12 +379,9 @@ class GW2RPC:
                 self.game = self.mumble_objects[0][0]
 
         update_mumble_links()
-        try:
-            active, active_p = self.get_active_instance()
-        except TypeError:
-            active = self.get_active_instance()
-            active_p=None
+        active, active_p = self.get_active_instance()
         self.game = active if active else self.game
+        self.process = active_p if active_p else self.process
         data = self.game.get_mumble_data(process=active_p)
         if not data:
             return None
@@ -559,7 +563,7 @@ class GW2RPC:
             while True:
                 try:
                     update_gw2_process()
-                    if not self.game.memfile:
+                    if self.game and not self.game.memfile:
                         self.game.create_map()
                     if not self.rpc.running:
                         start_rpc()
@@ -577,7 +581,8 @@ class GW2RPC:
                         raise GameNotRunningError  # To start a new connection
                 except GameNotRunningError:
                     #  TODO
-                    self.game.close_map()
+                    if self.game:
+                        self.game.close_map()
                     if self.rpc.running:
                         self.rpc.close()
                         log.debug("Killing RPC")
