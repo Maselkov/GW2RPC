@@ -1,5 +1,6 @@
 import ctypes
 import json
+from json.decoder import JSONDecodeError
 import mmap
 import time
 import socket
@@ -74,6 +75,9 @@ class MumbleData:
             self.last_map_id = None
             self.last_timestamp = None
             self.last_character_name = None
+            self.in_focus = False
+            self.in_combat = False
+            self.last_server_ip = None
 
     @staticmethod
     def Unpack(ctype, buf):
@@ -90,7 +94,10 @@ class MumbleData:
         result_context = self.Unpack(Context, context)
         if not result.identity:
             return None
-        data = json.loads(result.identity)
+        try:
+            data = json.loads(result.identity)
+        except JSONDecodeError:
+            return None
 
         uiState = result_context.uiState
         self.in_focus = bool(uiState & 0b1000)
