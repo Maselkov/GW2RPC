@@ -30,7 +30,8 @@ class Config:
                 "CloseWithGw2": False,
                 "DisplayGuildTag": True,
                 "Lang" : "en",
-                "HideCommanderTag": False
+                "HideCommanderTag": False,
+                "HideMounts": False
             }
             config["PointsOfInterest"] = {
                 "DisableInWvW": False,
@@ -46,11 +47,13 @@ class Config:
         self.close_with_gw2 = set_boolean("Settings", "CloseWithGw2")
         self.display_tag = set_boolean("Settings", "DisplayGuildTag")
         self.hide_commander_tag = set_boolean("Settings", "HideCommanderTag")
+        self.hide_mounts = set_boolean("Settings", "HideMounts")
         try:
             self.lang = config["Settings"]["Lang"] if config["Settings"]["Lang"] in supported_languages else "en"
         except KeyError:
             log.error("Missing language parameter, defaulting to en. Add 'lang = en' for localization support to config.ini.")
             self.lang = "en"
+
         self.disable_pois = set_boolean("PointsOfInterest",
                                         "DisableCompletely")
         self.disable_pois_in_wvw = set_boolean("PointsOfInterest",
