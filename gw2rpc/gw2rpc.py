@@ -26,7 +26,7 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.21
+VERSION = 2.22
 HEADERS = {'User-Agent': 'GW2RPC v{}'.format(VERSION)}
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
@@ -250,7 +250,11 @@ class GW2RPC:
                 name = "Fractals of the Mists"
             else:
                 if map_name in self.registry["special"]:
+                    # Not sure if this even works but i dont want to touch it
                     image = self.registry["special"][map_name]
+                elif str(map_id) in self.registry["special"]:
+                    # Many strike instances share the same ID, with this we only have to keep one asset in discord
+                    image = self.registry["special"][str(map_id)]
                 elif map_id in self.registry["valid"]:
                     image = map_id
                 elif region in self.registry["regions"]:
@@ -259,7 +263,7 @@ class GW2RPC:
                     image = "default"
                 name = map_name
                 mounts = self.registry["mounts"].keys()
-                if mount_index and str(mount_index) in mounts:
+                if not config.hide_mounts and mount_index and str(mount_index) in mounts:
                     mount = self.registry["mounts"][str(mount_index)]
                     state = _("on") + " " + _(mount) + " " + _("in ") + name
                 else:
@@ -382,6 +386,7 @@ class GW2RPC:
         active, active_p = self.get_active_instance()
         self.game = active if active else self.game
         self.process = active_p if active_p else self.process
+        # TODO maybe self.process instead of active_p here?
         data = self.game.get_mumble_data(process=active_p)
         if not data:
             return None
