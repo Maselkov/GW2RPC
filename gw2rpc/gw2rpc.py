@@ -158,6 +158,9 @@ class GW2RPC:
                         mumble_links.add((cmdline[cmdline.index('-mumble') + 1], process))
                     except ValueError:
                         mumble_links.add(("MumbleLink", process))
+                    except AttributeError:
+                        log.error("GW2 process crashed!")
+                        continue
         except psutil.NoSuchProcess:
             pass
         return mumble_links
