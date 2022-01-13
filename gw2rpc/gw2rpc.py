@@ -90,7 +90,11 @@ class GW2RPC:
             #return registry
 
             url = GW2RPC_BASE_URL + "registry"
-            res = requests.get(url, headers=HEADERS)
+            try:
+                res = requests.get(url, headers=HEADERS)
+            except Exception as e:
+                log.error(f"Could not open connection to {url}. Web API will not be available!", exc_info=e)
+                return None
             if res.status_code != 200:
                 log.error("Could not fetch the web registry")
                 return None
@@ -189,7 +193,11 @@ class GW2RPC:
     def check_for_updates(self):
         def get_build():
             url = GW2RPC_BASE_URL + "build"
-            r = requests.get(url, headers=HEADERS)
+            try:
+                r = requests.get(url, headers=HEADERS)
+            except Exception as e:
+                log.error(f"Could not open connection to {url}", exc_info=e)
+                return None
             try:
                 return r.json()["build"]
             except:
