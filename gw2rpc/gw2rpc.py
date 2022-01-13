@@ -37,8 +37,8 @@ GW2RPC_APP_ID = "385475290614464513"
 log = logging.getLogger()
 
 # First one only for building
-#locales_path = resource_path("./locales")
-locales_path = resource_path("../locales")
+locales_path = resource_path("./locales")
+#locales_path = resource_path("../locales")
 
 lang = gettext.translation('base', localedir=locales_path, languages=[config.lang])
 lang.install()
@@ -93,9 +93,15 @@ class GW2RPC:
             try:
                 res = requests.get(url, headers=HEADERS)
             except Exception as e:
+                # Client side error, mostly DNS failure or firewall blocking connection
+                # -> Exit GW2RPC
                 log.error(f"Could not open connection to {url}. Web API will not be available!", exc_info=e)
-                return None
+                create_msgbox(
+                    f"Could not open connection to {url}. Please check your connection!",
+                    code=16)
+                self.shutdown()
             if res.status_code != 200:
+                # Server side error, fall back to local registry
                 log.error("Could not fetch the web registry")
                 return None
             return res.json()
