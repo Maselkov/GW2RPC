@@ -622,7 +622,40 @@ msgid "skyscale"
 msgstr "Himmelsschuppe"
 
 msgid "siege turtle"
-msgstr ""
+msgstr "Belagerungs-Schildkröte"
 
 msgid "on"
 msgstr "auf"
+
+msgid "Whisper of Jormag"
+msgstr "Geflüster des Jormag"
+
+msgid "Boneskinner"
+msgstr "Knochenhäuter"
+
+msgid "Fraenir of Jormag"
+msgstr "Fraenir Jormags"
+
+msgid "Voice And Claw of the Fallen"
+msgstr "Stimme und Klaue der Gefallenen"
+
+msgid "Legendary Icebrood Construct"
+msgstr "Legende Eisbrut-Konstrukt"
+
+msgid "Mistlock Sanctuary"
+msgstr "Nebelsperren-Zuflucht"
+
+msgid "Closest"
+msgstr "Nächster"
+
+# Molten boss fractal
+msgid "Berserker and Firestorm"
+msgstr "Berserker und Feuersturm"
+
+# Sirens reef fractal
+msgid "Blasting Black Peter"
+msgstr "Schwarzpulver-Peter"
+
+# Sirens reef fractal
+msgid "Arabella Crowe"
+msgstr "Arabella Krähe"

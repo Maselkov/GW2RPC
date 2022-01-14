@@ -66,8 +66,7 @@ cd locales/de/LC_MESSAGES/
 ```
 to do this for all available languages in one command, run the following from the project root directory:
 ```
-for file in $(ls locales); do cd locales/${file}/LC_MESSAGES && ../../../Tools/i18n/msgf
-mt.py -o base.mo base && cd ../../../; done
+for file in $(ls locales); do cd locales/${file}/LC_MESSAGES && ../../../Tools/i18n/msgfmt.py -o base.mo base && cd ../../../; done
 ```
 Inside the LC_MESSAGES folders, you should now have the `base.po` and `base.mo` files.
 

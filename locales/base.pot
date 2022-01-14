@@ -640,7 +640,6 @@ msgstr ""
 msgid "Voice And Claw of the Fallen"
 msgstr ""
 
-# TODO check the name for case sensitivity!
 msgid "Legendary Icebrood Construct"
 msgstr ""
 
@@ -648,4 +647,16 @@ msgid "Mistlock Sanctuary"
 msgstr ""
 
 msgid "Closest"
+msgstr ""
+
+# Molten boss fractal
+msgid "Berserker and Firestorm"
+msgstr ""
+
+# Sirens reef fractal
+msgid "Blasting Black Peter"
+msgstr ""
+
+# Sirens reef fractal
+msgid "Arabella Crowe"
 msgstr ""
