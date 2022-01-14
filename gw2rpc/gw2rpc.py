@@ -254,7 +254,7 @@ class GW2RPC:
                 for fractal in self.registry["fractals"]:
                     state, name = self.find_fractal_boss(map_id, fractal, position)
                     if name:
-                        image = name.replace('.', "_").lower()
+                        image = name.replace('.', "_").lower().replace(" ", "_")
                     if state:
                         break
 
