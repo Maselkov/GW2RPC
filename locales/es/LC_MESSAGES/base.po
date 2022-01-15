@@ -660,3 +660,18 @@ msgstr "El Negro Peter Descargas"
 # Sirens reef fractal
 msgid "Arabella Crowe"
 msgstr "Capitana Crowe"
+
+msgid "Brood Queen"
+msgstr "Reine des couvées"
+
+msgid "Deepstone Sentinel"
+msgstr "Sentinelle de la Roche des abysses"
+
+msgid "The Voice"
+msgstr "La Voix"
+
+msgid "Bloomhunger"
+msgstr "Devoraflores"
+
+msgid "Jade Maw"
+msgstr "Fauces de jade"

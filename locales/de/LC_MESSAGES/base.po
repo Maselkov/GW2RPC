@@ -659,3 +659,18 @@ msgstr "Schwarzpulver-Peter"
 # Sirens reef fractal
 msgid "Arabella Crowe"
 msgstr "Arabella Krähe"
+
+msgid "Brood Queen"
+msgstr "Brutkönigin"
+
+msgid "Deepstone Sentinel"
+msgstr "Tiefenstein-Wache"
+
+msgid "The Voice"
+msgstr "Die Stimme"
+
+msgid "Bloomhunger"
+msgstr "Blütenschmacht"
+
+msgid "Jade Maw"
+msgstr "Jadeschlund"

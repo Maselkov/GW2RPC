@@ -663,3 +663,18 @@ msgstr "Pete l'explosif"
 # Sirens reef fractal
 msgid "Arabella Crowe"
 msgstr "Arabella Crowe"
+
+msgid "Brood Queen"
+msgstr "Reina de la colonia"
+
+msgid "Deepstone Sentinel"
+msgstr "Centinela de Rocahonda."
+
+msgid "The Voice"
+msgstr "La Voz"
+
+msgid "Bloomhunger"
+msgstr "Carnasse"
+
+msgid "Jade Maw"
+msgstr "Abîme de Jade"

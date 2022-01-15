@@ -660,3 +660,18 @@ msgstr ""
 # Sirens reef fractal
 msgid "Arabella Crowe"
 msgstr ""
+
+msgid "Brood Queen"
+msgstr ""
+
+msgid "Deepstone Sentinel"
+msgstr ""
+
+msgid "The Voice"
+msgstr ""
+
+msgid "Bloomhunger"
+msgstr ""
+
+msgid "Jade Maw"
+msgstr ""
