@@ -244,9 +244,9 @@ class GW2RPC:
         region = str(map_info.get("region_id", "thanks_anet"))
 
         position = self.game.get_position()
-        #print("{} {}".format(position.x, position.y))
         #print("{} {}".format(map_id, map_name))
-        #print("{} {}".format(position.x, position.y))
+        #print("{} {} {}".format(position.x, position.y, position.z))
+        #print("--------------------------")
         
         if self.registry:
             if region == "26":  #  Fractals of the Mists 
@@ -442,6 +442,8 @@ class GW2RPC:
         if self.registry and str(map_id) in self.registry.get("raids", {}):
             state, map_asset = self.get_raid_assets(map_info, mount_index)
             timestamp = self.boss_timestamp or self.game.last_timestamp
+        elif map_id in [f["id"] for f in self.registry["fractals"]]:
+            timestamp = self.boss_timestamp or self.game.last_timestamp
         else:
             self.last_boss = None
             if self.last_continent_info:
@@ -542,8 +544,13 @@ class GW2RPC:
                     
                     if distance <= boss["radius"]:
                         state = _("fighting ") + _(boss["name"]) + " " + _("in ") + _(fractal["name"])
+                        if self.last_boss != boss["name"]:
+                            self.boss_timestamp = int(time.time())
+                        self.last_boss = boss["name"]
                         return state, boss["name"]
                     else:
+                        self.boss_timestamp = None
+                        self.last_boss = None
                         state = _("in ") + _("fractal") + ": " + _(fractal["name"])
             except KeyError:
                 state = _("in ") + _("fractal") + ": " + _(fractal["name"])
