@@ -26,7 +26,7 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.22
+VERSION = 2.23
 HEADERS = {'User-Agent': 'GW2RPC v{}'.format(VERSION)}
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
@@ -37,8 +37,8 @@ GW2RPC_APP_ID = "385475290614464513"
 log = logging.getLogger()
 
 # First one only for building
-#locales_path = resource_path("./locales")
-locales_path = resource_path("../locales")
+locales_path = resource_path("./locales")
+#locales_path = resource_path("../locales")
 
 lang = gettext.translation('base', localedir=locales_path, languages=[config.lang])
 lang.install()
@@ -593,9 +593,9 @@ class GW2RPC:
             try:
                 for process in psutil.process_iter(attrs=['name']):
                     name = process.info['name']
-                    if name in ("gw2rpc.exe"):
+                    if name == "gw2rpc.exe":
                         count += 1
-                    if count > 1:
+                    if count > 2:
                         break
                 else:
                     return
