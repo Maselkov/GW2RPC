@@ -37,8 +37,8 @@ GW2RPC_APP_ID = "385475290614464513"
 log = logging.getLogger()
 
 # First one only for building
-locales_path = resource_path("./locales")
-#locales_path = resource_path("../locales")
+#locales_path = resource_path("./locales")
+locales_path = resource_path("../locales")
 
 lang = gettext.translation('base', localedir=locales_path, languages=[config.lang])
 lang.install()
@@ -588,7 +588,28 @@ class GW2RPC:
                 except (FileNotFoundError, PermissionError) as e:
                     time.sleep(10)
 
+        def check_for_running_rpc():
+            count = 0
+            try:
+                for process in psutil.process_iter(attrs=['name']):
+                    name = process.info['name']
+                    if name in ("gw2rpc.exe"):
+                        count += 1
+                    if count > 1:
+                        break
+                else:
+                    return
+            except psutil.NoSuchProcess:
+                log.debug("A process exited while iterating over the process list.")
+                pass   
+            log.info("Another gw2rpc process is already running, exiting.")
+            if self.rpc.running:
+                self.rpc.close()
+                log.debug("Killing RPC")
+            self.shutdown()
+
         try:
+            check_for_running_rpc()
             while True:
                 try:
                     update_gw2_process()
