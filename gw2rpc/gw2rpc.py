@@ -106,11 +106,6 @@ class GW2RPC:
                 return None
             return res.json()
 
-        def icon_path():
-            try:
-                return os.path.join(sys._MEIPASS, "icon.ico")
-            except:
-                return "icon.ico"
 
         def fetch_support_invite():
             try:
@@ -122,15 +117,6 @@ class GW2RPC:
         self.rpc = DiscordRPC(GW2RPC_APP_ID)
         self.registry = fetch_registry()
         self.support_invite = fetch_support_invite()
-        menu_options = ((_("About"), None, self.about), )
-        if self.support_invite:
-            menu_options += ((_("Join support server"), None, self.join_guild), )
-        self.systray = SysTrayIcon(
-            icon_path(),
-            _("Guild Wars 2 with Discord"),
-            menu_options,
-            on_quit=self.shutdown)
-        self.systray.start()
         self.process = None
         self.last_map_info = None
         self.last_continent_info = None
@@ -147,6 +133,22 @@ class GW2RPC:
         #else:
         #    self.game = MumbleData()
 
+    def create_systray(self):
+        def icon_path():
+            try:
+                return os.path.join(sys._MEIPASS, "icon.ico")
+            except:
+                return "icon.ico"
+
+        menu_options = ((_("About"), None, self.about), )
+        if self.support_invite:
+            menu_options += ((_("Join support server"), None, self.join_guild), )
+        self.systray = SysTrayIcon(
+            icon_path(),
+            _("Guild Wars 2 with Discord"),
+            menu_options,
+            on_quit=self.shutdown)
+        self.systray.start()
 
     def get_mumble_links(self):
         """
@@ -602,7 +604,7 @@ class GW2RPC:
             except psutil.NoSuchProcess:
                 log.debug("A process exited while iterating over the process list.")
                 pass   
-            log.info("Another gw2rpc process is already running, exiting.")
+            log.warning("Another gw2rpc process is already running, exiting.")
             if self.rpc.running:
                 self.rpc.close()
                 log.debug("Killing RPC")
@@ -610,6 +612,7 @@ class GW2RPC:
 
         try:
             check_for_running_rpc()
+            self.create_systray()
             while True:
                 try:
                     update_gw2_process()
