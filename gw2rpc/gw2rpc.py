@@ -453,7 +453,7 @@ class GW2RPC:
                 if point:
                     map_asset["large_text"] += _(" near ") + point["name"]
                     if not config.hide_poi_button:
-                        payload = {'chat_code': point["chat_link"], 'name': point["name"]}
+                        payload = {'chat_code': point["chat_link"], 'name': point["name"], 'character': character.name}
                         url = "https://gw2rpc.info/copy-paste?" + urllib.parse.urlencode(payload)
                         buttons.append({"label": _("Closest") + " PoI: {}".format(point["chat_link"]), "url": url})
         map_asset["large_text"] += get_region()
@@ -550,11 +550,13 @@ class GW2RPC:
                             self.boss_timestamp = int(time.time())
                         self.last_boss = boss["name"]
                         return state, boss["name"]
-                    else:
-                        self.boss_timestamp = None
-                        self.last_boss = None
-                        state = _("in ") + _("fractal") + ": " + _(fractal["name"])
+                else:
+                    self.boss_timestamp = None
+                    self.last_boss = None
+                    state = _("in ") + _("fractal") + ": " + _(fractal["name"])
             except KeyError:
+                self.boss_timestamp = None
+                self.last_boss = None
                 state = _("in ") + _("fractal") + ": " + _(fractal["name"])
         return state, None
         
