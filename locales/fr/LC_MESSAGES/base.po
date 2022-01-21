@@ -678,3 +678,6 @@ msgstr "Carnasse"
 
 msgid "Jade Maw"
 msgstr "Abîme de Jade"
+
+msgid "loading screen"
+msgstr "écran de chargement"

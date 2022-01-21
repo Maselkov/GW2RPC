@@ -675,3 +675,6 @@ msgstr "Devoraflores"
 
 msgid "Jade Maw"
 msgstr "Fauces de jade"
+
+msgid "loading screen"
+msgstr "cargando pantalla"

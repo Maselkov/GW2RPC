@@ -675,3 +675,6 @@ msgstr ""
 
 msgid "Jade Maw"
 msgstr ""
+
+msgid "loading screen"
+msgstr ""

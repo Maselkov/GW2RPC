@@ -674,3 +674,6 @@ msgstr "Blütenschmacht"
 
 msgid "Jade Maw"
 msgstr "Jadeschlund"
+
+msgid "loading screen"
+msgstr "Ladebildschirm"
