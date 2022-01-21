@@ -484,7 +484,7 @@ class GW2RPC:
 
     def in_character_selection(self):
         activity = {
-            "state": _("in character selection"),
+            "state": _("in character selection") + " / " + _("loading screen"),
             "assets": {
                 "large_image":
                 "default",
