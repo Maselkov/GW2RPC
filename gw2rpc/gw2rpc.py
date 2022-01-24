@@ -92,14 +92,14 @@ class GW2RPC:
             url = GW2RPC_BASE_URL + "registry"
             try:
                 res = requests.get(url, headers=HEADERS)
-            except Exception as e:
+            except:
                 # Client side error, mostly DNS failure or firewall blocking connection
-                # -> Exit GW2RPC
-                log.error(f"Could not open connection to {url}. Web API will not be available!", exc_info=e)
+                # -> fallback to local registry
+                log.error(f"Could not open connection to {url}. Web API will not be available!")
                 create_msgbox(
                     f"Could not open connection to {url}. Please check your connection!",
                     code=16)
-                self.shutdown()
+                return None
             if res.status_code != 200:
                 # Server side error, fall back to local registry
                 log.error("Could not fetch the web registry")
@@ -444,7 +444,7 @@ class GW2RPC:
         if self.registry and str(map_id) in self.registry.get("raids", {}):
             state, map_asset = self.get_raid_assets(map_info, mount_index)
             timestamp = self.boss_timestamp or self.game.last_timestamp
-        elif map_id in [f["id"] for f in self.registry["fractals"]]:
+        elif self.registry and map_id in [f["id"] for f in self.registry["fractals"]]:
             timestamp = self.boss_timestamp or self.game.last_timestamp
         else:
             self.last_boss = None
