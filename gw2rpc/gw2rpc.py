@@ -13,7 +13,7 @@ from infi.systray import SysTrayIcon
 import gettext
 import urllib.parse
 
-from .api import APIError, api  # TODO
+from .api import APIError, api  
 from .character import Character
 from .mumble import MumbleData
 from .rpc import DiscordRPC
@@ -26,7 +26,7 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.23
+VERSION = 2.3
 HEADERS = {'User-Agent': 'GW2RPC v{}'.format(VERSION)}
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
@@ -96,9 +96,6 @@ class GW2RPC:
                 # Client side error, mostly DNS failure or firewall blocking connection
                 # -> fallback to local registry
                 log.error(f"Could not open connection to {url}. Web API will not be available!")
-                create_msgbox(
-                    f"Could not open connection to {url}. Please check your connection!",
-                    code=16)
                 return None
             if res.status_code != 200:
                 # Server side error, fall back to local registry
@@ -206,8 +203,8 @@ class GW2RPC:
             url = GW2RPC_BASE_URL + "build"
             try:
                 r = requests.get(url, headers=HEADERS)
-            except Exception as e:
-                log.error(f"Could not open connection to {url}", exc_info=e)
+            except:
+                log.error(f"Could not open connection to {url}")
                 return None
             try:
                 return r.json()["build"]
@@ -422,7 +419,7 @@ class GW2RPC:
                 self.last_map_info = map_info
             character = Character(data)
         except APIError:
-            log.exception("API Error!")
+            log.error("API Error!")
             self.last_map_info = None
             return None
         state, map_asset = self.get_map_asset(map_info, mount_index=mount_index)

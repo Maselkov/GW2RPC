@@ -1,17 +1,11 @@
 import logging
 
 import requests
-import ctypes
-import os
 
 from .settings import config
 
 log = logging.getLogger()
 
-
-def create_msgbox(description, *, title='GW2RPC', code=0):
-    MessageBox = ctypes.windll.user32.MessageBoxW
-    return MessageBox(None, description, title, code)
 
 class APIError(Exception):
     def __init__(self, code):
@@ -86,10 +80,7 @@ class GW2Api:
                 r = self.__session.get(url)
         except:
             log.error(f"Connection to {url} failed. Check connection.")
-            create_msgbox(
-                    f"Could not open connection to GW2API. Location data will not be available, shutting down. Please check your connection!",
-                    code=16)
-            os._exit(0)
+            raise APIError(1)
 
         if r.status_code != 200:
             raise APIError(r.status_code)
