@@ -600,3 +600,84 @@ msgstr "Indomptable"
 
 msgid "Commander"
 msgstr "Commandant"
+
+msgid "jackal"
+msgstr "chacal"
+
+msgid "griffon"
+msgstr "griffon"
+
+msgid "springer"
+msgstr "frappesol"
+
+msgid "skimmer"
+msgstr "voldécume"
+
+msgid "raptor"
+msgstr "raptor"
+
+msgid "roller beetle"
+msgstr "scaraboule"
+
+msgid "warclaw"
+msgstr "razziafelis"
+
+msgid "skyscale"
+msgstr "dracaille"
+
+msgid "siege turtle"
+msgstr "tortue de siège"
+
+msgid "on"
+msgstr "à"
+
+msgid "Whisper of Jormag"
+msgstr "Murmure de Jormag"
+
+msgid "Boneskinner"
+msgstr "Désosseur"
+
+msgid "Fraenir of Jormag"
+msgstr "Fraenir de Jormag"
+
+msgid "Voice And Claw of the Fallen"
+msgstr "La Voix et la Griffe des déchus"
+
+msgid "Legendary Icebrood Construct"
+msgstr "Sentinelle couvegivre légendaire"
+
+msgid "Mistlock Sanctuary"
+msgstr "Sanctuaire de Gardebrume"
+
+msgid "Closest"
+msgstr ""
+
+# Molten boss fractal
+msgid "Berserker and Firestorm"
+msgstr "Berserker et Tempête de feu"
+
+# Sirens reef fractal
+msgid "Blasting Black Peter"
+msgstr "Pete l'explosif"
+
+# Sirens reef fractal
+msgid "Arabella Crowe"
+msgstr "Arabella Crowe"
+
+msgid "Brood Queen"
+msgstr "Reina de la colonia"
+
+msgid "Deepstone Sentinel"
+msgstr "Centinela de Rocahonda."
+
+msgid "The Voice"
+msgstr "La Voz"
+
+msgid "Bloomhunger"
+msgstr "Carnasse"
+
+msgid "Jade Maw"
+msgstr "Abîme de Jade"
+
+msgid "loading screen"
+msgstr "écran de chargement"

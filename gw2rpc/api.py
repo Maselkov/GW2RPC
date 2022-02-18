@@ -72,11 +72,16 @@ class GW2Api:
 
     def _call_api(self, endpoint, *, key=None):
         url = self._base_url + endpoint + "?lang=" + config.lang
-        if key:
-            headers = {**self.__headers, **{"Authorization": "Bearer " + key}}
-            r = requests.get(url, headers=headers)
-        else:
-            r = self.__session.get(url)
+        try:
+            if key:
+                headers = {**self.__headers, **{"Authorization": "Bearer " + key}}
+                r = requests.get(url, headers=headers)
+            else:
+                r = self.__session.get(url)
+        except:
+            log.error(f"Connection to {url} failed. Check connection.")
+            raise APIError(1)
+
         if r.status_code != 200:
             raise APIError(r.status_code)
         return r.json()

@@ -1,21 +1,64 @@
-A Discord Rich Presence addon for Guild Wars 2.
+# A Discord Rich Presence addon for Guild Wars 2.
 
 https://gw2rpc.info
 
-Features:
-* Display maps with loading screens
-* Display character and elite spec
+## Features:
+* Displaying off:
+   + current map, as well as closes point of interest
+   + current raid or fractal boss
+   + character name, race and profession (elite spec)
+   + commander icon if player is currently commanding a squad
+   + active guild tag (needs API key)
+   + time spent on map
 * Automatic update checking
 * Web based registry for maps
+* Configurable settings
 * Supports multiple accounts
+---
+## How to install
+Simply extract and run the `gw2rpc.exe`. It will start in your system tray. It needs to be running in background for Rich Presence to work.
 
-Exe versions are made using Pyinstaller
+In the config.ini in the program's directory, you can input your API key so that your status can display region (EU/NA) and your current guild tag.
 
-# Development Instructions
+To make starting Rich Presence easier, there is an .exe called `launch_gw2_with_rpc.exe` included in the download. This script launches both GW2 and the RPC addon. For it to work, it needs to be present in `GW2FOLDER\addons\gw2rpc` . You may then replace your normal GW2 shortcut with it for ease of launching.
+
+You can also put a shortcut to `gw2rpc.exe` into your autorun so that it runs automatically on Windows boot.
+
+---
+## How to update
+If a new version is released, simply replace the updated files. To get the newest configuration file, you might also delete the old one and let it be recreated on the first start of `gw2rpc.exe` for you.
+
+---
+## Configuration file
+See below for the example configuration file
+```
+[API]
+APIkey =                        ; ABCDE-FFFF-12345-....
+
+[Settings]
+CloseWithGW2 = False            ; Exit gw2rpc if GW2 exits
+DisplayGuildTag = True          
+HideCommanderTag = False        ; Dont show active comm tag if True
+Lang = en                       ; Localization, one of en, es, fr, de
+
+[PointsOfInterest]
+DisableInWvW = False
+DisableCompletely = False
+HidePoiButton = False           ; Dont show the copy paste button for PoI if true
+
+[Multiboxing]
+MumbleLink = MumbleLink         ; Name for custom MumbleLink API, i.e. for multiboxing
+```
+---
+## Build and development Instructions
 This project was tested with python3 version 3.9.1, allthough later versions might work too.
-## Install dependencies
+
+---
+### Install dependencies
 Install dependencies with the command `pip3 install -r requirements.txt`
-## Generating locales
+
+---
+### Generating locales
 First you have to generate the binary locale files with `msgformat.py`, i.e.
 ```
 cd locales/de/LC_MESSAGES/
@@ -23,22 +66,27 @@ cd locales/de/LC_MESSAGES/
 ```
 to do this for all available languages in one command, run the following from the project root directory:
 ```
-for file in $(ls locales); do cd locales/${file}/LC_MESSAGES && ../../../Tools/i18n/msgf
-mt.py -o base.mo base && cd ../../../; done
+for file in $(ls locales); do cd locales/${file}/LC_MESSAGES && ../../../Tools/i18n/msgfmt.py -o base.mo base && cd ../../../; done
 ```
 Inside the LC_MESSAGES folders, you should now have the `base.po` and `base.mo` files.
-## Running
+
+---
+### Running
 Make sure to change `locales_path = resource_path("./locales")` to `locales_path = resource_path("../locales")` in `gw2rpc.py` and run the program from the projects root directory with `python.exe .\run.py`.
 
  Make sure that you run it from a Windows Terminal / Powershell as there are some Windows specific dependencies to get the tasks list. The tray icon should appear when the program is running.
-## Debugging
+
+---
+### Debugging
 Something like 
 ```
         print("{} {}".format(map_id, map_name))
         print("{} {}".format(position.x, position.y))
 ```
 in the `get_map_asset` function in `gw2rpc.py` might be helpful to develop and debug.
-## Build
+
+---
+### Build
 First make sure to change the `locales_path` back to `./locales`, as mentioned above.
 
 Next, create a .spec file for the project and place it in the projects root directory. It might look like the following:

@@ -597,3 +597,84 @@ msgstr ""
 
 msgid "Commander"
 msgstr ""
+
+msgid "jackal"
+msgstr ""
+
+msgid "griffon"
+msgstr ""
+
+msgid "springer"
+msgstr ""
+
+msgid "skimmer"
+msgstr ""
+
+msgid "raptor"
+msgstr ""
+
+msgid "roller beetle"
+msgstr ""
+
+msgid "warclaw"
+msgstr ""
+
+msgid "skyscale"
+msgstr ""
+
+msgid "siege turtle"
+msgstr ""
+
+msgid "on"
+msgstr ""
+
+msgid "Whisper of Jormag"
+msgstr ""
+
+msgid "Boneskinner"
+msgstr ""
+
+msgid "Fraenir of Jormag"
+msgstr ""
+
+msgid "Voice And Claw of the Fallen"
+msgstr ""
+
+msgid "Legendary Icebrood Construct"
+msgstr ""
+
+msgid "Mistlock Sanctuary"
+msgstr ""
+
+msgid "Closest"
+msgstr ""
+
+# Molten boss fractal
+msgid "Berserker and Firestorm"
+msgstr ""
+
+# Sirens reef fractal
+msgid "Blasting Black Peter"
+msgstr ""
+
+# Sirens reef fractal
+msgid "Arabella Crowe"
+msgstr ""
+
+msgid "Brood Queen"
+msgstr ""
+
+msgid "Deepstone Sentinel"
+msgstr ""
+
+msgid "The Voice"
+msgstr ""
+
+msgid "Bloomhunger"
+msgstr ""
+
+msgid "Jade Maw"
+msgstr ""
+
+msgid "loading screen"
+msgstr ""

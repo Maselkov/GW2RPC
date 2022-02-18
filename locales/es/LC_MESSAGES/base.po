@@ -597,3 +597,84 @@ msgstr "Indómito"
 
 msgid "Commander"
 msgstr "Comandante"
+
+msgid "jackal"
+msgstr "chacal"
+
+msgid "griffon"
+msgstr "grifo"
+
+msgid "springer"
+msgstr "saltarín"
+
+msgid "skimmer"
+msgstr "mantarraya"
+
+msgid "raptor"
+msgstr "raptor"
+
+msgid "roller beetle"
+msgstr "escarabajo"
+
+msgid "warclaw"
+msgstr "garrabélica"
+
+msgid "skyscale"
+msgstr "escamaceleste"
+
+msgid "siege turtle"
+msgstr "tortuga de asedio"
+
+msgid "on"
+msgstr "en"
+
+msgid "Whisper of Jormag"
+msgstr "Susurro de Jormag"
+
+msgid "Boneskinner"
+msgstr "Pelahuesos"
+
+msgid "Fraenir of Jormag"
+msgstr "Fraenir de Jormag"
+
+msgid "Voice And Claw of the Fallen"
+msgstr "Voz y Garra de los Caídos"
+
+msgid "Legendary Icebrood Construct"
+msgstr "Ensamblaje de la progelie"
+
+msgid "Mistlock Sanctuary"
+msgstr "Santuario del Bloqueo de la Niebla"
+
+msgid "Closest"
+msgstr ""
+
+# Molten boss fractal
+msgid "Berserker and Firestorm"
+msgstr "Berserker y Tormenta de fuego"
+
+# Sirens reef fractal
+msgid "Blasting Black Peter"
+msgstr "El Negro Peter Descargas"
+
+# Sirens reef fractal
+msgid "Arabella Crowe"
+msgstr "Capitana Crowe"
+
+msgid "Brood Queen"
+msgstr "Reine des couvées"
+
+msgid "Deepstone Sentinel"
+msgstr "Sentinelle de la Roche des abysses"
+
+msgid "The Voice"
+msgstr "La Voix"
+
+msgid "Bloomhunger"
+msgstr "Devoraflores"
+
+msgid "Jade Maw"
+msgstr "Fauces de jade"
+
+msgid "loading screen"
+msgstr "cargando pantalla"

@@ -11,10 +11,9 @@ import psutil
 import requests
 from infi.systray import SysTrayIcon
 import gettext
+import urllib.parse
 
-import json
-
-from .api import APIError, api  # TODO
+from .api import APIError, api  
 from .character import Character
 from .mumble import MumbleData
 from .rpc import DiscordRPC
@@ -27,7 +26,8 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.2
+VERSION = 2.31
+HEADERS = {'User-Agent': 'GW2RPC v{}'.format(VERSION)}
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
 #GW2RPC_BASE_URL = "http://localhost:5000/api/v2/"
@@ -78,6 +78,8 @@ def create_msgbox(description, *, title='GW2RPC', code=0):
 
 class GW2RPC:
     def __init__(self):
+
+
         def fetch_registry():
             
             # First one only for building
@@ -88,29 +90,53 @@ class GW2RPC:
             #return registry
 
             url = GW2RPC_BASE_URL + "registry"
-            res = requests.get(url)
+            try:
+                res = requests.get(url, headers=HEADERS)
+            except:
+                # Client side error, mostly DNS failure or firewall blocking connection
+                # -> fallback to local registry
+                log.error(f"Could not open connection to {url}. Web API will not be available!")
+                return None
             if res.status_code != 200:
+                # Server side error, fall back to local registry
                 log.error("Could not fetch the web registry")
                 return None
             return res.json()
 
+
+        def fetch_support_invite():
+            try:
+                return requests.get(GW2RPC_BASE_URL +
+                                    "support", headers=HEADERS).json()["support"]
+            except:
+                return None
+
+        self.rpc = DiscordRPC(GW2RPC_APP_ID)
+        self.registry = fetch_registry()
+        self.support_invite = fetch_support_invite()
+        self.process = None
+        self.last_map_info = None
+        self.last_continent_info = None
+        self.last_boss = None
+        self.boss_timestamp = None
+        self.no_pois = set()
+        self.check_for_updates()
+        self.game = None
+        self.mumble_links = self.get_mumble_links()
+        self.mumble_objects = self.create_mumble_objects()
+        # Select the first mumble object as initially in focus
+        if len(self.mumble_objects) > 0:
+            self.game = self.mumble_objects[0][0]
+        #else:
+        #    self.game = MumbleData()
+
+    def create_systray(self):
         def icon_path():
             try:
                 return os.path.join(sys._MEIPASS, "icon.ico")
             except:
                 return "icon.ico"
 
-        def fetch_support_invite():
-            try:
-                return requests.get(GW2RPC_BASE_URL +
-                                    "support").json()["support"]
-            except:
-                return None
-
-        self.rpc = DiscordRPC(GW2RPC_APP_ID)
-        self.game = MumbleData()
-        self.registry = fetch_registry()
-        self.support_invite = fetch_support_invite()
         menu_options = ((_("About"), None, self.about), )
         if self.support_invite:
             menu_options += ((_("Join support server"), None, self.join_guild), )
@@ -120,13 +146,42 @@ class GW2RPC:
             menu_options,
             on_quit=self.shutdown)
         self.systray.start()
-        self.process = None
-        self.last_map_info = None
-        self.last_continent_info = None
-        self.last_boss = None
-        self.boss_timestamp = None
-        self.no_pois = set()
-        self.check_for_updates()
+
+    def get_mumble_links(self):
+        """
+        Search for running Gw2 processes and check for their mumbleLink Parameter field
+        Adds them to a list, or adds the default 'MumbleLink' if there are no parameters
+        Returns a list of tuples of str: mumbleLink and process
+        """
+        mumble_links = set()
+        try:
+            for process in psutil.process_iter():
+                pinfo = process.as_dict(attrs=['pid', 'name', 'cmdline'])
+                if pinfo['name'] in ("Gw2-64.exe", "Gw2.exe"):
+                    cmdline = pinfo['cmdline']
+                    try:
+                        mumble_links.add((cmdline[cmdline.index('-mumble') + 1], process))
+                    except ValueError:
+                        mumble_links.add(("MumbleLink", process))
+                    except AttributeError:
+                        log.error("GW2 process crashed!")
+                        continue
+        except psutil.NoSuchProcess:
+            pass
+        return mumble_links
+
+    def create_mumble_objects(self):
+        """
+        Creates the datastructure MumbleData for all known mumble_link names
+        Returns a list of tuples of mumble object and process
+        """
+        mumble_objects = []
+        for m, p in self.mumble_links:
+            o = MumbleData(m)
+            if not o.memfile:
+                o.create_map()
+            mumble_objects.append((o, p))
+        return mumble_objects
 
     def shutdown(self, _=None):
         os._exit(0)  # Nuclear option
@@ -146,7 +201,11 @@ class GW2RPC:
     def check_for_updates(self):
         def get_build():
             url = GW2RPC_BASE_URL + "build"
-            r = requests.get(url)
+            try:
+                r = requests.get(url, headers=HEADERS)
+            except:
+                log.error(f"Could not open connection to {url}")
+                return None
             try:
                 return r.json()["build"]
             except:
@@ -168,21 +227,33 @@ class GW2RPC:
             if res == 6:
                 webbrowser.open("https://gw2rpc.info/")
 
-    def get_map_asset(self, map_info):
+    def get_active_instance(self):
+        """
+        Iterates through all known Mumble Links, reads data from memfile and checks whether the instance is active
+        """
+        for o, p in self.mumble_objects:
+            o.get_mumble_data(process=p)
+            if o.in_focus:
+                return (o, p)
+        return None, None
+
+    def get_map_asset(self, map_info, mount_index=None):
         map_id = map_info["id"]
         map_name = map_info["name"]
         region = str(map_info.get("region_id", "thanks_anet"))
 
         position = self.game.get_position()
-        #print("{} {}".format(position.x, position.y))
         #print("{} {}".format(map_id, map_name))
-        #print("{} {}".format(position.x, position.y))
+        #print("{} {} {}".format(position.x, position.y, position.z))
+        #print("--------------------------")
         
         if self.registry:
             if region == "26":  #  Fractals of the Mists 
                 image = "fotm"
                 for fractal in self.registry["fractals"]:
-                    state = self.find_fractal_boss(map_id, fractal, position)
+                    state, name = self.find_fractal_boss(map_id, fractal, position)
+                    if name:
+                        image = name.replace('.', "_").lower().replace(" ", "_")
                     if state:
                         break
 
@@ -195,7 +266,11 @@ class GW2RPC:
                 name = "Fractals of the Mists"
             else:
                 if map_name in self.registry["special"]:
+                    # Not sure if this even works but i dont want to touch it
                     image = self.registry["special"][map_name]
+                elif str(map_id) in self.registry["special"]:
+                    # Many strike instances share the same ID, with this we only have to keep one asset in discord
+                    image = self.registry["special"][str(map_id)]
                 elif map_id in self.registry["valid"]:
                     image = map_id
                 elif region in self.registry["regions"]:
@@ -203,7 +278,12 @@ class GW2RPC:
                 else:
                     image = "default"
                 name = map_name
-                state = _("in ") + name
+                mounts = self.registry["mounts"].keys()
+                if not config.hide_mounts and mount_index and str(mount_index) in mounts:
+                    mount = self.registry["mounts"][str(mount_index)]
+                    state = _("on") + " " + _(mount) + " " + _("in ") + name
+                else:
+                    state = _("in ") + name
         else:
             # Fallback for api
             special = {
@@ -241,7 +321,7 @@ class GW2RPC:
             state = _("in ") + name
         return state, {"large_image": str(image), "large_text":  _(name)}
 
-    def get_raid_assets(self, map_info):
+    def get_raid_assets(self, map_info, mount_index=None):
         def readable_id(_id):
             _id = _id.split("_")
             dont_capitalize = ("of", "the", "in")
@@ -252,7 +332,7 @@ class GW2RPC:
         boss = self.find_closest_boss(map_info)
         if not boss:
             self.boss_timestamp = None
-            return self.get_map_asset(map_info)
+            return self.get_map_asset(map_info, mount_index)
         if boss["type"] == "boss":
             state = _("fighting ")
         else:
@@ -281,15 +361,56 @@ class GW2RPC:
             region = map_info.get("region_id")
             if config.disable_pois:
                 return None
-            if config.disable_pois_in_wvw and region == 7: #TODO change to region_Id
+            if config.disable_pois_in_wvw and region == 7:
                 return None
             return self.find_closest_point(map_info, continent_info)
 
-        data = self.game.get_mumble_data()
+        def update_mumble_links():
+            all_links = self.get_mumble_links()
+            new_links = all_links.difference(self.mumble_links)
+            dead_links = self.mumble_links.difference(all_links)
+
+            #print(f"Previous active links {self.mumble_links}")
+            #print(f"All currently active links {all_links}")
+            #print(f"Newly discovered links {new_links}")
+            #print(f"Now dead links {dead_links}")
+
+            # Remove dead links
+            for m, p1 in dead_links:
+                for o, p2 in self.mumble_objects:
+                    # Kill the object
+                    if o.mumble_link == m:
+                        o.close_map
+                        self.mumble_objects.remove((o, p2))
+                        del o
+                self.mumble_links.remove((m, p1))
+
+            # Initialize the newly found Mumble Links
+            for m, p in new_links:
+                o = MumbleData(m)
+                if not o.memfile:
+                    o.create_map()
+                self.mumble_objects.append((o, p))
+                self.mumble_links.add((m, p))
+
+            # Every found mumble link is new -> was empty before
+            # Set the first object to game
+            if all_links and all_links == new_links:
+                self.game = self.mumble_objects[0][0]
+
+        update_mumble_links()
+        active, active_p = self.get_active_instance()
+        self.game = active if active else self.game
+        self.process = active_p if active_p else self.process
+        # TODO maybe self.process instead of active_p here?
+        data = self.game.get_mumble_data(process=active_p)
         if not data:
             return None
+        buttons = []
         map_id = data["map_id"]
         is_commander = data["commander"]
+        mount_index = data["mount_index"]
+        in_combat = data["in_combat"]
         try:
             if self.last_map_info and map_id == self.last_map_info["id"]:
                 map_info = self.last_map_info
@@ -298,10 +419,10 @@ class GW2RPC:
                 self.last_map_info = map_info
             character = Character(data)
         except APIError:
-            log.exception("API Error!")
+            log.error("API Error!")
             self.last_map_info = None
             return None
-        state, map_asset = self.get_map_asset(map_info)
+        state, map_asset = self.get_map_asset(map_info, mount_index=mount_index)
         tag = character.guild_tag if config.display_tag else ""
         try:
             if map_id in self.no_pois or "continent_id" not in map_info:
@@ -318,7 +439,9 @@ class GW2RPC:
         details = character.name + tag
         timestamp = self.game.last_timestamp
         if self.registry and str(map_id) in self.registry.get("raids", {}):
-            state, map_asset = self.get_raid_assets(map_info)
+            state, map_asset = self.get_raid_assets(map_info, mount_index)
+            timestamp = self.boss_timestamp or self.game.last_timestamp
+        elif self.registry and map_id in [f["id"] for f in self.registry["fractals"]]:
             timestamp = self.boss_timestamp or self.game.last_timestamp
         else:
             self.last_boss = None
@@ -326,6 +449,10 @@ class GW2RPC:
                 point = get_closest_poi(map_info, continent_info)
                 if point:
                     map_asset["large_text"] += _(" near ") + point["name"]
+                    if not config.hide_poi_button:
+                        payload = {'chat_code': point["chat_link"], 'name': point["name"], 'character': character.name}
+                        url = "https://gw2rpc.info/copy-paste?" + urllib.parse.urlencode(payload)
+                        buttons.append({"label": _("Closest") + " PoI: {}".format(point["chat_link"]), "url": url})
         map_asset["large_text"] += get_region()
 
         if not config.hide_commander_tag and is_commander:
@@ -333,7 +460,10 @@ class GW2RPC:
             details = "{}: {}".format(_("Commander"), details)
         else: 
             small_image = character.profession_icon
+        if in_combat:
+            details = "{} {}".format(details, "⚔️")
         small_text = "{} {} {}".format(_(character.race), _(character.profession), tag)
+        buttons.append({"label": "GW2RPC.info ↗️", "url": "https://gw2rpc.info"})
 
         activity = {
             "state": _(state),
@@ -344,13 +474,14 @@ class GW2RPC:
             "assets": {
                 **map_asset, "small_image": small_image,
                 "small_text": small_text
-            }
+            },
+            "buttons": buttons
         }
         return activity
 
     def in_character_selection(self):
         activity = {
-            "state": _("in character selection"),
+            "state": _("in character selection") + " / " + _("loading screen"),
             "assets": {
                 "large_image":
                 "default",
@@ -360,7 +491,8 @@ class GW2RPC:
                 "gw2rpclogo",
                 "small_text":
                 "GW2RPC Version {}\nhttps://gw2rpc.info".format(VERSION)
-            }
+            },
+            "buttons": [{"label": "GW2RPC.info ↗️", "url": "https://gw2rpc.info"}]
         }
         return activity
 
@@ -403,20 +535,28 @@ class GW2RPC:
 
     def find_fractal_boss(self, map_id, fractal, position):
         state = None
-        if map_id in [1177, 1205, 1384]:
-            if fractal["id"] == map_id:
+        if fractal["id"] == map_id:
+            try:
                 for boss in fractal["bosses"]:
                     distance = math.sqrt((boss["coord"][0] - position.x)**2 +
                                 (boss["coord"][1] - position.y)**2)
                     
                     if distance <= boss["radius"]:
                         state = _("fighting ") + _(boss["name"]) + " " + _("in ") + _(fractal["name"])
-                        return state
-                    else:
-                        state = _("in ") + _("fractal") + ": " + _(fractal["name"])
-        else:
-            return None
-        return state
+                        if self.last_boss != boss["name"]:
+                            self.boss_timestamp = int(time.time())
+                        self.last_boss = boss["name"]
+                        return state, boss["name"]
+                else:
+                    self.boss_timestamp = None
+                    self.last_boss = None
+                    state = _("in ") + _("fractal") + ": " + _(fractal["name"])
+            except KeyError:
+                self.boss_timestamp = None
+                self.last_boss = None
+                state = _("in ") + _("fractal") + ": " + _(fractal["name"])
+        return state, None
+        
     def main_loop(self):
         def update_gw2_process():
             shutdown = False
@@ -449,11 +589,33 @@ class GW2RPC:
                 except (FileNotFoundError, PermissionError) as e:
                     time.sleep(10)
 
+        def check_for_running_rpc():
+            count = 0
+            try:
+                for process in psutil.process_iter(attrs=['name']):
+                    name = process.info['name']
+                    if name == "gw2rpc.exe":
+                        count += 1
+                    if count > 2:
+                        break
+                else:
+                    return
+            except psutil.NoSuchProcess:
+                log.debug("A process exited while iterating over the process list.")
+                pass   
+            log.warning("Another gw2rpc process is already running, exiting.")
+            if self.rpc.running:
+                self.rpc.close()
+                log.debug("Killing RPC")
+            self.shutdown()
+
         try:
+            check_for_running_rpc()
+            self.create_systray()
             while True:
                 try:
                     update_gw2_process()
-                    if not self.game.memfile:
+                    if self.game and not self.game.memfile:
                         self.game.create_map()
                     if not self.rpc.running:
                         start_rpc()
@@ -471,7 +633,8 @@ class GW2RPC:
                         raise GameNotRunningError  # To start a new connection
                 except GameNotRunningError:
                     #  TODO
-                    self.game.close_map()
+                    if self.game:
+                        self.game.close_map()
                     if self.rpc.running:
                         self.rpc.close()
                         log.debug("Killing RPC")
