@@ -6,6 +6,7 @@ import threading
 import time
 import webbrowser
 import math
+from datetime import datetime
 
 import psutil
 import requests
@@ -26,11 +27,10 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.31
+VERSION = 2.32
 HEADERS = {'User-Agent': 'GW2RPC v{}'.format(VERSION)}
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
-#GW2RPC_BASE_URL = "http://localhost:5000/api/v2/"
 
 GW2RPC_APP_ID = "385475290614464513"
 
@@ -119,6 +119,7 @@ class GW2RPC:
         self.last_continent_info = None
         self.last_boss = None
         self.boss_timestamp = None
+        self.commander_webhook_sent = False
         self.no_pois = set()
         self.check_for_updates()
         self.game = None
@@ -130,16 +131,22 @@ class GW2RPC:
         #else:
         #    self.game = MumbleData()
 
+    def get_systray_menu(self):
+        menu_options = ((_("About"), None, self.about), )
+        if self.support_invite:
+            menu_options += ((_("Join support server"), None, self.join_guild), )
+        if config.webhooks:
+            yes_no = _("Yes") if config.announce_raid else _("No")
+            menu_options += ((_("Announce raids:") + f" {yes_no}", None, self.toggle_announce_raid), )
+        return menu_options
+
     def create_systray(self):
         def icon_path():
             try:
                 return os.path.join(sys._MEIPASS, "icon.ico")
             except:
                 return "icon.ico"
-
-        menu_options = ((_("About"), None, self.about), )
-        if self.support_invite:
-            menu_options += ((_("Join support server"), None, self.join_guild), )
+        menu_options = self.get_systray_menu()
         self.systray = SysTrayIcon(
             icon_path(),
             _("Guild Wars 2 with Discord"),
@@ -198,6 +205,11 @@ class GW2RPC:
         except webbrowser.Error:
             pass
 
+    def toggle_announce_raid(self, _):
+        config.announce_raid = not config.announce_raid
+        menu_options = self.get_systray_menu()
+        self.systray.update(menu_options=menu_options)
+
     def check_for_updates(self):
         def get_build():
             url = GW2RPC_BASE_URL + "build"
@@ -245,6 +257,8 @@ class GW2RPC:
         position = self.game.get_position()
         #print("{} {}".format(map_id, map_name))
         #print("{} {} {}".format(position.x, position.y, position.z))
+        #m_x, m_y = self.convert_mumble_coordinates(map_info, position)
+        #print("Relative: {} {}".format(m_x, m_y))
         #print("--------------------------")
         
         if self.registry:
@@ -411,6 +425,8 @@ class GW2RPC:
         is_commander = data["commander"]
         mount_index = data["mount_index"]
         in_combat = data["in_combat"]
+        copy_paste_url = None
+        point = None
         try:
             if self.last_map_info and map_id == self.last_map_info["id"]:
                 map_info = self.last_map_info
@@ -451,8 +467,8 @@ class GW2RPC:
                     map_asset["large_text"] += _(" near ") + point["name"]
                     if not config.hide_poi_button:
                         payload = {'chat_code': point["chat_link"], 'name': point["name"], 'character': character.name}
-                        url = "https://gw2rpc.info/copy-paste?" + urllib.parse.urlencode(payload)
-                        buttons.append({"label": _("Closest") + " PoI: {}".format(point["chat_link"]), "url": url})
+                        copy_paste_url = "https://gw2rpc.info/copy-paste?" + urllib.parse.urlencode(payload)
+                        buttons.append({"label": _("Closest") + " PoI: {}".format(point["chat_link"]), "url": copy_paste_url})
         map_asset["large_text"] += get_region()
 
         if not config.hide_commander_tag and is_commander:
@@ -464,6 +480,17 @@ class GW2RPC:
             details = "{} {}".format(details, "⚔️")
         small_text = "{} {} {}".format(_(character.race), _(character.profession), tag)
         buttons.append({"label": "GW2RPC.info ↗️", "url": "https://gw2rpc.info"})
+
+        if config.announce_raid and is_commander and not self.commander_webhook_sent:
+            region = map_info.get("region_id")
+            if not config.disable_raid_announce_in_wvw or region != 7:
+                copy_paste_url = copy_paste_url or "https://gw2rpc.info"
+                chat_link = f"*{point['name']}: `{point['chat_link']}`*" if point else None
+                for u in config.webhooks:
+                    self.send_webhook(u, character.name, _(state), copy_paste_url, chat_link)
+                self.commander_webhook_sent = True
+        if not is_commander and self.commander_webhook_sent:
+            self.commander_webhook_sent = False
 
         activity = {
             "state": _(state),
@@ -556,7 +583,49 @@ class GW2RPC:
                 self.last_boss = None
                 state = _("in ") + _("fractal") + ": " + _(fractal["name"])
         return state, None
-        
+
+    def send_webhook(self, url, name, map, website_url, poi=None):
+        timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+        logo_url = "https://cdn.discordapp.com/attachments/385517319893417996/947219631909769277/logo.png"
+
+        data = {
+            "username": "GW2RPC",
+            "avatar_url": logo_url
+        }
+        data["embeds"] = [
+            {
+                "author": {
+                    "name": _("GW2RPC Raid Announcer"),
+                    "icon_url": logo_url
+                },
+                "thumbnail": {
+                    "url": "https://cdn.discordapp.com/attachments/385517319893417996/947220045514293298/Commander_tag_blue.png"
+                },
+                "footer": {
+                    "text": "by GW2RPC https://gw2rpc.info",
+                    "icon_url": logo_url
+                },
+                "title" : f"{name} " + _("tagged up") + f" {map}",
+                "url": website_url,
+                "color": "12660011",
+                "timestamp": timestamp,
+                "fields": [
+                    {
+                        "name": _("Copy and paste the following to join"),
+                        "value": f"`/sqjoin {name}`"
+                    }
+                ]
+            }
+        ]  
+        if poi: 
+            data["embeds"][0]["fields"].append({"name": _("Closest PoI"), "value": f"{poi}"})
+
+        result = requests.post(url, json = data)
+        try:
+            result.raise_for_status()
+        except requests.exceptions.HTTPError as err:
+            log.error(err)
+
     def main_loop(self):
         def update_gw2_process():
             shutdown = False

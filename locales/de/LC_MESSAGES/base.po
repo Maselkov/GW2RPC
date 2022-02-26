@@ -677,3 +677,24 @@ msgstr "Jadeschlund"
 
 msgid "loading screen"
 msgstr "Ladebildschirm"
+
+msgid "GW2RPC Raid Announcer"
+msgstr "GW2RPC Raid Ankündigung"
+
+msgid "tagged up"
+msgstr "hat einen Raid gestartet"
+
+msgid "Copy and paste the following to join"
+msgstr "Kopiere folgendes und füge es ein um beizutreten"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nein"
+
+msgid "Announce raids:"
+msgstr "Raid ankündigen:"
+
+msgid "Closest PoI"
+msgstr "Nächster PoI"

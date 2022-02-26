@@ -678,3 +678,24 @@ msgstr ""
 
 msgid "loading screen"
 msgstr ""
+
+msgid "GW2RPC Raid Announcer"
+msgstr ""
+
+msgid "tagged up"
+msgstr ""
+
+msgid "Copy and paste the following to join"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Announce raids:"
+msgstr ""
+
+msgid "Closest PoI"
+msgstr ""
