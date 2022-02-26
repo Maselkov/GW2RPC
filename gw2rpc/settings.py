@@ -7,9 +7,9 @@ log = logging.getLogger()
 
 class Config:
     def __init__(self):
-        def set_boolean(header, setting):
+        def set_boolean(header, setting, fallback=False):
             try:
-                value = config.getboolean(header, setting, fallback=False)
+                value = config.getboolean(header, setting, fallback=fallback)
             except ValueError:
                 value = False
             return value
@@ -29,7 +29,7 @@ class Config:
             config["Settings"] = {
                 "CloseWithGw2": False,
                 "DisplayGuildTag": True,
-                "Lang" : "en",
+                "Lang": "en",
                 "HideCommanderTag": False,
                 "HideMounts": False
             }
@@ -38,11 +38,19 @@ class Config:
                 "DisableCompletely": False,
                 "HidePoiButton": False
             }
+            config["Webhooks"] = {
+                "WebHook": "",
+                "AnnounceRaid": True,
+                "DisableInWvW": False
+            }
             with open("config.ini", "w") as cfile:
                 config.write(cfile)
         config.read("config.ini")
         self.api_keys = [
             k for k in map(str.strip, config["API"]["APIKey"].split(',')) if k
+        ]
+        self.webhooks = [
+            k for k in map(str.strip, config["Webhooks"]["WebHook"].split(',')) if k
         ]
         self.close_with_gw2 = set_boolean("Settings", "CloseWithGw2")
         self.display_tag = set_boolean("Settings", "DisplayGuildTag")
@@ -60,6 +68,8 @@ class Config:
                                                "DisableInWvW")
         self.hide_poi_button = set_boolean("PointsOfInterest",
                                                 "HidePoiButton")
+        self.announce_raid = set_boolean("Webhooks", "AnnounceRaid", fallback=True)
+        self.disable_raid_announce_in_wvw = set_boolean("Webhooks", "DisableInWvW")
 
 
 config = Config()
