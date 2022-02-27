@@ -208,6 +208,7 @@ class GW2RPC:
 
     def toggle_announce_raid(self, _):
         config.announce_raid = not config.announce_raid
+        config.change_boolean_item("Webhooks", "AnnounceRaid", config.announce_raid)
         menu_options = self.get_systray_menu()
         self.systray.update(menu_options=menu_options)
 
