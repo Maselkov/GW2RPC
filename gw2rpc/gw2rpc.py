@@ -28,7 +28,7 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.32
+VERSION = 2.34
 HEADERS = {'User-Agent': 'GW2RPC v{}'.format(VERSION)}
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
@@ -604,7 +604,8 @@ class GW2RPC:
             {
                 "author": {
                     "name": _("GW2RPC Raid Announcer"),
-                    "icon_url": profession_url
+                    "icon_url": profession_url,
+                    "url": "https://gw2rpc.info"
                 },
                 "thumbnail": {
                     "url": "https://gw2rpc.info/static/img/professions/commander_tag.png"
@@ -628,11 +629,13 @@ class GW2RPC:
         if poi: 
             data["embeds"][0]["fields"].append({"name": _("Closest PoI"), "value": f"{poi}"})
 
-        result = requests.post(url, json = data)
         try:
+            result = requests.post(url, json = data)
             result.raise_for_status()
         except requests.exceptions.HTTPError as err:
             log.error(err)
+        except:
+            log.error(f"Invalid webhook url: {url}")
 
     def main_loop(self):
         def update_gw2_process():
