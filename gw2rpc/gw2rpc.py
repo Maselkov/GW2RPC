@@ -37,8 +37,8 @@ GW2RPC_APP_ID = "385475290614464513"
 log = logging.getLogger()
 
 # First one only for building
-locales_path = resource_path("./locales")
-#locales_path = resource_path("../locales")
+#locales_path = resource_path("./locales")
+locales_path = resource_path("../locales")
 
 lang = gettext.translation('base', localedir=locales_path, languages=[config.lang])
 lang.install()
@@ -487,7 +487,7 @@ class GW2RPC:
                 copy_paste_url = copy_paste_url or "https://gw2rpc.info"
                 chat_link = f"*{point['name']}: `{point['chat_link']}`*" if point else None
                 for u in config.webhooks:
-                    self.send_webhook(u, character.name, _(state), copy_paste_url, chat_link)
+                    self.send_webhook(u, character.name, _(state), copy_paste_url, character.profession, chat_link)
                 self.commander_webhook_sent = True
         if not is_commander and self.commander_webhook_sent:
             self.commander_webhook_sent = False
@@ -584,9 +584,10 @@ class GW2RPC:
                 state = _("in ") + _("fractal") + ": " + _(fractal["name"])
         return state, None
 
-    def send_webhook(self, url, name, map, website_url, poi=None):
+    def send_webhook(self, url, name, map, website_url, profession, poi=None):
         timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
-        logo_url = "https://cdn.discordapp.com/attachments/385517319893417996/947219631909769277/logo.png"
+        logo_url = "https://gw2rpc.info/static/img/logo.png"
+        profession_url = f"https://gw2rpc.info/static/img/professions/prof_{profession.lower()}.png"
 
         data = {
             "username": "GW2RPC",
@@ -596,10 +597,10 @@ class GW2RPC:
             {
                 "author": {
                     "name": _("GW2RPC Raid Announcer"),
-                    "icon_url": logo_url
+                    "icon_url": profession_url
                 },
                 "thumbnail": {
-                    "url": "https://cdn.discordapp.com/attachments/385517319893417996/947220045514293298/Commander_tag_blue.png"
+                    "url": "https://gw2rpc.info/static/img/professions/commander_tag.png"
                 },
                 "footer": {
                     "text": "by GW2RPC https://gw2rpc.info",
