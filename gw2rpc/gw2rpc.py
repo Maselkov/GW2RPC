@@ -6,7 +6,8 @@ import threading
 import time
 import webbrowser
 import math
-from datetime import datetime
+from datetime import datetime, timedelta
+import time
 
 import psutil
 import requests
@@ -585,7 +586,12 @@ class GW2RPC:
         return state, None
 
     def send_webhook(self, url, name, map, website_url, profession, poi=None):
-        timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+        # Get timestamp with utc offset
+        timestamp = datetime.now()
+        ts = time.time()
+        utc_offset = (datetime.fromtimestamp(ts) -
+              datetime.utcfromtimestamp(ts)).total_seconds()
+        timestamp = (timestamp - timedelta(seconds=utc_offset)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
         logo_url = "https://gw2rpc.info/static/img/logo.png"
         profession_url = f"https://gw2rpc.info/static/img/professions/prof_{profession.lower()}.png"
 
