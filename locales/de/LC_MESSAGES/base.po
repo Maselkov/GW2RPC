@@ -677,3 +677,54 @@ msgstr "Jadeschlund"
 
 msgid "loading screen"
 msgstr "Ladebildschirm"
+
+msgid "GW2RPC Raid Announcer"
+msgstr "GW2RPC Raid Ankündigung"
+
+msgid "tagged up"
+msgstr "hat einen Raid gestartet"
+
+msgid "Copy and paste the following to join"
+msgstr "Kopiere folgendes und füge es ein um beizutreten"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nein"
+
+msgid "Announce raids:"
+msgstr "Raid ankündigen:"
+
+msgid "Closest PoI"
+msgstr "Nächster PoI"
+
+msgid "skiff"
+msgstr "Skiff"
+
+msgid "Jade Bot"
+msgstr "Jade-Bot"
+
+msgid "Elemental Source"
+msgstr "elementare Quelle"
+
+msgid "Lornar Dragonseeker"
+msgstr "Lornarr Dragonseeker"
+
+msgid "Frizz"
+msgstr "Frizz"
+
+msgid "Captain Mai Trin"
+msgstr "Kaptain Mai Trin"
+
+msgid "Anomaly"
+msgstr "Anomalie"
+
+msgid "Brazen Gladiator"
+msgstr "Dreister Gladiator"
+
+msgid "Amala"
+msgstr "Amala"
+
+msgid "a sandbinder"
+msgstr "ein Sandbanner"

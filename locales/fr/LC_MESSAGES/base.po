@@ -681,3 +681,54 @@ msgstr "Abîme de Jade"
 
 msgid "loading screen"
 msgstr "écran de chargement"
+
+msgid "GW2RPC Raid Announcer"
+msgstr ""
+
+msgid "tagged up"
+msgstr ""
+
+msgid "Copy and paste the following to join"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Announce raids:"
+msgstr ""
+
+msgid "Closest PoI"
+msgstr ""
+
+msgid "skiff"
+msgstr ""
+
+msgid "Jade Bot"
+msgstr "drone de jade"
+
+msgid "Elemental Source"
+msgstr "élémentaire de glace"
+
+msgid "Lornar Dragonseeker"
+msgstr "Lornarr Cherchedragon"
+
+msgid "Frizz"
+msgstr "Frizz"
+
+msgid "Captain Mai Trin"
+msgstr "Capitaine Mai Trin"
+
+msgid "Anomaly"
+msgstr "Anomalie"
+
+msgid "Brazen Gladiator"
+msgstr "Gladiateur audacieux"
+
+msgid "Amala"
+msgstr "Amala"
+
+msgid "a sandbinder"
+msgstr "un ensableur des lanciers du soleil"

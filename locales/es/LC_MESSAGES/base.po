@@ -678,3 +678,54 @@ msgstr "Fauces de jade"
 
 msgid "loading screen"
 msgstr "cargando pantalla"
+
+msgid "GW2RPC Raid Announcer"
+msgstr ""
+
+msgid "tagged up"
+msgstr ""
+
+msgid "Copy and paste the following to join"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Announce raids:"
+msgstr ""
+
+msgid "Closest PoI"
+msgstr ""
+
+msgid "skiff"
+msgstr ""
+
+msgid "Jade Bot"
+msgstr "robot de jade"
+
+msgid "Elemental Source"
+msgstr "elemental de hielo"
+
+msgid "Lornar Dragonseeker"
+msgstr "Lornarr Dragonseeker"
+
+msgid "Frizz"
+msgstr "Frizz"
+
+msgid "Captain Mai Trin"
+msgstr "Capitana Mai Trin"
+
+msgid "Anomaly"
+msgstr "Anomalía"
+
+msgid "Brazen Gladiator"
+msgstr "Gladiador descarado"
+
+msgid "Amala"
+msgstr "Amala"
+
+msgid "a sandbinder"
+msgstr "lancero del sol élite"
