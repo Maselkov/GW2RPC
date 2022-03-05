@@ -707,7 +707,7 @@ msgid "skiff"
 msgstr ""
 
 msgid "Jade Bot"
-msgstr ""
+msgstr "drone de jade"
 
 msgid "Elemental Source"
 msgstr "élémentaire de glace"

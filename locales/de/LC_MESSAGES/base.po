@@ -703,7 +703,7 @@ msgid "skiff"
 msgstr "Skiff"
 
 msgid "Jade Bot"
-msgstr ""
+msgstr "Jade-Bot"
 
 msgid "Elemental Source"
 msgstr "elementare Quelle"
