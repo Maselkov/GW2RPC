@@ -46,8 +46,10 @@ DisableInWvW = False
 DisableCompletely = False
 HidePoiButton = False           ; Dont show the copy paste button for PoI if true
 
-[Multiboxing]
-MumbleLink = MumbleLink         ; Name for custom MumbleLink API, i.e. for multiboxing
+[Webhooks]
+webhook = 
+AnnounceRaid = True
+DisableInWvW = False
 ```
 ---
 ## Build and development Instructions
