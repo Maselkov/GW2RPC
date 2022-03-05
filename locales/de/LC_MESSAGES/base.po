@@ -698,3 +698,33 @@ msgstr "Raid ankündigen:"
 
 msgid "Closest PoI"
 msgstr "Nächster PoI"
+
+msgid "skiff"
+msgstr "Skiff"
+
+msgid "Jade Bot"
+msgstr ""
+
+msgid "Elemental Source"
+msgstr "elementare Quelle"
+
+msgid "Lornar Dragonseeker"
+msgstr "Lornarr Dragonseeker"
+
+msgid "Frizz"
+msgstr "Frizz"
+
+msgid "Captain Mai Trin"
+msgstr "Kaptain Mai Trin"
+
+msgid "Anomaly"
+msgstr "Anomalie"
+
+msgid "Brazen Gladiator"
+msgstr "Dreister Gladiator"
+
+msgid "Amala"
+msgstr "Amala"
+
+msgid "a sandbinder"
+msgstr "ein Sandbanner"
