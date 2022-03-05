@@ -257,7 +257,7 @@ class GW2RPC:
         region = str(map_info.get("region_id", "thanks_anet"))
 
         position = self.game.get_position()
-        #print("{} {}".format(map_id, map_name))
+        #print("{} {} Region {}".format(map_id, map_name, region))
         #print("{} {} {}".format(position.x, position.y, position.z))
         #m_x, m_y = self.convert_mumble_coordinates(map_info, position)
         #print("Relative: {} {}".format(m_x, m_y))
@@ -476,6 +476,8 @@ class GW2RPC:
         if not config.hide_commander_tag and is_commander:
             small_image = "commander_tag"
             details = "{}: {}".format(_("Commander"), details)
+        elif character.race == "Jade Bot":
+            small_image = "jade_bot"
         else: 
             small_image = character.profession_icon
         if in_combat:

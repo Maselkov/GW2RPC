@@ -12,7 +12,7 @@ PROFESSIONS = {
     9: "Revenant"
 }
 
-RACES = {0: "Asura", 1: "Charr", 2: "Human", 3: "Norn", 4: "Sylvari"}
+RACES = {0: "Asura", 1: "Charr", 2: "Human", 3: "Norn", 4: "Sylvari", 5: "Jade Bot"}
 
 ELITESPECS = {
     5: "Druid",
@@ -50,7 +50,7 @@ class Character:
     def __init__(self, mumble_data):
         self.__mumble_data = mumble_data
         self.name = mumble_data["name"]
-        self.race = RACES[mumble_data["race"]]
+        self.race = RACES[mumble_data["race"]]  
         self.__api_info = None
         if api._authenticated:
             self.__api_info = api.get_character(self.name)
