@@ -10,6 +10,7 @@ https://gw2rpc.info
    + commander icon if player is currently commanding a squad
    + active guild tag (needs API key)
    + time spent on map
+* Automatic raid announcer
 * Automatic update checking
 * Web based registry for maps
 * Configurable settings
@@ -47,7 +48,7 @@ DisableCompletely = False
 HidePoiButton = False           ; Dont show the copy paste button for PoI if true
 
 [Webhooks]
-webhook = 
+webhook = https://discord.com/api/webhooks/887....b3bfdyCiz7y
 AnnounceRaid = True
 DisableInWvW = False
 ```
