@@ -1,22 +1,37 @@
-# A Discord Rich Presence addon for Guild Wars 2.
+<p align="center"><img alt="Guild Wars 2 RPC" src="https://media.discordapp.net/attachments/908219512271286282/965798895433170954/GW2.png?width=473&height=473" height="76"></p></img>
 
-https://gw2rpc.info
+<h1 align="center">Guild Wars 2 RPC</h1>
+<p align="center">A Discord Rich Presence addon for Guild Wars 2.</p>
 
-## Features:
-* Displaying off:
-   + current map, as well as closes point of interest
-   + current raid or fractal boss
-   + character name, race and profession (elite spec)
-   + commander icon if player is currently commanding a squad
-   + active guild tag (needs API key)
-   + time spent on map
+<a href="https://gw2rpc.info"><p align="center">Go to website</a>・<a href="https://github.com/Maselkov/GW2RPC/releases">Download Latest</a>・<a href="https://github.com/Maselkov?tab=repositories">Other Projects...</p></a>
+
+---
+<p align="center">You need install <img src="https://api.iconify.design/bi:discord.svg?color=%23f9f9f9" height="12"> <b><a href="https://discord.com/download">Discord Desktop version</b></a> to run the rich presence.</p>
+
+<h2><img src="https://api.iconify.design/ic:baseline-auto-awesome.svg?color=%23ff8cf3" height="20">・Features</h2>
+
+<details markdown='1'><summary>Displaying off</summary>
+
+* current map, as well as closes point of interest
+* current raid or fractal boss
+* character name, race and profession (elite spec)
+* commander icon if player is currently commanding a squad
+* active guild tag (needs API key)
+* time spent on map
 * Automatic raid announcer
 * Automatic update checking
 * Web based registry for maps
 * Configurable settings
 * Supports multiple accounts
----
-## How to install
+</details>
+
+<details markdown='1'><summary>To next features</summary>
+
+<p align="center"><img src="https://steamuserimages-a.akamaihd.net/ugc/934931664793124225/D9861E4A35F464C8EE9E5B3B58BA2E02B352B743/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"></p>
+<p align="center"><i>Yes.</i></p>
+</details>
+
+<h2><img src="https://api.iconify.design/ic:baseline-browser-updated.svg?color=%23ff8cf3" height="20">・ How to install</h2>
 Simply extract and run the `gw2rpc.exe`. It will start in your system tray. It needs to be running in background for Rich Presence to work.
 
 In the config.ini in the program's directory, you can input your API key so that your status can display region (EU/NA) and your current guild tag.
@@ -25,14 +40,14 @@ To make starting Rich Presence easier, there is an .exe called `launch_gw2_with_
 
 You can also put a shortcut to `gw2rpc.exe` into your autorun so that it runs automatically on Windows boot.
 
----
-## How to update
+<h2><img src="https://api.iconify.design/ic:baseline-update.svg?color=%23ff8cf3" height="20">・ How to update</h2>
 If a new version is released, simply replace the updated files. To get the newest configuration file, you might also delete the old one and let it be recreated on the first start of `gw2rpc.exe` for you.
 
----
-## Configuration file
+<h2><img src="https://api.iconify.design/eos-icons:configuration-file.svg?color=%23ff8cf3" height="20">・Configuration file</h2>
+
 See below for the example configuration file
-```
+```md
+
 [API]
 APIkey =                        ; ABCDE-FFFF-12345-....
 
@@ -52,16 +67,17 @@ webhook = https://discord.com/api/webhooks/887....b3bfdyCiz7y
 AnnounceRaid = True
 DisableInWvW = False
 ```
----
-## Build and development Instructions
+
+<h2><img src="https://api.iconify.design/ic:baseline-build.svg?color=%23ff8cf3" height="20">・Build and development Instructions</h2>
+
 This project was tested with python3 version 3.9.1, allthough later versions might work too.
 
----
-### Install dependencies
+<h3><img src="https://api.iconify.design/entypo:install.svg?color=%23ff8cf3" height="20">・Install dependencies</h3>
+
 Install dependencies with the command `pip3 install -r requirements.txt`
 
----
-### Generating locales
+<h3><img src="https://api.iconify.design/gridicons:create.svg?color=%23ff8cf3" height="20">・Generating locales</h3>
+
 First you have to generate the binary locale files with `msgformat.py`, i.e.
 ```
 cd locales/de/LC_MESSAGES/
@@ -73,14 +89,14 @@ for file in $(ls locales); do cd locales/${file}/LC_MESSAGES && ../../../Tools/i
 ```
 Inside the LC_MESSAGES folders, you should now have the `base.po` and `base.mo` files.
 
----
-### Running
+<h3><img src="https://api.iconify.design/carbon:run.svg?color=%23ff8cf3" height="20">・Running</h3>
+
 Make sure to change `locales_path = resource_path("./locales")` to `locales_path = resource_path("../locales")` in `gw2rpc.py` and run the program from the projects root directory with `python.exe .\run.py`.
 
  Make sure that you run it from a Windows Terminal / Powershell as there are some Windows specific dependencies to get the tasks list. The tray icon should appear when the program is running.
 
----
-### Debugging
+<h3><img src="https://api.iconify.design/codicon:debug-alt.svg?color=%23ff8cf3" height="20">・Debugging</h3>
+
 Something like 
 ```
         print("{} {}".format(map_id, map_name))
@@ -88,8 +104,8 @@ Something like
 ```
 in the `get_map_asset` function in `gw2rpc.py` might be helpful to develop and debug.
 
----
-### Build
+<h3><img src="https://api.iconify.design/ic:baseline-terminal.svg?color=%23ff8cf3" height="20">・Build</h3>
+
 First make sure to change the `locales_path` back to `./locales`, as mentioned above.
 
 Next, create a .spec file for the project and place it in the projects root directory. It might look like the following:
