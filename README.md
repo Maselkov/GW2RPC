@@ -1,4 +1,4 @@
-<p align="center"><img alt="Guild Wars 2 RPC" src="https://media.discordapp.net/attachments/908219512271286282/965798895433170954/GW2.png?width=473&height=473" height="76"></p></img>
+<p align="center"><img alt="Guild Wars 2 RPC" src="https://gw2rpc.info/static/img/logo.png" height="76"></p></img>
 
 <h1 align="center">Guild Wars 2 RPC</h1>
 <p align="center">A Discord Rich Presence addon for Guild Wars 2.</p>
@@ -6,30 +6,23 @@
 <a href="https://gw2rpc.info"><p align="center">Go to website</a>・<a href="https://github.com/Maselkov/GW2RPC/releases">Download Latest</a>・<a href="https://github.com/Maselkov?tab=repositories">Other Projects...</p></a>
 
 ---
-<p align="center">You need install <img src="https://api.iconify.design/bi:discord.svg?color=%23f9f9f9" height="12"> <b><a href="https://discord.com/download">Discord Desktop version</b></a> to run the rich presence.</p>
+<p align="center">Download <img src="https://api.iconify.design/bi:discord.svg?color=%23f9f9f9" height="12"> <b><a href="https://discord.com/download">Discord Desktop version</b></a> to run the rich presence.</p>
 
 <h2><img src="https://api.iconify.design/ic:baseline-auto-awesome.svg?color=%23ff8cf3" height="20">・Features</h2>
 
-<details markdown='1'><summary>Displaying off</summary>
-
-* current map, as well as closes point of interest
-* current raid or fractal boss
-* character name, race and profession (elite spec)
-* commander icon if player is currently commanding a squad
-* active guild tag (needs API key)
-* time spent on map
+* Displaying off:
+   + current map, as well as closes point of interest
+   + current raid or fractal boss
+   + character name, race and profession (elite spec)
+   + commander icon if player is currently commanding a squad
+   + active guild tag (needs API key)
+   + time spent on map
 * Automatic raid announcer
 * Automatic update checking
 * Web based registry for maps
 * Configurable settings
 * Supports multiple accounts
-</details>
 
-<details markdown='1'><summary>To next features</summary>
-
-<p align="center"><img src="https://steamuserimages-a.akamaihd.net/ugc/934931664793124225/D9861E4A35F464C8EE9E5B3B58BA2E02B352B743/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"></p>
-<p align="center"><i>Yes.</i></p>
-</details>
 
 <h2><img src="https://api.iconify.design/ic:baseline-browser-updated.svg?color=%23ff8cf3" height="20">・ How to install</h2>
 Simply extract and run the `gw2rpc.exe`. It will start in your system tray. It needs to be running in background for Rich Presence to work.
