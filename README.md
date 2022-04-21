@@ -3,14 +3,10 @@
 <h1 align="center">Guild Wars 2 RPC</h1>
 <p align="center">A Discord Rich Presence addon for Guild Wars 2.</p> 
 
-<img 
-    style="display: block; 
-           margin-left: auto;
-           margin-right: auto;
-           width: 30%;"
-    src="https://gw2rpc.info/static/img/showcases/n1tr0_1.png" 
-    alt="RPC status example">
-</img>
+<p align="center" style="margin-bottom: 0px !important;">
+  <img width="220" src="https://gw2rpc.info/static/img/showcases/n1tr0_1.png" alt="RPC status example" align="center">
+</p>
+
 <a href="https://gw2rpc.info"><p align="center">Go to website</a>・<a href="https://github.com/Maselkov/GW2RPC/releases">Download Latest</a>・<a href="https://github.com/Maselkov?tab=repositories">Other Projects...</p></a>
 
 ---
