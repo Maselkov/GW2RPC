@@ -209,7 +209,7 @@ msgstr "Cidade de Kaineng"
 
 #: gw2rpc/gw2rpc.py:43
 msgid "Maguuma"
-msgstr "No Resíduos de Magumma"
+msgstr "Resíduos de Magumma"
 
 #: gw2rpc/gw2rpc.py:43
 msgid "Northern Shiverpeaks"
@@ -221,11 +221,11 @@ msgstr "Santuário de Rall"
 
 #: gw2rpc/gw2rpc.py:44
 msgid "Sea of Sorrows"
-msgstr "No Mar de Tristezas"
+msgstr "Mar do Infotunio"
 
 #: gw2rpc/gw2rpc.py:44
 msgid "Sorrow's Furnace"
-msgstr "No Forno da Tristezas"
+msgstr "Forno de Sorrow"
 
 #: gw2rpc/gw2rpc.py:45
 msgid "Stormbluff Isle"
@@ -241,111 +241,111 @@ msgstr "Curva dos Yaks"
 
 #: gw2rpc/gw2rpc.py:48
 msgid "Aurora Glade"
-msgstr ""
+msgstr "Clareiras de Aurora"
 
 #: gw2rpc/gw2rpc.py:48
 msgid "Blacktide"
-msgstr ""
+msgstr "Blacktide"
 
 #: gw2rpc/gw2rpc.py:48
 msgid "Desolation"
-msgstr ""
+msgstr "Desolação"
 
 #: gw2rpc/gw2rpc.py:48
 msgid "Far Shiverpeaks"
-msgstr ""
+msgstr "Encosta de Shiverpeaks"
 
 #: gw2rpc/gw2rpc.py:49
 msgid "Fissure of Woe"
-msgstr ""
+msgstr "Fissura de Woe"
 
 #: gw2rpc/gw2rpc.py:49
 msgid "Gandara"
-msgstr ""
+msgstr "Gandara"
 
 #: gw2rpc/gw2rpc.py:49
 msgid "Gunnar's Hold"
-msgstr ""
+msgstr "Domínio de Gunnar"
 
 #: gw2rpc/gw2rpc.py:49
 msgid "Piken Square"
-msgstr ""
+msgstr "Praça de Piken"
 
 #: gw2rpc/gw2rpc.py:50
 msgid "Ring of Fire"
-msgstr ""
+msgstr "Anel de fogo"
 
 #: gw2rpc/gw2rpc.py:50
 msgid "Ruins of Surmia"
-msgstr ""
+msgstr "Ruínas de Surmia"
 
 #: gw2rpc/gw2rpc.py:50
 msgid "Seafarer's Rest"
-msgstr ""
+msgstr "Pousada de Seafarer"
 
 #: gw2rpc/gw2rpc.py:50
 msgid "Underworld"
-msgstr ""
+msgstr "Submundo"
 
 #: gw2rpc/gw2rpc.py:51
 msgid "Arborstone [FR]"
-msgstr ""
+msgstr "Pedra Angular [FR]"
 
 #: gw2rpc/gw2rpc.py:51
 msgid "Augury Rock [FR]"
-msgstr ""
+msgstr "Rocha de Augúrio [FR]"
 
 #: gw2rpc/gw2rpc.py:51
 msgid "Vabbi"
-msgstr ""
+msgstr "Vabbi"
 
 #: gw2rpc/gw2rpc.py:51
 msgid "Whiteside Ridge"
-msgstr ""
+msgstr "Aresta do Whiteside"
 
 #: gw2rpc/gw2rpc.py:52
 msgid "Fort Ranik [FR]"
-msgstr ""
+msgstr "Forte Ranik [FR]"
 
 #: gw2rpc/gw2rpc.py:52
 msgid "Jade Sea [FR]"
-msgstr ""
+msgstr "Mar de Jade [FR]"
 
 #: gw2rpc/gw2rpc.py:52
 msgid "Vizunah Square [FR]"
-msgstr ""
+msgstr "Praça de Vizunah [FR]"
 
 #: gw2rpc/gw2rpc.py:53
 msgid "Abaddon's Mouth [DE]"
-msgstr ""
+msgstr "Boca de Abaddon [DE]"
 
 #: gw2rpc/gw2rpc.py:53
 msgid "Drakkar Lake [DE]"
-msgstr ""
+msgstr "Lago Drakkar [DE]"
 
 #: gw2rpc/gw2rpc.py:53
 msgid "Dzagonur [DE]"
-msgstr ""
+msgstr "Dzagonur [DE]"
 
 #: gw2rpc/gw2rpc.py:54
 msgid "Elona Reach [DE]"
-msgstr ""
+msgstr "Extensão de Elona [DE]"
 
 #: gw2rpc/gw2rpc.py:54
 msgid "Kodash [DE]"
-msgstr ""
+msgstr "Kodash [DE]"
 
 #: gw2rpc/gw2rpc.py:54
 msgid "Miller's Sound [DE]"
-msgstr ""
+msgstr "Sons de Miller [DE]"
 
 #: gw2rpc/gw2rpc.py:55
 msgid "Baruch Bay [SP]"
-msgstr ""
+msgstr "Baía de Baruch [SP]"
 
 #: gw2rpc/gw2rpc.py:55
 msgid "Riverside [DE]"
-msgstr ""
+msgstr "Riverside [DE]"
 
 #: gw2rpc/gw2rpc.py:92
 msgid "About"
@@ -361,15 +361,15 @@ msgstr "Guild wars 2 com Discord"
 
 #: gw2rpc/gw2rpc.py:137
 msgid "Could not check for updates - check your connection!"
-msgstr ""
+msgstr "Não foi possível verificar actualizações - verifique a sua conexão!"
 
 #: gw2rpc/gw2rpc.py:143
 msgid "There is a new update for GW2 Rich Presence available. Would you like to be taken to the download page now?"
-msgstr ""
+msgstr "Está disponível uma nova atualização para GW2 Rich Presence. Gostaria de ser levado para a página de download agora?"
 
 #: gw2rpc/gw2rpc.py:165
 msgid "Fractals of the Mists"
-msgstr ""
+msgstr "Fractais das Névoas"
 
 #: gw2rpc/gw2rpc.py:170
 msgid " fractal"
@@ -381,7 +381,7 @@ msgstr "em "
 
 #: gw2rpc/gw2rpc.py:214
 msgid "fighting "
-msgstr "Lutando contra "
+msgstr "Lutando "
 
 #: gw2rpc/gw2rpc.py:216
 msgid "completing "
@@ -407,7 +407,7 @@ msgid "Uncategorized"
 msgstr "Sem Categoria"
 
 msgid "Snowblind"
-msgstr ""
+msgstr "Snowblind"
 
 msgid "Swampland"
 msgstr "Pântano"
@@ -431,10 +431,10 @@ msgid "Volcanic"
 msgstr "Vulcânico"
 
 msgid "Molten Furnace"
-msgstr ""
+msgstr "Forno Fundido"
 
 msgid "Aetherblade"
-msgstr ""
+msgstr "Lâmina do Éter"
 
 msgid "Thaumanova Reactor"
 msgstr "Reator Thaumanova"
@@ -443,10 +443,10 @@ msgid "Solid Ocean"
 msgstr "Oceano Sólido"
 
 msgid "Molten Boss"
-msgstr ""
+msgstr "Chefão Derretido"
 
 msgid "Mai Trin"
-msgstr ""
+msgstr "Mai Trin"
 
 msgid "Chaos"
 msgstr "Caos"
@@ -458,82 +458,82 @@ msgid "Shattered Observatory"
 msgstr "Observatório Despedaçado"
 
 msgid "Twilight Oasis"
-msgstr ""
+msgstr "Oásis do Crepúsculo"
 
 msgid "Deepstone"
-msgstr ""
+msgstr "Deepstone"
 
 msgid "Sunqua Peak"
-msgstr ""
+msgstr "Pico Sunqua"
 
 msgid "Skorvald"
-msgstr ""
+msgstr "Skorvald"
 
 msgid "Ensolyss"
-msgstr ""
+msgstr "Ensolyss"
 
 msgid "Ai"
-msgstr ""
+msgstr "Ai"
 
 msgid "Artsariiv"
-msgstr ""
+msgstr "Artsariiv"
 
 msgid "Arkk"
-msgstr ""
+msgstr "Arkk"
 
 msgid "M.A.M.A."
-msgstr ""
+msgstr "M.A.M.A"
 
 msgid "Siax"
-msgstr ""
+msgstr "Siax"
 
 msgid "Vale Guardian"
-msgstr ""
+msgstr "Vale do Guardião"
 
 msgid "Spirit Woods"
-msgstr ""
+msgstr "Bosque Espíritual"
 
 msgid "Gorseval"
-msgstr ""
+msgstr "Gorseval"
 
 msgid "Sabetha"
-msgstr ""
+msgstr "Sabetha"
 
 msgid "Slothasor"
-msgstr ""
+msgstr "Slothasor"
 
 msgid "Bandit Trio"
-msgstr ""
+msgstr "Bandit Trio"
 
 msgid "Matthias"
-msgstr ""
+msgstr "Matthias"
 
 msgid "Escort"
-msgstr ""
+msgstr "Escolta"
 
 msgid "Keep Construct"
-msgstr ""
+msgstr "Construção Conservada"
 
 msgid "Xera"
-msgstr ""
+msgstr "Xera"
 
 msgid "Twisted Castle"
-msgstr ""
+msgstr "Castelo Retorcido"
 
 msgid "Cairn"
-msgstr ""
+msgstr "Cairn"
 
 msgid "Mursaat Overseer"
-msgstr ""
+msgstr "Supervisor de Mursaat"
 
 msgid "Samarog"
-msgstr ""
+msgstr "Samarog"
 
 msgid "Deimos"
-msgstr ""
+msgstr "Deimos"
 
 msgid "Soulless Horror"
-msgstr ""
+msgstr "Repúdio sem Alma"
 
 msgid "River of Souls"
 msgstr "Rio das Almas"
@@ -545,19 +545,19 @@ msgid "Eater of Souls"
 msgstr "Devorador de Almas"
 
 msgid "Dhuum"
-msgstr ""
+msgstr "Dhuum"
 
 msgid "Statue of Darkness"
-msgstr ""
+msgstr "Estátua das Trevas"
 
 msgid "Conjured Amalgamate"
-msgstr ""
+msgstr "Amálgama Conjugada"
 
 msgid "Twin Largos"
-msgstr ""
+msgstr "Gémeos Largos"
 
 msgid "Qadim"
-msgstr ""
+msgstr "Qadim"
 
 msgid "Cardinal Sabir"
 msgstr "Cardeal Sabir"
@@ -566,88 +566,88 @@ msgid "Cardinal Adina"
 msgstr "Cardeal Adina"
 
 msgid "Qadim the Peerless"
-msgstr ""
+msgstr "Qadim sem Par"
 
 msgid "Harbinger"
-msgstr ""
+msgstr "Harbinger"
 
 msgid "Willbender"
-msgstr ""
+msgstr "Willbender"
 
 msgid "Virtuoso"
-msgstr ""
+msgstr "Virtuoso"
 
 msgid "Catalyst"
-msgstr ""
+msgstr "Catalizador"
 
 msgid "Bladesworn"
-msgstr ""
+msgstr "Desgaste da Lâmina"
 
 msgid "Vindicator"
-msgstr ""
+msgstr "Vindicador"
 
 msgid "Mechanist"
-msgstr ""
+msgstr "Mecânico"
 
 msgid "Specter"
-msgstr ""
+msgstr "Espectro"
 
 msgid "Untamed"
-msgstr ""
+msgstr "Untamed"
 
 msgid "Commander"
-msgstr ""
+msgstr "Comandante"
 
 msgid "jackal"
-msgstr ""
+msgstr "Chacal"
 
 msgid "griffon"
-msgstr ""
+msgstr "Grifo"
 
 msgid "springer"
-msgstr ""
+msgstr "Springer"
 
 msgid "skimmer"
-msgstr ""
+msgstr "Skimmer"
 
 msgid "raptor"
-msgstr ""
+msgstr "Ave de Rapina"
 
 msgid "roller beetle"
-msgstr ""
+msgstr "Escaravelho de Rolo"
 
 msgid "warclaw"
-msgstr ""
+msgstr "Lei da Guerra"
 
 msgid "skyscale"
-msgstr ""
+msgstr "Skyscale"
 
 msgid "siege turtle"
-msgstr ""
+msgstr "Tartaruga de Sítio"
 
 msgid "on"
-msgstr ""
+msgstr "em"
 
 msgid "Whisper of Jormag"
-msgstr ""
+msgstr "Sussuros do Jormag"
 
 msgid "Boneskinner"
-msgstr ""
+msgstr "Pele de Ossos"
 
 msgid "Fraenir of Jormag"
-msgstr ""
+msgstr "Fraenir de Jormag"
 
 msgid "Voice And Claw of the Fallen"
-msgstr ""
+msgstr "A Voz e a Garra dos Caídos"
 
 msgid "Legendary Icebrood Construct"
-msgstr ""
+msgstr "Construção lendária de Icebrood"
 
 msgid "Mistlock Sanctuary"
-msgstr ""
+msgstr "Santuário de Mislock"
 
 msgid "Closest"
-msgstr ""
+msgstr "Próximo"
 
 # Molten boss fractal
 msgid "Berserker and Firestorm"
@@ -655,11 +655,11 @@ msgstr "Berserker e Firestorm"
 
 # Sirens reef fractal
 msgid "Blasting Black Peter"
-msgstr ""
+msgstr "Jateamento do Black Peter"
 
 # Sirens reef fractal
 msgid "Arabella Crowe"
-msgstr ""
+msgstr "Arabella Crowe"
 
 msgid "Brood Queen"
 msgstr "Rainha da Criação"
@@ -698,10 +698,10 @@ msgid "Announce raids:"
 msgstr "Anúncio de Raid:"
 
 msgid "Closest PoI"
-msgstr ""
+msgstr "PoI mais Próximo"
 
 msgid "skiff"
-msgstr ""
+msgstr "skiff"
 
 msgid "Jade Bot"
 msgstr "Jade Bot"
@@ -710,22 +710,22 @@ msgid "Elemental Source"
 msgstr "Fonte Elemental"
 
 msgid "Lornar Dragonseeker"
-msgstr ""
+msgstr "Lornar"
 
 msgid "Frizz"
-msgstr ""
+msgstr "Frizz"
 
 msgid "Captain Mai Trin"
-msgstr ""
+msgstr "Capitã Mai Trin"
 
 msgid "Anomaly"
-msgstr ""
+msgstr "Anomalia"
 
 msgid "Brazen Gladiator"
-msgstr ""
+msgstr "Gladiador "
 
 msgid "Amala"
-msgstr ""
+msgstr "Amala"
 
 msgid "a sandbinder"
 msgstr "um encadernador"
