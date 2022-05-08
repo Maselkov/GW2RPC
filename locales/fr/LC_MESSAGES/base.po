@@ -770,3 +770,9 @@ msgstr ""
 
 msgid "Minister Li"
 msgstr ""
+
+msgid "Old Tom"
+msgstr "Gros Tom"
+
+msgid "Raving Asura"
+msgstr "forcené asura"

@@ -766,3 +766,9 @@ msgstr ""
 
 msgid "Minister Li"
 msgstr ""
+
+msgid "Old Tom"
+msgstr ""
+
+msgid "Raving Asura"
+msgstr ""
