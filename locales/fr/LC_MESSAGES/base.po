@@ -732,3 +732,41 @@ msgstr "Amala"
 
 msgid "a sandbinder"
 msgstr "un ensableur des lanciers du soleil"
+
+
+msgid "Captain Ashym"
+msgstr ""
+
+msgid "Jellyfish Beast"
+msgstr ""
+
+msgid "Archdiviner"
+msgstr ""
+
+msgid "Rabsovich"
+msgstr ""
+
+msgid "Rampaging Ice Elemental or Dredge Powersuit"
+msgstr ""
+
+msgid "Grawl Shaman"
+msgstr ""
+
+msgid "Imbued Shaman"
+msgstr ""
+
+msgid "in Weapon Testing Facility"
+msgstr ""
+
+msgid "Subject 6"
+msgstr ""
+
+msgid "Thaumanova Anomaly"
+msgstr ""
+
+# pre-event of Wing 7
+msgid "gate"
+msgstr ""
+
+msgid "Minister Li"
+msgstr ""
