@@ -22,7 +22,7 @@ class Config:
                 value = default
             return value
 
-        supported_languages = ["en", "es", "de", "fr"]
+        supported_languages = ["en", "es", "de", "fr", "pt-br"]
 
         self.config = configparser.ConfigParser(allow_no_value=True)
         if not os.path.exists("config.ini"):

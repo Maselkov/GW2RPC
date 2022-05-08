@@ -57,7 +57,7 @@ APIkey =                        ; ABCDE-FFFF-12345-....
 CloseWithGW2 = False            ; Exit gw2rpc if GW2 exits
 DisplayGuildTag = True          
 HideCommanderTag = False        ; Dont show active comm tag if True
-Lang = en                       ; Localization, one of en, es, fr, de
+Lang = en                       ; Localization, one of en, es, fr, de, pt-br
 
 [PointsOfInterest]
 DisableInWvW = False
