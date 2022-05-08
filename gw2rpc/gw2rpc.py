@@ -573,11 +573,14 @@ class GW2RPC:
                                 (boss["coord"][1] - position.y)**2)
                     
                     if distance <= boss["radius"]:
-                        state = _("fighting ") + _(boss["name"]) + " " + _("in ") + _(fractal["name"])
-                        if self.last_boss != boss["name"]:
-                            self.boss_timestamp = int(time.time())
-                        self.last_boss = boss["name"]
-                        return state, boss["name"]
+                        # z coordinate, only needed in uncategorized
+                        if (len(boss["coord"]) > 2 and "height" in boss
+                         and position.z - 1 >= boss["coord"][2] and position.z <= boss["coord"][2] + boss["height"]) or len(boss["coord"]) <= 2:
+                            state = _("fighting ") + _(boss["name"]) + " " + _("in ") + _(fractal["name"])
+                            if self.last_boss != boss["name"]:
+                                self.boss_timestamp = int(time.time())
+                            self.last_boss = boss["name"]
+                            return state, boss["name"]
                 else:
                     self.boss_timestamp = None
                     self.last_boss = None
