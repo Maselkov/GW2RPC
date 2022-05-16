@@ -730,46 +730,60 @@ msgstr "Amala"
 msgid "a sandbinder"
 msgstr "um encadernador"
 
+msgid "Captain Mai Trin"
+msgstr "Capitã Mai Trin"
+
+msgid "Anomaly"
+msgstr "Anomalia"
+
+msgid "Brazen Gladiator"
+msgstr "Gladiador "
+
+msgid "Amala"
+msgstr "Amala"
+
+msgid "a sandbinder"
+msgstr "um encadernador"
 
 msgid "Captain Ashym"
-msgstr ""
+msgstr "Capitão Ashym"
 
 msgid "Jellyfish Beast"
-msgstr ""
+msgstr "Água-viva Monstruosa"
 
 msgid "Archdiviner"
-msgstr ""
+msgstr "Arquidivino"
 
 msgid "Rabsovich"
-msgstr ""
+msgstr "Rabsovich"
 
 msgid "Rampaging Ice Elemental or Dredge Powersuit"
-msgstr ""
+msgstr "Elemental de Gelo Agressivo ou "
 
 msgid "Grawl Shaman"
-msgstr ""
+msgstr "Xamã Grawl"
 
 msgid "Imbued Shaman"
-msgstr ""
+msgstr "Xamã Imbuído"
 
 msgid "in Weapon Testing Facility"
-msgstr ""
+msgstr "na instalação de teste de armas"
 
 msgid "Subject 6"
-msgstr ""
+msgstr "Sujeito 6"
 
 msgid "Thaumanova Anomaly"
-msgstr ""
+msgstr "Anomalia Thaumanova"
 
 # pre-event of Wing 7
 msgid "gate"
-msgstr ""
+msgstr "portão"
 
 msgid "Minister Li"
-msgstr ""
+msgstr "Ministro Li"
 
 msgid "Old Tom"
-msgstr ""
+msgstr "Velho Tom"
 
 msgid "Raving Asura"
-msgstr ""
+msgstr "Asura Delirante"
