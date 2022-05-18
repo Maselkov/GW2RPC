@@ -45,7 +45,7 @@ class Config:
                 "DisableInWvW": False
             }
             with open("config.ini", "w") as cfile:
-                config.write(cfile)
+                self.config.write(cfile)
         self.config.read("config.ini")
         self.api_keys = [
             k for k in map(str.strip, self.config["API"]["APIKey"].split(',')) if k
