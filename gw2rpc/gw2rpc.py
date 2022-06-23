@@ -28,7 +28,7 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.36
+VERSION = 2.41
 HEADERS = {'User-Agent': 'GW2RPC v{}'.format(VERSION)}
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
@@ -36,7 +36,7 @@ GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
 GW2RPC_APP_ID = "385475290614464513"
 
 log = logging.getLogger()
-log.setLevel(logging.DEBUG)
+log.setLevel(config.log_level)
 
 # First one only for building
 #locales_path = resource_path("./locales")
@@ -696,7 +696,7 @@ class GW2RPC:
             except psutil.NoSuchProcess:
                 log.debug("A process exited while iterating over the process list.")
                 pass   
-            log.warning("Another gw2rpc process is already running, exiting.")
+            log.info("Another gw2rpc process is already running, exiting.")
             if self.rpc.running:
                 self.rpc.close()
                 log.debug("Killing RPC")

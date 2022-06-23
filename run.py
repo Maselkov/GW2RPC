@@ -12,7 +12,7 @@ def setup_logging():
     handler.setFormatter(formatter)
     #    stderr_hdlr = logging.StreamHandler()
     logger = logging.getLogger("")
-    logger.setLevel(logging.INFO)
+    logger.setLevel(config.log_level)
     #    logger.addHandler(stderr_hdlr)
     logger.addHandler(handler)
 

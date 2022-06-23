@@ -2,9 +2,15 @@ import configparser
 import os
 import logging
 from xmlrpc.client import boolean
+from enum import Enum
 
 log = logging.getLogger()
 
+class Loglevels(Enum):
+    DEBUG = logging.DEBUG
+    INFO = logging.INFO
+    WARNING = logging.WARNING
+    CRITICAL = logging.CRITICAL
 
 class Config:
     def __init__(self):
@@ -32,7 +38,8 @@ class Config:
                 "DisplayGuildTag": True,
                 "Lang": "en",
                 "HideCommanderTag": False,
-                "HideMounts": False
+                "HideMounts": False,
+                "LogLevel": "info"
             }
             self.config["PointsOfInterest"] = {
                 "DisableInWvW": False,
@@ -54,6 +61,8 @@ class Config:
             k for k in map(str.strip, self.config["Webhooks"]["WebHook"].split(',')) if k
         ]
         self.close_with_gw2 = set_boolean("Settings", "CloseWithGw2")
+        log_level = self.config["Settings"]["LogLevel"] if self.config["Settings"]["LogLevel"].lower() in ["debug", "info", "warning", "critical"] else "info"
+        self.log_level = Loglevels[log_level.upper()].value
         self.display_tag = set_boolean("Settings", "DisplayGuildTag")
         self.hide_commander_tag = set_boolean("Settings", "HideCommanderTag")
         self.hide_mounts = set_boolean("Settings", "HideMounts")
