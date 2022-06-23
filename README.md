@@ -22,6 +22,8 @@
 * active guild tag (needs API key)
 * time spent on map
 
+</details>
+
 <details open markdown='1'><summary>Also</summary>
 
 * Automatic update checking
@@ -29,8 +31,8 @@
 * Configurable settings
 * Supports multiple accounts and multiboxing
 * Automatic raid announcer (<a href="https://gw2rpc.info/#faq">FAQ</a>):
-
 <img src="https://gw2rpc.info/static/img/announce_example.png" height=128>
+
 </details>
 
 <h2><img src="https://api.iconify.design/ic:baseline-browser-updated.svg?color=%23ff8cf3" height="20">・ How to install</h2>
