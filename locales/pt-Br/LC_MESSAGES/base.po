@@ -598,7 +598,7 @@ msgid "Commander"
 msgstr "Comandante"
 
 msgid "jackal"
-msgstr "Jackal
+msgstr "Jackal"
 
 msgid "griffon"
 msgstr "Grifo"
