@@ -28,7 +28,7 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.35
+VERSION = 2.36
 HEADERS = {'User-Agent': 'GW2RPC v{}'.format(VERSION)}
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
@@ -36,6 +36,7 @@ GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
 GW2RPC_APP_ID = "385475290614464513"
 
 log = logging.getLogger()
+log.setLevel(logging.DEBUG)
 
 # First one only for building
 #locales_path = resource_path("./locales")
@@ -165,7 +166,7 @@ class GW2RPC:
         try:
             for process in psutil.process_iter():
                 pinfo = process.as_dict(attrs=['pid', 'name', 'cmdline'])
-                if pinfo['name'] in ("Gw2-64.exe", "Gw2.exe"):
+                if pinfo['name'].lower() in ("Gw2-64.exe".lower(), "Gw2.exe".lower()):
                     cmdline = pinfo['cmdline']
                     try:
                         mumble_links.add((cmdline[cmdline.index('-mumble') + 1], process))
@@ -176,6 +177,7 @@ class GW2RPC:
                         continue
         except psutil.NoSuchProcess:
             pass
+        log.debug(f"Mumble Links found: {mumble_links}")
         return mumble_links
 
     def create_mumble_objects(self):
@@ -189,6 +191,7 @@ class GW2RPC:
             if not o.memfile:
                 o.create_map()
             mumble_objects.append((o, p))
+        log.debug(f"Mumble Link objects created: {mumble_objects}")
         return mumble_objects
 
     def shutdown(self, _=None):
@@ -652,11 +655,16 @@ class GW2RPC:
                     if config.close_with_gw2:
                         shutdown = True
             try:
+                names = []
                 for process in psutil.process_iter(attrs=['name']):
                     name = process.info['name']
-                    if name in ("Gw2-64.exe", "Gw2.exe"):
+                    names.append(name)
+                    if name.lower() in ("Gw2-64.exe".lower(), "Gw2.exe".lower()):
+                        log.debug(f"Found GW2 process: {process.name}")
                         self.process = process
                         return
+                else: 
+                    log.debug(f"GW2 process not found, List of processes: {names}")
             except psutil.NoSuchProcess:
                 log.debug("A process exited while iterating over the process list.")
                 pass
