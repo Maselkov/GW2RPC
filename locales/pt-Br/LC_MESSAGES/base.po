@@ -1,4 +1,3 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR ORGANIZATION
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -17,27 +16,27 @@ msgstr ""
 
 #: gw2rpc/character.py:6
 msgid "Guardian"
-msgstr "Guardião(ã)"
+msgstr "Guardian"
 
 #: gw2rpc/character.py:7
 msgid "Warrior"
-msgstr "Guerreiro(a)"
+msgstr "Warrior"
 
 #: gw2rpc/character.py:8
 msgid "Engineer"
-msgstr "Engenheiro(a)"
+msgstr "Engineer"
 
 #: gw2rpc/character.py:9
 msgid "Ranger"
-msgstr "Guarda"
+msgstr "Ranger"
 
 #: gw2rpc/character.py:10
 msgid "Thief"
-msgstr "Ladrão(a)"
+msgstr "Thief"
 
 #: gw2rpc/character.py:11
 msgid "Elementalist"
-msgstr "Elementalista"
+msgstr "Elementalist"
 
 #: gw2rpc/character.py:12
 msgid "Mesmer"
@@ -49,7 +48,7 @@ msgstr "Necromante"
 
 #: gw2rpc/character.py:14
 msgid "Revenant"
-msgstr "Assombração"
+msgstr "Revenant"
 
 #: gw2rpc/character.py:17
 msgid "Asura"
@@ -73,7 +72,7 @@ msgstr "Sylvari"
 
 #: gw2rpc/character.py:20
 msgid "Druid"
-msgstr "Druida"
+msgstr "Druid"
 
 #: gw2rpc/character.py:21
 msgid "Daredevil"
@@ -85,11 +84,11 @@ msgstr "Berserker"
 
 #: gw2rpc/character.py:23
 msgid "Dragonhunter"
-msgstr "Caçador(a) de Dragões"
+msgstr "Dragonhunter"
 
 #: gw2rpc/character.py:24
 msgid "Reaper"
-msgstr "Ceifador(a)"
+msgstr "Reaper"
 
 #: gw2rpc/character.py:25
 msgid "Chronomancer"
@@ -101,19 +100,19 @@ msgstr "Scrapper"
 
 #: gw2rpc/character.py:27
 msgid "Tempest"
-msgstr "Tempestade"
+msgstr "Tempest"
 
 #: gw2rpc/character.py:28
 msgid "Herald"
-msgstr "Arauto"
+msgstr "Herald"
 
 #: gw2rpc/character.py:29
 msgid "Soulbeast"
-msgstr "Fera da Alma"
+msgstr "Soulbeast"
 
 #: gw2rpc/character.py:30
 msgid "Weaver"
-msgstr "Tecelão"
+msgstr "Weaver"
 
 #: gw2rpc/character.py:31
 msgid "Holosmith"
@@ -125,11 +124,11 @@ msgstr "Deadeye"
 
 #: gw2rpc/character.py:33
 msgid "Mirage"
-msgstr "Miragem"
+msgstr "Mirage"
 
 #: gw2rpc/character.py:34
 msgid "Scourge"
-msgstr "Flagelo"
+msgstr "Scourge"
 
 #: gw2rpc/character.py:35
 msgid "Spellbreaker"
@@ -141,7 +140,7 @@ msgstr "Firebrand"
 
 #: gw2rpc/character.py:37
 msgid "Renegade"
-msgstr "Renegado(a)"
+msgstr "Renegade"
 
 #: gw2rpc/gw2rpc.py:39
 msgid "Anvil Rock"
@@ -157,7 +156,7 @@ msgstr "Passagem de Borlis"
 
 #: gw2rpc/gw2rpc.py:39
 msgid "Crystal Desert"
-msgstr "Cristal do Deserto"
+msgstr "Deserto do Cristal"
 
 #: gw2rpc/gw2rpc.py:40
 msgid "Darkhaven"
@@ -377,7 +376,7 @@ msgstr " fractais"
 
 #: gw2rpc/gw2rpc.py:198 gw2rpc/gw2rpc.py:199
 msgid "in "
-msgstr "em "
+msgstr "Montado no"
 
 #: gw2rpc/gw2rpc.py:214
 msgid "fighting "
@@ -393,7 +392,7 @@ msgstr " próximo(a) a "
 
 #: gw2rpc/gw2rpc.py:302
 msgid "in character selection"
-msgstr "na seleção se personagens"
+msgstr "Na seleção de Personagens"
 
 #: gw2rpc/gw2rpc.py:307
 msgid "Character Selection"
@@ -599,7 +598,7 @@ msgid "Commander"
 msgstr "Comandante"
 
 msgid "jackal"
-msgstr "Chacal"
+msgstr "Jackal
 
 msgid "griffon"
 msgstr "Grifo"
@@ -611,19 +610,19 @@ msgid "skimmer"
 msgstr "Skimmer"
 
 msgid "raptor"
-msgstr "Ave de Rapina"
+msgstr "Raptor"
 
 msgid "roller beetle"
-msgstr "Escaravelho de Rolo"
+msgstr "Roller beetle"
 
 msgid "warclaw"
-msgstr "Lei da Guerra"
+msgstr "Warclaw"
 
 msgid "skyscale"
 msgstr "Skyscale"
 
 msgid "siege turtle"
-msgstr "Tartaruga de Sítio"
+msgstr "Taruga"
 
 msgid "on"
 msgstr "em"
@@ -710,7 +709,7 @@ msgid "Elemental Source"
 msgstr "Fonte Elemental"
 
 msgid "Lornar Dragonseeker"
-msgstr "Lornar"
+msgstr "Lornar Dragonseeker"
 
 msgid "Frizz"
 msgstr "Frizz"
