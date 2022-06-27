@@ -730,34 +730,34 @@ msgid "a sandbinder"
 msgstr "ein Sandbanner"
 
 msgid "Captain Ashym"
-msgstr ""
+msgstr "Hauptmann Ashym"
 
 msgid "Jellyfish Beast"
-msgstr ""
+msgstr "Quallenbestie"
 
 msgid "Archdiviner"
-msgstr ""
+msgstr "Erzwahrsager"
 
 msgid "Rabsovich"
 msgstr ""
 
 msgid "Rampaging Ice Elemental or Dredge Powersuit"
-msgstr ""
+msgstr "Schaufler-Minenanzug oder Eiselementar"
 
 msgid "Grawl Shaman"
-msgstr ""
+msgstr "Grawl-Schamane"
 
 msgid "Imbued Shaman"
-msgstr ""
+msgstr "durchdrungener Schamanen"
 
 msgid "in Weapon Testing Facility"
 msgstr ""
 
 msgid "Subject 6"
-msgstr ""
+msgstr "Subjekt 6"
 
 msgid "Thaumanova Anomaly"
-msgstr ""
+msgstr "Thaumanova-Anomalie"
 
 # pre-event of Wing 7
 msgid "gate"

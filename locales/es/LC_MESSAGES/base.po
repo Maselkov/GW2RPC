@@ -732,34 +732,34 @@ msgstr "lancero del sol élite"
 
 
 msgid "Captain Ashym"
-msgstr ""
+msgstr "Capitán Ashym"
 
 msgid "Jellyfish Beast"
-msgstr ""
+msgstr "Bestia medusa"
 
 msgid "Archdiviner"
-msgstr ""
+msgstr "archiadivino"
 
 msgid "Rabsovich"
 msgstr ""
 
 msgid "Rampaging Ice Elemental or Dredge Powersuit"
-msgstr ""
+msgstr "Elemental de hielo violento o Traje draga"
 
 msgid "Grawl Shaman"
-msgstr ""
+msgstr "chamán grawl"
 
 msgid "Imbued Shaman"
-msgstr ""
+msgstr "chamán imbuido"
 
 msgid "in Weapon Testing Facility"
 msgstr ""
 
 msgid "Subject 6"
-msgstr ""
+msgstr "Sujeto 6"
 
 msgid "Thaumanova Anomaly"
-msgstr ""
+msgstr "anomalía de Taumanova"
 
 # pre-event of Wing 7
 msgid "gate"

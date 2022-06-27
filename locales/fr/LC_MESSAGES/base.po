@@ -735,34 +735,34 @@ msgstr "un ensableur des lanciers du soleil"
 
 
 msgid "Captain Ashym"
-msgstr ""
+msgstr "Capitaine Ashym"
 
 msgid "Jellyfish Beast"
-msgstr ""
+msgstr "Méduse monstrueuse"
 
 msgid "Archdiviner"
-msgstr ""
+msgstr "l'archidevin"
 
 msgid "Rabsovich"
 msgstr ""
 
 msgid "Rampaging Ice Elemental or Dredge Powersuit"
-msgstr ""
+msgstr "draguerre en armure ou élémentaire de glace"
 
 msgid "Grawl Shaman"
-msgstr ""
+msgstr "le chamane grawl"
 
 msgid "Imbued Shaman"
-msgstr ""
+msgstr "le chamane transmuté"
 
 msgid "in Weapon Testing Facility"
 msgstr ""
 
 msgid "Subject 6"
-msgstr ""
+msgstr "Sujet 6"
 
 msgid "Thaumanova Anomaly"
-msgstr ""
+msgstr "Anomalie de Thaumanova"
 
 # pre-event of Wing 7
 msgid "gate"
