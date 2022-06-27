@@ -61,8 +61,6 @@ class Config:
             k for k in map(str.strip, self.config["Webhooks"]["WebHook"].split(',')) if k
         ]
         self.close_with_gw2 = set_boolean("Settings", "CloseWithGw2")
-        log_level = self.config["Settings"]["LogLevel"] if self.config["Settings"]["LogLevel"].lower() in ["debug", "info", "warning", "critical"] else "info"
-        self.log_level = Loglevels[log_level.upper()].value
         self.display_tag = set_boolean("Settings", "DisplayGuildTag")
         self.hide_commander_tag = set_boolean("Settings", "HideCommanderTag")
         self.hide_mounts = set_boolean("Settings", "HideMounts")
@@ -71,6 +69,12 @@ class Config:
         except KeyError:
             log.error("Missing language parameter, defaulting to en. Add 'lang = en' for localization support to config.ini.")
             self.lang = "en"
+        try:
+            log_level = self.config["Settings"]["LogLevel"] if self.config["Settings"]["LogLevel"].lower() in ["debug", "info", "warning", "critical"] else "info"
+            self.log_level = Loglevels[log_level.upper()].value
+        except KeyError:
+            log.error("Missing 'logLevel' Parameter in config.ini. Defaulting to 'info'")
+            self.log_level = Loglevels["INFO"].value
 
         self.disable_pois = set_boolean("PointsOfInterest",
                                         "DisableCompletely")
