@@ -28,7 +28,7 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.41
+VERSION = 2.42
 HEADERS = {'User-Agent': 'GW2RPC v{}'.format(VERSION)}
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
@@ -578,7 +578,7 @@ class GW2RPC:
                     if distance <= boss["radius"]:
                         # z coordinate, only needed in uncategorized
                         if (len(boss["coord"]) > 2 and "height" in boss
-                         and position.z - 1 >= boss["coord"][2] and position.z <= boss["coord"][2] + boss["height"]) or len(boss["coord"]) <= 2:
+                         and position.z >= boss["coord"][2] and position.z <= boss["coord"][2] + boss["height"]) or len(boss["coord"]) <= 2:
                             state = _("fighting ") + _(boss["name"]) + " " + _("in ") + _(fractal["name"])
                             if self.last_boss != boss["name"]:
                                 self.boss_timestamp = int(time.time())
