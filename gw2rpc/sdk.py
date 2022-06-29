@@ -24,9 +24,8 @@ class DiscordSDK:
 
     def set_activity(self, a):
         self.activity.state = a["state"]
-        if "details" in a.keys():
-            self.activity.details = a["details"]
-        if "timestamps" in a.keys():
+        self.activity.details = a["details"]
+        if a["timestamps"]:
             self.activity.timestamps.start = a["timestamps"]["start"]
         self.activity.assets.small_image = a["assets"]["small_image"]
         self.activity.assets.small_text = a["assets"]["small_text"]
