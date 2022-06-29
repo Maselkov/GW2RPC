@@ -43,17 +43,18 @@ ELITESPECS = {
     71: "Specter",
     72: "Untamed"
 }
-# Images for specter and catalyst are missing
 
 
 class Character:
-    def __init__(self, mumble_data):
+    def __init__(self, mumble_data, query_guild=True):
         self.__mumble_data = mumble_data
         self.name = mumble_data["name"]
         self.race = RACES[mumble_data["race"]]  
         self.__api_info = None
-        if api._authenticated:
+
+        if query_guild and api._authenticated:
             self.__api_info = api.get_character(self.name)
+
         self.profession = self.get_elite_spec()
         self.profession_icon = "prof_{}".format(
             self.profession.lower().replace(" ", ""))
