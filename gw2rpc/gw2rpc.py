@@ -530,7 +530,9 @@ class GW2RPC:
         activity = {
             "state": _("in character selection") + " / " + _("loading screen"),
             "details": "",
-            "timestamps": None,
+            "timestamps": {
+                'start': 0
+            },
             "assets": {
                 "large_image":
                 "default",
