@@ -127,6 +127,8 @@ class GW2RPC:
         self.game = None
         self.mumble_links = self.get_mumble_links()
         self.mumble_objects = self.create_mumble_objects()
+        self.timeticks = 0
+        self.prev_char = None
         # Select the first mumble object as initially in focus
         if len(self.mumble_objects) > 0:
             self.game = self.mumble_objects[0][0]
@@ -438,13 +440,24 @@ class GW2RPC:
             else:
                 map_info = api.get_map_info(map_id)
                 self.last_map_info = map_info
-            character = Character(data)
+            if (not self.prev_char) or ((self.prev_char and data["name"] != self.prev_char.name)) or (self.timeticks % 12000 == 0):
+                # Query GW2API on character swap or every 20 minutes for guild info
+                character = Character(data)
+                # Keep the guild tag from the old character
+                tag = character.guild_tag
+            else:
+                # Else just create a char object without API calls, keep guild tag
+                character = Character(data, query_guild=False)
+                character.guild_tag = self.prev_char.guild_tag
+                tag = self.prev_char.guild_tag if self.prev_char else character.guild_tag
+            self.prev_char = character
         except APIError:
             log.error("API Error!")
             self.last_map_info = None
             return None
         state, map_asset = self.get_map_asset(map_info, mount_index=mount_index)
-        tag = character.guild_tag if config.display_tag else ""
+
+        tag = tag if config.display_tag else ""
         try:
             if map_id in self.no_pois or "continent_id" not in map_info:
                 raise APIError(404)
@@ -516,6 +529,8 @@ class GW2RPC:
     def in_character_selection(self):
         activity = {
             "state": _("in character selection") + " / " + _("loading screen"),
+            "details": "",
+            "timestamps": None,
             "assets": {
                 "large_image":
                 "default",
@@ -674,14 +689,6 @@ class GW2RPC:
             self.process = None
             raise GameNotRunningError
 
-        def start_rpc():
-            while True:
-                try:
-                    self.rpc.start()
-                    break
-                except (FileNotFoundError, PermissionError) as e:
-                    time.sleep(10)
-
         def check_for_running_rpc():
             count = 0
             try:
@@ -737,6 +744,7 @@ class GW2RPC:
                         self.sdk.close()
                         log.debug("Killing SDK")
                 time.sleep(1/10)
+                self.timeticks = (self.timeticks + 1) % 12000
         except Exception as e:
             log.critical("GW2RPC has crashed", exc_info=e)
             create_msgbox(
