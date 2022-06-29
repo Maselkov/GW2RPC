@@ -84,13 +84,6 @@ class GW2RPC:
 
         def fetch_registry():
             
-            # First one only for building
-            # Only used for debugging without the web based API
-            #registry_path = resource_path('./data/registry.json')
-            #registry_path = resource_path('../data/registry.json')
-            #registry = json.loads(open(registry_path).read())
-            #return registry
-
             url = GW2RPC_BASE_URL + "registry"
             try:
                 res = requests.get(url, headers=HEADERS)
@@ -731,7 +724,6 @@ class GW2RPC:
                         data = self.in_character_selection()
                     log.debug(data)
                     try:
-                        #self.rpc.send_rich_presence(data, self.process.pid)
                         if self.sdk.app:
                             self.sdk.set_activity(data)
                             self.sdk.app.run_callbacks()

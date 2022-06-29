@@ -31,13 +31,11 @@ class DiscordSDK:
         self.activity.assets.small_text = a["assets"]["small_text"]
         self.activity.assets.large_image = a["assets"]["large_image"]
         self.activity.assets.large_text = a["assets"]["large_text"]
-        # TODO buttons?
-        #if "buttons" in a.keys():
-        #    self.activity.party.id = str(uuid.uuid4())
-        #    self.activity.secrets.join = str(uuid.uuid4())
-        #    for b in a["buttons"]:
-        #        self.activity_manager.on_activity_join = self.on_activity_join
-        #        self.activity_manager.register_command(b["url"])
+
+        #self.activity.buttons = a["buttons"][0]
+
+        #self.activity.party.id = str(uuid.uuid4())
+        #self.activity.secrets.join = str(uuid.uuid4())
 
         try:
             self.activity_manager.update_activity(self.activity, self.callback)
@@ -46,7 +44,6 @@ class DiscordSDK:
             pass
 
     def close(self):
-        #self.activity_manager.clear_activity(self.callback)
         try:
             self.app = None
         except:
