@@ -54,6 +54,8 @@ class GW2Api:
         else:
             self.account, self.world = None, None
 
+        self.guild_cache = {}
+
     def get_map_info(self, map_id):
         return self._call_api("maps/" + str(map_id))
 
@@ -68,7 +70,11 @@ class GW2Api:
         return self._call_api("characters/" + name)
 
     def get_guild(self, gid):
-        return self._call_api("guild/" + gid)
+        if gid in self.guild_cache.keys():
+            return {'tag': self.guild_cache[gid], 'id': gid}
+        g = self._call_api("guild/" + gid)
+        self.guild_cache[g["id"]] = g["tag"]
+        return g
 
     def _call_api(self, endpoint, *, key=None):
         url = self._base_url + endpoint + "?lang=" + config.lang
