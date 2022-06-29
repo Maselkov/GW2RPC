@@ -18,8 +18,8 @@ import urllib.parse
 from .api import APIError, api  
 from .character import Character
 from .mumble import MumbleData
-from .rpc import DiscordRPC
 from .settings import config
+from .sdk import DiscordSDK
 
 import sys
 import os
@@ -113,7 +113,7 @@ class GW2RPC:
             except:
                 return None
 
-        self.rpc = DiscordRPC(GW2RPC_APP_ID)
+        self.sdk = DiscordSDK(GW2RPC_APP_ID)
         self.registry = fetch_registry()
         self.support_invite = fetch_support_invite()
         self.process = None
@@ -697,9 +697,10 @@ class GW2RPC:
                 log.debug("A process exited while iterating over the process list.")
                 pass   
             log.info("Another gw2rpc process is already running, exiting.")
-            if self.rpc.running:
-                self.rpc.close()
-                log.debug("Killing RPC")
+            if self.sdk.app:
+                self.sdk.activity_manager.clear_activity(self.sdk.callback)
+                self.sdk.close()
+                log.debug("Killing SDK")
             self.shutdown()
 
         try:
@@ -710,28 +711,32 @@ class GW2RPC:
                     update_gw2_process()
                     if self.game and not self.game.memfile:
                         self.game.create_map()
-                    if not self.rpc.running:
-                        start_rpc()
-                        log.debug("starting self.rpc")
                     try:
                         data = self.get_activity()
                     except requests.exceptions.ConnectionError:
                         raise GameNotRunningError
+                    if not self.sdk.app:
+                        self.sdk.start()
+                        log.debug("starting self.sdk")
                     if not data:
                         data = self.in_character_selection()
                     log.debug(data)
                     try:
-                        self.rpc.send_rich_presence(data, self.process.pid)
+                        #self.rpc.send_rich_presence(data, self.process.pid)
+                        if self.sdk.app:
+                            self.sdk.set_activity(data)
+                            self.sdk.app.run_callbacks()
+
                     except BrokenPipeError:
                         raise GameNotRunningError  # To start a new connection
                 except GameNotRunningError:
-                    #  TODO
                     if self.game:
                         self.game.close_map()
-                    if self.rpc.running:
-                        self.rpc.close()
-                        log.debug("Killing RPC")
-                time.sleep(15)
+                    if self.sdk.app:
+                        self.sdk.activity_manager.clear_activity(self.sdk.callback)
+                        self.sdk.close()
+                        log.debug("Killing SDK")
+                time.sleep(1/10)
         except Exception as e:
             log.critical("GW2RPC has crashed", exc_info=e)
             create_msgbox(
