@@ -54,12 +54,18 @@ class Config:
             with open("config.ini", "w") as cfile:
                 self.config.write(cfile)
         self.config.read("config.ini")
-        self.api_keys = [
-            k for k in map(str.strip, self.config["API"]["APIKey"].split(',')) if k
-        ]
-        self.webhooks = [
-            k for k in map(str.strip, self.config["Webhooks"]["WebHook"].split(',')) if k
-        ]
+        try:
+            self.api_keys = [
+                k for k in map(str.strip, self.config["API"]["APIKey"].split(',')) if k
+            ]
+        except KeyError:
+            self.api_keys = []
+        try:
+            self.webhooks = [
+                k for k in map(str.strip, self.config["Webhooks"]["WebHook"].split(',')) if k
+            ]
+        except KeyError:
+            self.webhooks = []
         self.close_with_gw2 = set_boolean("Settings", "CloseWithGw2")
         self.display_tag = set_boolean("Settings", "DisplayGuildTag")
         self.hide_commander_tag = set_boolean("Settings", "HideCommanderTag")
