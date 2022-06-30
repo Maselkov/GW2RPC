@@ -433,7 +433,9 @@ class GW2RPC:
             else:
                 map_info = api.get_map_info(map_id)
                 self.last_map_info = map_info
-            if (not self.prev_char) or ((self.prev_char and data["name"] != self.prev_char.name)) or (self.timeticks % 12000 == 0):
+            # 800 ticks are approx 20 minutes (not accurate!). Time it takes to update Guild in GW2 API. 
+            # Query again after this time interval, else keep the previously known guild
+            if (not self.prev_char) or ((self.prev_char and data["name"] != self.prev_char.name)) or (self.timeticks % 800 == 0):
                 # Query GW2API on character swap or every 20 minutes for guild info
                 character = Character(data)
                 # Keep the guild tag from the old character
@@ -738,7 +740,7 @@ class GW2RPC:
                         self.sdk.close()
                         log.debug("Killing SDK")
                 time.sleep(1/10)
-                self.timeticks = (self.timeticks + 1) % 12000
+                self.timeticks = (self.timeticks + 1) % 800
         except Exception as e:
             log.critical("GW2RPC has crashed", exc_info=e)
             create_msgbox(
