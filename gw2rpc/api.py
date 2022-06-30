@@ -78,6 +78,7 @@ class GW2Api:
 
     def _call_api(self, endpoint, *, key=None):
         url = self._base_url + endpoint + "?lang=" + config.lang
+        log.debug(f"Calling {endpoint}, {key}")
         try:
             if key:
                 headers = {**self.__headers, **{"Authorization": "Bearer " + key}}
