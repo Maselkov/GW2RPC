@@ -16,7 +16,7 @@
 <details open markdown='1'><summary>Displaying off</summary>
 
 * current map, as well as closest point of interest
-* current raid or fractal boss
+* current raid, strike or fractal boss
 * character name, race and profession (elite spec)
 * commander icon if player is currently commanding a squad
 * active guild tag (needs API key)
@@ -36,7 +36,12 @@
 </details>
 
 <h2><img src="https://api.iconify.design/ic:baseline-browser-updated.svg?color=%23ff8cf3" height="20">・ How to install</h2>
-Simply extract and run the `gw2rpc.exe`. It will start in your system tray. It needs to be running in background for Rich Presence to work.
+
+1. Use the installer. Start either `gw2rpc.exe` or `launch_gw2_with_rpc.exe`.
+
+or
+
+2. Extract `gw2rpc.zip` and run the `gw2rpc.exe`. It will start in your system tray. It needs to be running in background for Rich Presence to work.
 
 In the config.ini in the program's directory, you can input your API key so that your status can display region (EU/NA) and your current guild tag.
 
@@ -45,7 +50,13 @@ To make starting Rich Presence easier, there is an .exe called `launch_gw2_with_
 You can also put a shortcut to `gw2rpc.exe` into your autorun so that it runs automatically on Windows boot.
 
 <h2><img src="https://api.iconify.design/ic:baseline-update.svg?color=%23ff8cf3" height="20">・ How to update</h2>
-If a new version is released, simply replace the updated files. To get the newest configuration file, you might also delete the old one and let it be recreated on the first start of `gw2rpc.exe` for you.
+
+1. Run the new installer again. 
+
+or
+
+
+2. If a new version is released, simply replace the updated files. To get the newest configuration file, you might also delete the old one and let it be recreated on the first start of `gw2rpc.exe` for you.
 
 <h2><img src="https://api.iconify.design/eos-icons:configuration-file.svg?color=%23ff8cf3" height="20">・Configuration file</h2>
 
