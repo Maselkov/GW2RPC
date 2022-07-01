@@ -18,8 +18,8 @@ import urllib.parse
 from .api import APIError, api  
 from .character import Character
 from .mumble import MumbleData
-from .rpc import DiscordRPC
 from .settings import config
+from .sdk import DiscordSDK
 
 import sys
 import os
@@ -28,7 +28,7 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.42
+VERSION = 2.5
 HEADERS = {'User-Agent': 'GW2RPC v{}'.format(VERSION)}
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
@@ -39,8 +39,8 @@ log = logging.getLogger()
 log.setLevel(config.log_level)
 
 # First one only for building
-#locales_path = resource_path("./locales")
-locales_path = resource_path("../locales")
+locales_path = resource_path("./locales")
+#locales_path = resource_path("../locales")
 
 lang = gettext.translation('base', localedir=locales_path, languages=[config.lang])
 lang.install()
@@ -84,13 +84,6 @@ class GW2RPC:
 
         def fetch_registry():
             
-            # First one only for building
-            # Only used for debugging without the web based API
-            #registry_path = resource_path('./data/registry.json')
-            #registry_path = resource_path('../data/registry.json')
-            #registry = json.loads(open(registry_path).read())
-            #return registry
-
             url = GW2RPC_BASE_URL + "registry"
             try:
                 res = requests.get(url, headers=HEADERS)
@@ -113,7 +106,7 @@ class GW2RPC:
             except:
                 return None
 
-        self.rpc = DiscordRPC(GW2RPC_APP_ID)
+        self.sdk = DiscordSDK(GW2RPC_APP_ID)
         self.registry = fetch_registry()
         self.support_invite = fetch_support_invite()
         self.process = None
@@ -127,6 +120,8 @@ class GW2RPC:
         self.game = None
         self.mumble_links = self.get_mumble_links()
         self.mumble_objects = self.create_mumble_objects()
+        self.timeticks = 0
+        self.prev_char = None
         # Select the first mumble object as initially in focus
         if len(self.mumble_objects) > 0:
             self.game = self.mumble_objects[0][0]
@@ -438,13 +433,26 @@ class GW2RPC:
             else:
                 map_info = api.get_map_info(map_id)
                 self.last_map_info = map_info
-            character = Character(data)
+            # 800 ticks are approx 20 minutes (not accurate!). Time it takes to update Guild in GW2 API. 
+            # Query again after this time interval, else keep the previously known guild
+            if (not self.prev_char) or ((self.prev_char and data["name"] != self.prev_char.name)) or (self.timeticks % 800 == 0):
+                # Query GW2API on character swap or every 20 minutes for guild info
+                character = Character(data)
+                # Keep the guild tag from the old character
+                tag = character.guild_tag
+            else:
+                # Else just create a char object without API calls, keep guild tag
+                character = Character(data, query_guild=False)
+                character.guild_tag = self.prev_char.guild_tag
+                tag = self.prev_char.guild_tag if self.prev_char else character.guild_tag
+            self.prev_char = character
         except APIError:
             log.error("API Error!")
             self.last_map_info = None
             return None
         state, map_asset = self.get_map_asset(map_info, mount_index=mount_index)
-        tag = character.guild_tag if config.display_tag else ""
+
+        tag = tag if config.display_tag else ""
         try:
             if map_id in self.no_pois or "continent_id" not in map_info:
                 raise APIError(404)
@@ -516,6 +524,10 @@ class GW2RPC:
     def in_character_selection(self):
         activity = {
             "state": _("in character selection") + " / " + _("loading screen"),
+            "details": "",
+            "timestamps": {
+                'start': 0
+            },
             "assets": {
                 "large_image":
                 "default",
@@ -674,14 +686,6 @@ class GW2RPC:
             self.process = None
             raise GameNotRunningError
 
-        def start_rpc():
-            while True:
-                try:
-                    self.rpc.start()
-                    break
-                except (FileNotFoundError, PermissionError) as e:
-                    time.sleep(10)
-
         def check_for_running_rpc():
             count = 0
             try:
@@ -697,9 +701,10 @@ class GW2RPC:
                 log.debug("A process exited while iterating over the process list.")
                 pass   
             log.info("Another gw2rpc process is already running, exiting.")
-            if self.rpc.running:
-                self.rpc.close()
-                log.debug("Killing RPC")
+            if self.sdk.app:
+                self.sdk.activity_manager.clear_activity(self.sdk.callback)
+                self.sdk.close()
+                log.debug("Killing SDK")
             self.shutdown()
 
         try:
@@ -710,28 +715,32 @@ class GW2RPC:
                     update_gw2_process()
                     if self.game and not self.game.memfile:
                         self.game.create_map()
-                    if not self.rpc.running:
-                        start_rpc()
-                        log.debug("starting self.rpc")
                     try:
                         data = self.get_activity()
                     except requests.exceptions.ConnectionError:
                         raise GameNotRunningError
+                    if not self.sdk.app:
+                        self.sdk.start()
+                        log.debug("starting self.sdk")
                     if not data:
                         data = self.in_character_selection()
                     log.debug(data)
                     try:
-                        self.rpc.send_rich_presence(data, self.process.pid)
+                        if self.sdk.app:
+                            self.sdk.set_activity(data)
+                            self.sdk.app.run_callbacks()
+
                     except BrokenPipeError:
                         raise GameNotRunningError  # To start a new connection
                 except GameNotRunningError:
-                    #  TODO
                     if self.game:
                         self.game.close_map()
-                    if self.rpc.running:
-                        self.rpc.close()
-                        log.debug("Killing RPC")
-                time.sleep(15)
+                    if self.sdk.app:
+                        self.sdk.activity_manager.clear_activity(self.sdk.callback)
+                        self.sdk.close()
+                        log.debug("Killing SDK")
+                time.sleep(1/10)
+                self.timeticks = (self.timeticks + 1) % 800
         except Exception as e:
             log.critical("GW2RPC has crashed", exc_info=e)
             create_msgbox(

@@ -82,3 +82,7 @@ Start compiling simply with `pyinstaller.exe --onefile .\run.spec`. Pyinstaller 
 Again make sure that you run pyinstaller from your Windows installation!
 
 If you get any errors when starting the compiled exe (like `Failed to execute script`), change `console` to `True` in the .spec file, run pyinstaller again and start the compiled exe from a powershell window. You hopefully will get error messages then.
+
+<h3><img src="https://api.iconify.design/ic:baseline-terminal.svg?color=%23ff8cf3" height="20"> Installer</h3>
+
+The installer is created with <a href="https://nsis.sourceforge.io/Download">NSIS</a> and the nsis script located in dist folder
