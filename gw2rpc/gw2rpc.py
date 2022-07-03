@@ -122,6 +122,8 @@ class GW2RPC:
         self.mumble_objects = self.create_mumble_objects()
         self.timeticks = 0
         self.prev_char = None
+        # Interval to sleep for the while true loop. Will increase to 5 if game is not running to reduce CPU usage
+        self.interval = 1 / 2
         # Select the first mumble object as initially in focus
         if len(self.mumble_objects) > 0:
             self.game = self.mumble_objects[0][0]
@@ -435,7 +437,7 @@ class GW2RPC:
                 self.last_map_info = map_info
             # 800 ticks are approx 20 minutes (not accurate!). Time it takes to update Guild in GW2 API. 
             # Query again after this time interval, else keep the previously known guild
-            if (not self.prev_char) or ((self.prev_char and data["name"] != self.prev_char.name)) or (self.timeticks % 800 == 0):
+            if (not self.prev_char) or ((self.prev_char and data["name"] != self.prev_char.name)) or (self.timeticks == 0):
                 # Query GW2API on character swap or every 20 minutes for guild info
                 character = Character(data)
                 # Keep the guild tag from the old character
@@ -713,6 +715,7 @@ class GW2RPC:
             while True:
                 try:
                     update_gw2_process()
+                    self.interval = 1 / 2
                     if self.game and not self.game.memfile:
                         self.game.create_map()
                     try:
@@ -729,18 +732,17 @@ class GW2RPC:
                         if self.sdk.app:
                             self.sdk.set_activity(data)
                             self.sdk.app.run_callbacks()
-
                     except BrokenPipeError:
                         raise GameNotRunningError  # To start a new connection
+                    self.timeticks = (self.timeticks + 1) % 1000
                 except GameNotRunningError:
+                    self.interval = 5
                     if self.game:
                         self.game.close_map()
                     if self.sdk.app:
                         self.sdk.activity_manager.clear_activity(self.sdk.callback)
                         self.sdk.close()
-                        log.debug("Killing SDK")
-                time.sleep(1/10)
-                self.timeticks = (self.timeticks + 1) % 800
+                time.sleep(self.interval)
         except Exception as e:
             log.critical("GW2RPC has crashed", exc_info=e)
             create_msgbox(
