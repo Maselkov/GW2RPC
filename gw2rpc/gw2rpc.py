@@ -20,6 +20,7 @@ from .character import Character
 from .mumble import MumbleData
 from .settings import config
 from .sdk import DiscordSDK
+from .lib.discordsdk import exception as sdk_exception
 
 import sys
 import os
@@ -731,7 +732,15 @@ class GW2RPC:
                     try:
                         if self.sdk.app:
                             self.sdk.set_activity(data)
-                            self.sdk.app.run_callbacks()
+                            try:
+                                self.sdk.app.run_callbacks()
+                            except sdk_exception.not_running:
+                                # Probably a bug in the SDK library:
+                                # Crashes if discord is started after RPC is already running
+                                # Need to close the sdk connection and continue
+                                # New sdk connection will be opened on next iteration
+                                self.sdk.close()
+                                continue
                     except BrokenPipeError:
                         raise GameNotRunningError  # To start a new connection
                     self.timeticks = (self.timeticks + 1) % 1000
