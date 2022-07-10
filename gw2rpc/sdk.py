@@ -1,4 +1,5 @@
 import logging
+from os import truncate
 from .lib.discordsdk import *
 
 from .settings import config
@@ -23,14 +24,20 @@ class DiscordSDK:
             log.debug("Discord not running.")
 
     def set_activity(self, a):
-        self.activity.state = a["state"]
-        self.activity.details = a["details"]
+
+        def verify_length( val):
+            if len(val) > 100:
+                val = val[:97] + "..."
+            return val
+
+        self.activity.state = verify_length(a["state"])
+        self.activity.details = verify_length(a["details"] )
         if a["timestamps"]:
             self.activity.timestamps.start = a["timestamps"]["start"]
         self.activity.assets.small_image = a["assets"]["small_image"]
         self.activity.assets.small_text = a["assets"]["small_text"]
         self.activity.assets.large_image = a["assets"]["large_image"]
-        self.activity.assets.large_text = a["assets"]["large_text"]
+        self.activity.assets.large_text = a["assets"]["large_text"] 
 
         #self.activity.buttons = a["buttons"][0]
 
