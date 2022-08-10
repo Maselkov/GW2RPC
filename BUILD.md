@@ -44,7 +44,7 @@ Next, create a .spec file for the project and place it in the projects root dire
 
 block_cipher = None
 
-added_files = [("locales", "locales"), ('icon.ico', '.'), ('RPC.ico', '.')]
+added_files = [("locales", "locales"), ('icon.ico', '.'), ('RPC.ico', '.'), ('lib\\discord_game_sdk.dll', '.')]
 
 a = Analysis(['run.py'],
              pathex=['C:\\Users\\X\\Projects\\GW2RPC'],
