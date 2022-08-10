@@ -1,5 +1,4 @@
 import logging
-from os import truncate
 from .lib.discordsdk import *
 
 from .settings import config
@@ -35,9 +34,9 @@ class DiscordSDK:
         if a["timestamps"]:
             self.activity.timestamps.start = a["timestamps"]["start"]
         self.activity.assets.small_image = a["assets"]["small_image"]
-        self.activity.assets.small_text = a["assets"]["small_text"]
+        self.activity.assets.small_text = verify_length(a["assets"]["small_text"])
         self.activity.assets.large_image = a["assets"]["large_image"]
-        self.activity.assets.large_text = a["assets"]["large_text"] 
+        self.activity.assets.large_text = verify_length(a["assets"]["large_text"])
 
         #self.activity.buttons = a["buttons"][0]
 
