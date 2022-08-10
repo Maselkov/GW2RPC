@@ -38,6 +38,17 @@ in the `get_map_asset` function in `gw2rpc.py` might be helpful to develop and d
 
 First make sure to change the `locales_path` back to `./locales`, as mentioned above.
 
+Next make sure to set the path for the discord lib in `lib/discordsdk/sdk.py`, line `20`:
+
+From 
+```py
+            dll = ctypes.CDLL(os.path.abspath("lib/discord_game_sdk"))
+```
+to
+```py
+            dll = ctypes.CDLL('discord_game_sdk.dll')
+```
+
 Next, create a .spec file for the project and place it in the projects root directory. It might look like the following:
 ```
 # -*- mode: python ; coding: utf-8 -*-
