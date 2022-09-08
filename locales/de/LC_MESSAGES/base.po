@@ -771,3 +771,15 @@ msgstr "Alter Tom"
 
 msgid "Raving Asura"
 msgstr "Wütender Asura"
+
+msgid "Voice of the Mountain"
+msgstr "Stimme des Bergs"
+
+msgid "Sorrow of the Mountain"
+msgstr "Kummer des Bergs"
+
+msgid "Fury of the Mountain"
+msgstr "Zorn des Bergs"
+
+msgid "Dragon Void"
+msgstr "die Drachenleere"

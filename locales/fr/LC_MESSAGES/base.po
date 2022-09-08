@@ -776,3 +776,15 @@ msgstr "Gros Tom"
 
 msgid "Raving Asura"
 msgstr "forcené asura"
+
+msgid "Voice of the Mountain"
+msgstr "Voix de la montagne"
+
+msgid "Sorrow of the Mountain"
+msgstr "Lamentation de la montagne"
+
+msgid "Fury of the Mountain"
+msgstr "Fureur de la montagne"
+
+msgid "Dragon Void"
+msgstr "Vide du dragon"

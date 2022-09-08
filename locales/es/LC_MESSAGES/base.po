@@ -773,3 +773,15 @@ msgstr "Viejo Tom"
 
 msgid "Raving Asura"
 msgstr "asura enloquecidos"
+
+msgid "Voice of the Mountain"
+msgstr "Voz de la Montaña"
+
+msgid "Sorrow of the Mountain"
+msgstr "Dolor de la montaña"
+
+msgid "Fury of the Mountain"
+msgstr "Furia de la Montaña"
+
+msgid "Dragon Void"
+msgstr "El Vacío Dracónico"

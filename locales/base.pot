@@ -772,3 +772,15 @@ msgstr ""
 
 msgid "Raving Asura"
 msgstr ""
+
+msgid "Voice of the Mountain"
+msgstr ""
+
+msgid "Sorrow of the Mountain"
+msgstr ""
+
+msgid "Fury of the Mountain"
+msgstr ""
+
+msgid "Dragon Void"
+msgstr ""
