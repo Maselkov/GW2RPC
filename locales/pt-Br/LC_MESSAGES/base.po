@@ -788,13 +788,13 @@ msgid "Raving Asura"
 msgstr "Asura Delirante"
 
 msgid "Voice of the Mountain"
-msgstr ""
+msgstr "Voz da Montanha"
 
 msgid "Sorrow of the Mountain"
-msgstr ""
+msgstr "Montanha da Tristeza"
 
 msgid "Fury of the Mountain"
-msgstr ""
+msgstr "Fúria da Montanha"
 
 msgid "Dragon Void"
-msgstr ""
+msgstr "Vazio do Dragão"
