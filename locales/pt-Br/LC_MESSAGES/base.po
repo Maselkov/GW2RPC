@@ -376,7 +376,7 @@ msgstr " fractais"
 
 #: gw2rpc/gw2rpc.py:198 gw2rpc/gw2rpc.py:199
 msgid "in "
-msgstr "Montado no"
+msgstr "em "
 
 #: gw2rpc/gw2rpc.py:214
 msgid "fighting "
@@ -625,7 +625,7 @@ msgid "siege turtle"
 msgstr "Taruga"
 
 msgid "on"
-msgstr "em"
+msgstr "Montado no"
 
 msgid "Whisper of Jormag"
 msgstr "Sussuros do Jormag"
