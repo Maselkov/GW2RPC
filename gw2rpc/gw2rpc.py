@@ -29,7 +29,7 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.51
+VERSION = 2.52
 HEADERS = {'User-Agent': 'GW2RPC v{}'.format(VERSION)}
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
@@ -579,6 +579,7 @@ class GW2RPC:
                     if position.z < boss["height"]:
                         closest = boss
                 else:
+                    #print(f"Self: {x_coord}, {y_coord}, Boss: {boss['coord'][0]} {boss['coord'][1]}")
                     closest = boss
         return closest
 
