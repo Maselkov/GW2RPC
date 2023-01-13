@@ -7,7 +7,8 @@
   <img width="220" src="https://gw2rpc.info/static/img/showcases/n1tr0_1.png" alt="RPC status example" align="center">
 </p>
 
-<a href="https://gw2rpc.info"><p align="center">Go to website</a>・<a href="https://github.com/Maselkov/GW2RPC/releases">Download Latest</a>・<a href="https://github.com/Maselkov?tab=repositories">Other Projects...</p></a>
+<h3 align="center">
+  <a href="https://gw2rpc.info">Go to website</a>・<a href="https://github.com/Maselkov/GW2RPC/releases">Download Latest</a>・<a href="https://github.com/Maselkov?tab=repositories">Other Projects</a>・<a href="https://www.paypal.com/donate/?hosted_button_id=KXMYX49C6MLLN">Donate</a></h3>
 
 ---
 <p align="center">You need to install the <img src="https://api.iconify.design/bi:discord.svg?color=%23f9f9f9" height="12"> <b><a href="https://discord.com/download">Discord Desktop version</b></a> to run GW2RPC.</p>
@@ -31,10 +32,14 @@
 * Configurable settings
 * Supports multiple accounts and multiboxing
 * Automatic raid announcer (<a href="https://gw2rpc.info/#faq">FAQ</a>):
-<img src="https://gw2rpc.info/static/img/announce_example.png" height=128>
+
+<p align="center" style="margin-bottom: 0px !important;">
+  <img height="128" src="https://gw2rpc.info/static/img/announce_example.png" alt="RPC commander example" align="center">
+</p>
 
 </details>
 
+<br>
 <h2><img src="https://api.iconify.design/ic:baseline-browser-updated.svg?color=%23ff8cf3" height="20">・ How to install</h2>
 
 1. Use the installer. Start either `gw2rpc.exe` or `launch_gw2_with_rpc.exe`.
@@ -49,6 +54,7 @@ To make starting Rich Presence easier, there is an .exe called `launch_gw2_with_
 
 You can also put a shortcut to `gw2rpc.exe` into your autorun so that it runs automatically on Windows boot.
 
+<br>
 <h2><img src="https://api.iconify.design/ic:baseline-update.svg?color=%23ff8cf3" height="20">・ How to update</h2>
 
 1. Run the new installer again. 
@@ -58,6 +64,7 @@ or
 
 2. If a new version is released, simply replace the updated files. To get the newest configuration file, you might also delete the old one and let it be recreated on the first start of `gw2rpc.exe` for you.
 
+<br>
 <h2><img src="https://api.iconify.design/eos-icons:configuration-file.svg?color=%23ff8cf3" height="20">・Configuration file</h2>
 
 See below for the example configuration file
@@ -83,6 +90,15 @@ webhook = https://discord.com/api/webhooks/887....b3bfdyCiz7y
 AnnounceRaid = True
 DisableInWvW = False
 ```
+<br>
 
 <h2><img src="https://api.iconify.design/ic:baseline-build.svg?color=%23ff8cf3" height="20">・Build and development Instructions</h2>
 See <a href="BUILD.md">build section for instructions</a>
+
+<br>
+<h2><img src="https://api.iconify.design/bx:donate-heart.svg?color=%23ff8cf3" height="20">・Donate</h2>
+This project is done in our free time by volunteers. If you want to support us, a donation is highly appreciated!
+
+<br>
+
+[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UEBHM63V547KN)
