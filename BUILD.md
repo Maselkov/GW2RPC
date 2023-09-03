@@ -88,7 +88,7 @@ exe = EXE(pyz,
 ```
 Adapt the path to your project in the .spec file accordingly. 
 
-Start compiling simply with `pyinstaller.exe --onefile .\run.spec`. Pyinstaller 4.3 was used for this.
+Start compiling simply with `pyinstaller.exe .\run.spec`. Pyinstaller 4.3 was used for this.
 
 Again make sure that you run pyinstaller from your Windows installation!
 

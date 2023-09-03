@@ -126,13 +126,12 @@ Function .onInit
   StrCmp $2 $1 install_path_not_found
 
   StrCpy $INSTDIR $2
-  SetOutPath $2
+  ;SetOutPath $2
   Goto done
 
   install_path_not_found:
     StrCpy $INSTDIR "C:\Program Files\Guild Wars 2\addons\GW2RPC\"
-    SetOutPath $INSTDIR
-
+    ;SetOutPath $INSTDIR
   done:
 
 FunctionEnd
@@ -142,6 +141,7 @@ FunctionEnd
 ; The stuff to install
 Section "GW2RPC (required)"
 
+  SetOutPath $INSTDIR
   SectionIn RO
 
   ; Put file there
