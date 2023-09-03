@@ -785,3 +785,6 @@ msgstr "Furia de la Montaña"
 
 msgid "Dragon Void"
 msgstr "El Vacío Dracónico"
+
+msgid "Silent Surf"
+msgstr "Oleaje Silencioso"

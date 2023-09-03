@@ -783,3 +783,6 @@ msgstr "Zorn des Bergs"
 
 msgid "Dragon Void"
 msgstr "die Drachenleere"
+
+msgid "Silent Surf"
+msgstr "Stumme Brandung"

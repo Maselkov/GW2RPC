@@ -798,3 +798,6 @@ msgstr "Fúria da Montanha"
 
 msgid "Dragon Void"
 msgstr "Vazio do Dragão"
+
+msgid "Silent Surf"
+msgstr ""

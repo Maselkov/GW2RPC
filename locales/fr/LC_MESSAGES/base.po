@@ -788,3 +788,6 @@ msgstr "Fureur de la montagne"
 
 msgid "Dragon Void"
 msgstr "Vide du dragon"
+
+msgid "Silent Surf"
+msgstr "Ressac silencieux"
