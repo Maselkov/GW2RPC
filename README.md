@@ -96,9 +96,12 @@ DisableInWvW = False
 See <a href="BUILD.md">build section for instructions</a>
 
 <br>
-<h2><img src="https://api.iconify.design/bx:donate-heart.svg?color=%23ff8cf3" height="20">・Donate</h2>
-This project is done in our free time by volunteers. If you want to support us, a donation is highly appreciated!
+<h2 align="center"><img src="https://api.iconify.design/bx:donate-heart.svg?color=%23ff8cf3" height="20"> Donate</h2>
+
+<p align="center">This project is done in our free time by volunteers. If you want to support us, a donation is highly appreciated!</p>
 
 <br>
 
-[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UEBHM63V547KN)
+<p align="center">
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UEBHM63V547KN"><img width="555" src="https://media.discordapp.net/attachments/1023654968030408734/1155212921857658970/1695494600038.png?width=960&height=320"></a>
+</p>
