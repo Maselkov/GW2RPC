@@ -29,7 +29,7 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-VERSION = 2.53
+VERSION = 2.54
 HEADERS = {'User-Agent': 'GW2RPC v{}'.format(VERSION)}
 
 GW2RPC_BASE_URL = "https://gw2rpc.info/api/v2/"
@@ -374,7 +374,7 @@ class GW2RPC:
             return ""
 
         def get_closest_poi(map_info, continent_info):
-            #region = map_info.get("region_name")
+            ##region = map_info.get("region_name")
             region = map_info.get("region_id")
             if config.disable_pois:
                 return None
@@ -490,7 +490,7 @@ class GW2RPC:
         if not config.hide_commander_tag and is_commander:
             small_image = "commander_tag"
             details = "{}: {}".format(_("Commander"), details)
-        elif character.race == "Jade Bot":
+        elif character.race == "Jade Bot" or character.profession == "Jade Bot":
             small_image = "jade_bot"
         else: 
             small_image = character.profession_icon
@@ -754,7 +754,7 @@ class GW2RPC:
                         self.sdk.close()
                 time.sleep(self.interval)
         except Exception as e:
-            log.critical("GW2RPC has crashed", exc_info=e)
+            log.critical(f"GW2RPC v{VERSION} has crashed", exc_info=e)
             create_msgbox(
                 "GW2 Rich Presence has crashed.\nPlease check your "
                 "log file and report this to the author!",

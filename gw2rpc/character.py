@@ -9,7 +9,8 @@ PROFESSIONS = {
     6: "Elementalist",
     7: "Mesmer",
     8: "Necromancer",
-    9: "Revenant"
+    9: "Revenant",
+    10: "Jade Bot"
 }
 
 RACES = {0: "Asura", 1: "Charr", 2: "Human", 3: "Norn", 4: "Sylvari", 5: "Jade Bot"}
@@ -49,21 +50,31 @@ class Character:
     def __init__(self, mumble_data, query_guild=True):
         self.__mumble_data = mumble_data
         self.name = mumble_data["name"]
-        self.race = RACES[mumble_data["race"]]  
+        try:
+            self.race = RACES[mumble_data["race"]]  
+        except KeyError:
+            self.race = ""
         self.__api_info = None
 
         if query_guild and api._authenticated:
             self.__api_info = api.get_character(self.name)
 
         self.profession = self.get_elite_spec()
-        self.profession_icon = "prof_{}".format(
-            self.profession.lower().replace(" ", ""))
+        if self.profession:
+            self.profession_icon = "prof_{}".format(
+                self.profession.lower().replace(" ", ""))
+        else:
+            self.profession = ""
+            self.profession_icon = "gw2rpclogo"
         self.guild_tag = self._get_guild_tag()
 
     def get_elite_spec(self):
         if self.__mumble_data["spec"] not in ELITESPECS.keys():
             # Meaning that its a core class, fall back
-            return PROFESSIONS[self.__mumble_data["profession"]]
+            try:
+                return PROFESSIONS[self.__mumble_data["profession"]]
+            except KeyError:
+                return None
         else:
             return ELITESPECS[self.__mumble_data["spec"]]
 
